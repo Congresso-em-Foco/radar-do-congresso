@@ -1,0 +1,69 @@
+{
+  "name": "radar-do-congresso",
+  "version": "0.0.1",
+  "description": "Radar do Congresso",
+  "main": "server.js",
+  "scripts": {
+    "client-install": "npm install --prefix client",
+    "start": "node server.js",
+    "server": "nodemon server.js",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client",
+    "docs": "documentation build 'server.js' -f html -o docs",
+    "test": "mocha tests"
+  },
+  "engines": {
+    "node": "10.15.1",
+    "npm": "6.4.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Congresso-em-Foco/radar-do-congresso.git"
+  },
+  "author": "Laboratório Analytics - UFCG",
+  "license": "AGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/Congresso-em-Foco/radar-do-congresso/issues"
+  },
+  "homepage": "https://github.com/Congresso-em-Foco/radar-do-congresso#readme",
+  "dependencies": {
+    "@webassemblyjs/helper-wasm-section": "^1.8.0",
+    "@webassemblyjs/wasm-opt": "^1.8.0",
+    "@webassemblyjs/wast-parser": "^1.8.0",
+    "body-parser": "^1.18.3",
+    "compression": "^1.7.4",
+    "concurrently": "^4.0.1",
+    "cors": "^2.8.4",
+    "expand-range": "^2.0.2",
+    "express": "^4.16.3",
+    "express-jwt": "^5.3.1",
+    "express-validator": "^6.2.0",
+    "fbgraph": "^1.4.4",
+    "force-ssl-heroku": "^1.0.2",
+    "heroku-logger": "^0.3.1",
+    "immer": "^1.8.2",
+    "jsonwebtoken": "^8.3.0",
+    "mysql2": "^1.6.4",
+    "npm": "^6.4.1",
+    "passport": "^0.4.0",
+    "passport-facebook-token": "^3.3.0",
+    "passport-google-token": "^0.1.2",
+    "pg": "^7.6.1",
+    "preserve": "^0.2.0",
+    "react-device-detect": "^1.5.9",
+    "react-scroll": "^1.7.10",
+    "react-scroll-into-view": "^1.5.0",
+    "recompose": "^0.30.0",
+    "request": "^2.88.0",
+    "sequelize": "^4.41.2",
+    "sequelize-cli": "^5.3.0",
+    "webassemblyjs": "^1.8.0",
+    "webpack-log": "^2.0.0"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^6.0.1",
+    "nodemon": "^1.18.3"
+  }
+}

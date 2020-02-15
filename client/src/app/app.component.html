@@ -1,0 +1,12 @@
+<div id="page-container">
+  <!-- <app-navbar></app-navbar>   -->
+  <div id="content-wrap">
+    <div [@routeAnimation]="prepareRoute(outlet)">
+      <router-outlet
+        class="router-outlet"
+        #outlet="outlet"
+      ></router-outlet>
+    </div>
+  </div>
+  <!-- <app-footer></app-footer> -->
+</div>

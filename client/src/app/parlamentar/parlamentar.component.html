@@ -1,0 +1,93 @@
+<app-sticky-footer-navbar></app-sticky-footer-navbar>
+<div
+  class="container pt-3 container-sticky-footer-navbar"
+  *ngIf="parlamentar"
+>
+  <div class="parlamentar">
+    <div class="row gutters-sm">
+      <div class="col-auto">
+        <div class="profile-img">
+          <img
+            [defaultImage]="'assets/imgs/nophoto.png'"
+            [lazyLoad]="parlamentar.getFoto()"
+            [offset]="100"
+            width="100%"
+            class="img-filter"
+          >
+        </div>
+      </div>
+      <div class="col">
+        <div class="parlamentar-title">{{ parlamentar.nomeEleitoral }}</div>
+        <p>
+          {{getCargoParlamentar(parlamentar?.casa)}}
+          <br>
+          {{ parlamentar.parlamentarPartido.sigla }}/{{ parlamentar.uf }}
+        </p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="parlementar-subnav">
+  <ul class="nav nav-tabs justify-content-center">
+    <!-- <li class="nav-item">
+    <a
+      class="nav-link nav-link-parlamentar"
+      [routerLink]="['./posicoes']"
+      [routerLinkActive]="'active'"
+    >
+      Posições
+    </a>
+  </li> -->
+    <li class="nav-item">
+      <a
+        class="nav-link nav-link-parlamentar"
+        [routerLink]="['./votacoes']"
+        [routerLinkActive]="'active'"
+      >
+        Votações
+      </a>
+    </li>
+    <li class="nav-item">
+      <a
+        class="nav-link nav-link-parlamentar"
+        [routerLink]="['./cargos']"
+        [routerLinkActive]="'active'"
+      >
+        Cargos
+      </a>
+    </li>
+    <li class="nav-item">
+      <a
+        class="nav-link nav-link-parlamentar"
+        [routerLink]="['./peso']"
+        [routerLinkActive]="'active'"
+      >
+        Peso político
+      </a>
+    </li>
+    <li class="nav-item">
+      <a
+        class="nav-link nav-link-parlamentar"
+        [routerLink]="['./trajetoria']"
+        [routerLinkActive]="'active'"
+      >
+        Trajetória
+      </a>
+    </li>
+    <!-- <li class="nav-item">
+    <a
+      class="nav-link nav-link-parlamentar"
+      [routerLink]="['./aderencia']"
+      [routerLinkActive]="'active'"
+    >
+      Aderência
+    </a>
+  </li> -->
+  </ul>
+</div>
+
+<div class="parlamentar-pages container">
+  <router-outlet></router-outlet>
+</div>
