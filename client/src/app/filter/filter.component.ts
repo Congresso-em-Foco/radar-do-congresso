@@ -9,9 +9,7 @@ import { estados } from '../shared/constants/estados';
 import { ParlamentarService } from '../shared/services/parlamentar.service';
 import { Tema } from '../shared/models/tema.model';
 import { TemaService } from '../shared/services/tema.service';
-import { Comissao } from '../shared/models/comissao.model';
 import { ComissaoService } from '../shared/services/comissao.service';
-import { Lideranca } from '../shared/models/lideranca.model';
 import { LiderancaService } from '../shared/services/lideranca.service';
 import { CasaService } from '../shared/services/casa.service';
 
@@ -27,12 +25,8 @@ export class FilterComponent implements OnInit, OnDestroy {
 
   readonly FILTRO_PADRAO_ESTADO = 'Estados';
   readonly FILTRO_PADRAO_PARTIDO = 'Partidos';
-  readonly FILTRO_PADRAO_COMISSAO = 'Comissões';
-  readonly FILTRO_PADRAO_COMISSAO_VALUE = '-1';
   readonly FILTRO_PADRAO_TEMA = -1;
   readonly FILTRO_PADRAO_TEMA_SLUG = 'todos';
-  readonly FILTRO_PADRAO_LIDERANCA = 'Lideranças partidárias';
-  readonly FILTRO_PADRAO_CARGO_COMISSAO = 'Cargo em comissões';
 
   filtro: any;
 
@@ -43,17 +37,11 @@ export class FilterComponent implements OnInit, OnDestroy {
   estados: string[];
   partidosFiltradosPorEstado: string[];
   temas: Tema[];
-  comissoes: Comissao[];
-  liderancas: Lideranca[];
-  cargosComissao: Lideranca[];
 
   temaSelecionado: number;
   estadoSelecionado: string;
   nomePesquisado: string;
   partidoSelecionado: string;
-  comissaoSelecionada: string;
-  liderancaSelecionada: string;
-  cargoComissaoSelecionado: string;
   casaSelecionada: string;
 
   constructor(
@@ -70,19 +58,13 @@ export class FilterComponent implements OnInit, OnDestroy {
     this.estadoSelecionado = this.FILTRO_PADRAO_ESTADO;
     this.partidoSelecionado = this.FILTRO_PADRAO_PARTIDO;
     this.temaSelecionado = this.FILTRO_PADRAO_TEMA;
-    this.comissaoSelecionada = this.FILTRO_PADRAO_COMISSAO_VALUE;
-    this.liderancaSelecionada = this.FILTRO_PADRAO_LIDERANCA;
-    this.cargoComissaoSelecionado = this.FILTRO_PADRAO_CARGO_COMISSAO;
 
     this.filtro = {
       nome: '',
       estado: this.estadoSelecionado,
       partido: this.partidoSelecionado,
-      comissao: this.comissaoSelecionada,
       tema: this.temaSelecionado,
       temaSlug: this.FILTRO_PADRAO_TEMA_SLUG,
-      lideranca: this.liderancaSelecionada,
-      cargoComissao: this.cargoComissaoSelecionado,
       default: true
     };
   }
@@ -91,9 +73,6 @@ export class FilterComponent implements OnInit, OnDestroy {
     this.casaService.get().subscribe(casa => {
       this.casaSelecionada = casa;
       this.getPartidoPorEstado(casa);
-      this.getComissoes(casa);
-      this.getLiderancas(casa);
-      this.getCargosComissao(casa);
       this.aplicarFiltro();
     });
     this.updateFiltroViaUrl();
@@ -198,35 +177,6 @@ export class FilterComponent implements OnInit, OnDestroy {
     );
   }
 
-  getComissoes(casa: string) {
-    this.comissaoService.getComissoes(casa).pipe(takeUntil(this.unsubscribe)).subscribe((comissoes) => {
-
-      comissoes.map(c => c.nome = c.nome.replace(/Comissão (De|Do)/g, ''));
-
-      comissoes.unshift({
-        idComissaoVoz: this.FILTRO_PADRAO_COMISSAO_VALUE,
-        sigla: this.FILTRO_PADRAO_COMISSAO,
-        nome: this.FILTRO_PADRAO_COMISSAO
-      });
-
-      this.comissoes = comissoes;
-    });
-  }
-
-  getLiderancas(casa: string): void {
-    this.liderancaService.getLiderancas(casa).pipe(takeUntil(this.unsubscribe)).subscribe((liderancas) => {
-      this.liderancas = liderancas;
-      this.liderancas.unshift({ cargo: this.FILTRO_PADRAO_LIDERANCA });
-    });
-  }
-
-  getCargosComissao(casa: string): void {
-    this.comissaoService.getCargos(casa).pipe(takeUntil(this.unsubscribe)).subscribe((cargos) => {
-      this.cargosComissao = cargos;
-      this.cargosComissao.unshift({ cargo: this.FILTRO_PADRAO_CARGO_COMISSAO });
-    });
-  }
-
   isTemaSelected(idTema: number) {
     return this.temaSelecionado === idTema;
   }
@@ -250,28 +200,7 @@ export class FilterComponent implements OnInit, OnDestroy {
     return ((this.filtro.nome === '' || typeof this.filtro.nome === 'undefined') &&
       this.filtro.estado === this.FILTRO_PADRAO_ESTADO &&
       this.filtro.partido === this.FILTRO_PADRAO_PARTIDO &&
-      this.filtro.tema === this.FILTRO_PADRAO_TEMA &&
-      this.filtro.comissao === this.FILTRO_PADRAO_COMISSAO &&
-      this.filtro.lideranca === this.FILTRO_PADRAO_LIDERANCA &&
-      this.filtro.cargoComissao === this.FILTRO_PADRAO_CARGO_COMISSAO);
-  }
-
-  getComissaoById(id: string) {
-    if (this.comissoes && id !== this.FILTRO_PADRAO_COMISSAO_VALUE) {
-      const comissao = this.comissoes.filter(com => com.idComissaoVoz === id);
-      if (comissao !== undefined && comissao.length > 0) {
-        return comissao[0].sigla;
-      }
-    }
-  }
-
-  getNomeComissaoById(id: string) {
-    if (this.comissoes && id !== this.FILTRO_PADRAO_COMISSAO_VALUE) {
-      const comissao = this.comissoes.filter(com => com.idComissaoVoz === id);
-      if (comissao !== undefined && comissao.length > 0) {
-        return comissao[0].nome;
-      }
-    }
+      this.filtro.tema === this.FILTRO_PADRAO_TEMA);
   }
 
   private updateUrlFiltro(filtro: any) {
@@ -301,24 +230,6 @@ export class FilterComponent implements OnInit, OnDestroy {
       delete queryParams.partido;
     }
 
-    if (filtro.comissao !== this.FILTRO_PADRAO_COMISSAO_VALUE) {
-      queryParams.comissao = filtro.comissao;
-    } else {
-      delete queryParams.comissao;
-    }
-
-    if (filtro.lideranca !== this.FILTRO_PADRAO_LIDERANCA) {
-      queryParams.lideranca = filtro.lideranca;
-    } else {
-      delete queryParams.lideranca;
-    }
-
-    if (filtro.cargoComissao !== this.FILTRO_PADRAO_CARGO_COMISSAO) {
-      queryParams.cargoComissao = filtro.cargoComissao;
-    } else {
-      delete queryParams.cargoComissao;
-    }
-
     this.router.navigate([], { queryParams });
   }
 
@@ -341,18 +252,6 @@ export class FilterComponent implements OnInit, OnDestroy {
           }
           if (value === 'partido') {
             this.partidoSelecionado = params[value];
-            filtroPresente = true;
-          }
-          if (value === 'comissao') {
-            this.comissaoSelecionada = params[value];
-            filtroPresente = true;
-          }
-          if (value === 'lideranca') {
-            this.liderancaSelecionada = params[value];
-            filtroPresente = true;
-          }
-          if (value === 'cargoComissao') {
-            this.cargoComissaoSelecionado = params[value];
             filtroPresente = true;
           }
         });
