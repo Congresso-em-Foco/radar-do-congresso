@@ -8,20 +8,8 @@ const passport = require("passport");
 const compression = require("compression");
 const forceSsl = require('force-ssl-heroku');
 
-const perguntas = require("./routes/api/perguntas");
-const auth = require("./routes/api/auth");
-const usuarios = require("./routes/api/usuarios");
-const temas = require("./routes/api/temas");
-const alinhamento = require("./routes/api/alinhamento");
-const comissoes = require("./routes/api/comissoes");
 const parlamentares = require("./routes/api/parlamentares");
-const aderencia = require("./routes/api/aderencia");
-const orientacoes = require("./routes/api/orientacoes");
-const liderancas = require("./routes/api/liderancas");
-const perfil = require("./routes/api/perfil");
-const investimentoPartidario = require("./routes/api/investimentoPartidario");
 const buscaParlamentar = require("./routes/api/busca-parlamentar");
-const votacoes = require("./routes/api/votacoes");
 
 const app = express();
 app.use(forceSsl);
@@ -54,20 +42,8 @@ db.sequelize
   });
 
 // Usar as rotas
-app.use("/api/perguntas", perguntas);
-app.use("/api/usuarios", usuarios);
-app.use("/api/auth", auth);
-app.use("/api/temas", temas);
-app.use("/api/alinhamento", alinhamento);
-app.use("/api/comissoes", comissoes);
 app.use("/api/parlamentares", parlamentares);
-app.use("/api/aderencia", aderencia);
-app.use("/api/orientacoes", orientacoes);
-app.use("/api/liderancas", liderancas);
-app.use("/api/perfil", perfil);
-app.use("/api/investimento", investimentoPartidario);
 app.use("/api/busca-parlamentar", buscaParlamentar);
-app.use("/api/votacoes", votacoes);
 
 // Set static folder
 app.use(express.static("client/build"));

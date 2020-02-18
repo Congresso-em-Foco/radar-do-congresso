@@ -3,7 +3,6 @@ const router = express.Router();
 const { validationResult } = require('express-validator');
 
 const models = require("../../models/index");
-const { formataVotacoes } = require("../../utils/functions");
 const casaValidator = require("../../utils/middlewares/casa.validator");
 
 const Parlamentar = models.parlamentar;

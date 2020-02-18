@@ -38,40 +38,40 @@ router.get("/", (req, res) => {
   Parlamentar.findAll({
     attributes: attParlamentar,
     include: [
-      {
-        model: ComposicaoComissoes,
-        attributes: attComposicaoComissoes,
-        include: [
-          {
-            model: Comissoes,
-            attributes: attComissoes,
-            as: "infoComissao",
-            required: false
-          }
-        ],
-        as: "parlamentarComissoes",
-        required: false
-      },
+      // {
+      //   model: ComposicaoComissoes,
+      //   attributes: attComposicaoComissoes,
+      //   include: [
+      //     {
+      //       model: Comissoes,
+      //       attributes: attComissoes,
+      //       as: "infoComissao",
+      //       required: false
+      //     }
+      //   ],
+      //   as: "parlamentarComissoes",
+      //   required: false
+      // },
       {
         model: Partido,
         attributes: attPartido,
         as: "parlamentarPartido",
         required: false
       },
-      {
-        model: Liderancas,
-        attributes: attLideranca,
-        as: "parlamentarLiderancas",
-        required: false,
-        include: [
-          {
-            model: Partido,
-            attributes: attPartido,
-            as: "liderancaPartido",
-            required: false
-          }
-        ]
-      },
+      // {
+      //   model: Liderancas,
+      //   attributes: attLideranca,
+      //   as: "parlamentarLiderancas",
+      //   required: false,
+      //   include: [
+      //     {
+      //       model: Partido,
+      //       attributes: attPartido,
+      //       as: "liderancaPartido",
+      //       required: false
+      //     }
+      //   ]
+      // },
       ],
       where: {
         em_exercicio: true
