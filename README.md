@@ -71,10 +71,6 @@ docker kill <container_id>
 
 - SECRET_OR_KEY
 - POSTGRESURI
-- FACEBOOK_APP_ID
-- FACEBOOK_APP_SECRET
-- GOOGLE_APP_ID
-- GOOGLE_APP_SECRET
 
 Para exportar use, como exemplo, o comando abaixo (no terminal):
 
@@ -82,7 +78,7 @@ Para exportar use, como exemplo, o comando abaixo (no terminal):
 export SECRET_OR_KEY="umsupersegredo"
 ```
 
-Obs: a variável POSTGRESURI deve ter o seguinte formato "postgres://<username>:<password>@localhost:5432/vozativa"
+Obs: a variável POSTGRESURI deve ter o seguinte formato "postgres://<username>:<password>@localhost:5432/radar"
 
 ## Instalação de dependências
 
