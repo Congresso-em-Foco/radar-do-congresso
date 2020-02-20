@@ -1,25 +1,4 @@
 <div class="mt-3">
-  <div
-    class="temas-wrapper mb-3"
-    [hidden]="!exibirTemas"
-  >
-    <div class="temas-container">
-      <div
-        *ngFor="let tema of temas"
-        class="mr-1"
-      >
-        <button
-          class="btn btn-outline-dark btn-block btn-tema btn-tema-sm"
-          role="button"
-          [ngClass]="{'active': isTemaSelected(tema.idTema), 'aria-pressed': isTemaSelected(tema.idTema)}"
-          (click)="selecionaTema(tema.idTema)"
-        >
-          <span [ngClass]="['icon-'+tema.slug, 'icon-lg-sm']"></span>
-          <p class="btn-tema-text">{{ tema.tema }}</p>
-        </button>
-      </div>
-    </div>
-  </div>
   <div class="row gutters-sm">
     <div class="col-lg-10">
       <div class="form-group">
@@ -38,7 +17,7 @@
         class="btn btn-primary btn-block"
         (click)="open(content)"
       >
-        +
+        <span class="icon-sliders"></span>
         Filtros
       </button>
     </div>

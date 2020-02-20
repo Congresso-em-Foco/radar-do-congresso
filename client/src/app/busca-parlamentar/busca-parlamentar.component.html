@@ -38,20 +38,20 @@
           [ngClass]="{'btn btn-light btn-light-icon': true, 'active': view == VIEW_MD}"
           (click)="setView('md')"
         >
-          <span class="icon-th-sm"></span>
+          <span class="icon-th-lg"></span>
         </button>
         <button
           [ngClass]="{'btn btn-light btn-light-icon': true, 'active': view == VIEW_SM}"
           (click)="setView('sm')"
         >
-          <span class="icon-th-list"></span>
+          <span class="icon-th-sm"></span>
         </button>
         <div class="d-none d-sm-block">Ordernar:</div>
         <button
           class="btn btn-light btn-light-icon active"
           (click)="toggleOrderBy()"
         >
-          <span [ngClass]="{'icon-sort-alpha-asc' : orderBy !== 'DESC', 'icon-sort-alpha-desc' : orderBy === 'DESC'}"></span>
+          <span [ngClass]="{'icon-sort-asc' : orderBy !== 'DESC', 'icon-sort-desc' : orderBy === 'DESC'}"></span>
         </button>
       </div>
     </div>
