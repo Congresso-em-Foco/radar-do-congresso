@@ -1,35 +1,29 @@
 module.exports = (sequelize, type) => {
   proposicao = sequelize.define(
-    "proposicoe",
+    "proposicoes",
     {
-      id_proposicao: {
-        type: type.INTEGER,
+      id_proposicao_voz: {
+        type: type.STRING,
         primaryKey: true
       },
+      id_proposicao: type.STRING,      
       casa: type.STRING,
-      projeto_lei: type.STRING,
-      titulo: type.STRING,
-      descricao: type.STRING(800),
-      status_proposicao: type.STRING,
-      status_importante: type.STRING,
+      nome: type.STRING,
+      ano: type.STRING,
+      ementa: type.STRING,
+      url: type.STRING
     },
     {
-      timestamps: false
+      timestamps: false,
+      freezeTableName: true
     },    
   );
   proposicao.associate = function(models) {
-    proposicao.hasMany(models.votacao, {
-      foreignKey: "id_proposicao",
-      targetKey: "id_proposicao",
-      as: "proposicaoVotacoes"
-    }),
-    proposicao.belongsToMany(models.tema,  {
-      through: {
-        model: models.proposicaoTemas,
-        unique: false
-      },
-      foreignKey: 'id_proposicao'
-    });
+    proposicao.hasMany(models.parlamentarProposicao, {
+      foreignKey: "id_proposicao_voz",
+      targetKey: "id_proposicao_voz",
+      as: "proposicaoAutores"
+    })
   };
 
   return proposicao;
