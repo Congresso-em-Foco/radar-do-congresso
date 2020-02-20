@@ -51,27 +51,6 @@
   >
 
     <div
-      class="btn-group mr-1 mb-1"
-      role="group"
-      aria-label="Filtro de Tema"
-      [hidden]="filtro.tema == FILTRO_PADRAO_TEMA"
-    >
-      <button
-        type="button"
-        class="btn btn-primary btn-sm"
-      >
-        {{getTemaById(temaSelecionado)}}
-      </button>
-      <button
-        type="button"
-        class="btn btn-primary btn-sm"
-        (click)="limparFiltroTema()"
-      >
-        <span class="icon-x"></span>
-      </button>
-    </div>
-
-    <div
       class="btn-group mr-1 mb-1 "
       role="group"
       aria-label="Filtro de Estado"
