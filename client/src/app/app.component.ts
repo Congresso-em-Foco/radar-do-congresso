@@ -26,14 +26,14 @@ export class AppComponent implements OnDestroy {
     private updateService: UpdateService) {
 
     // subscribe to router events and send page views to google analytics
-    this.router.events
-    .pipe(takeUntil(this.unsubscribe))
-    .subscribe(event => {
-      if (event instanceof NavigationEnd) {
-        ga('set', 'page', event.urlAfterRedirects);
-        ga('send', 'pageview');
-      }
-    });
+    // this.router.events
+    // .pipe(takeUntil(this.unsubscribe))
+    // .subscribe(event => {
+    //   if (event instanceof NavigationEnd) {
+    //     ga('set', 'page', event.urlAfterRedirects);
+    //     ga('send', 'pageview');
+    //   }
+    // });
   }
 
   prepareRoute(outlet: RouterOutlet) {
