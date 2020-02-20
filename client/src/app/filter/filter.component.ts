@@ -16,7 +16,6 @@ import { CasaService } from '../shared/services/casa.service';
 })
 export class FilterComponent implements OnInit, OnDestroy {
 
-  @Input() exibirTemas: boolean;
   @Output() filterChange = new EventEmitter<any>();
 
   readonly FILTRO_PADRAO_ESTADO = 'Estados';
