@@ -2,12 +2,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { ParlamentarComponent } from './parlamentar.component';
-import { VotacoesComponent } from './votacoes/votacoes.component';
-import { PosicoesComponent } from './posicoes/posicoes.component';
-import { CargosComponent } from './cargos/cargos.component';
-import { AderenciaComponent } from './aderencia/aderencia.component';
-import { CapitalComponent } from './capital/capital.component';
-import { TrajetoriaComponent } from './trajetoria/trajetoria.component';
 import { ProposicoesComponent } from './proposicoes/proposicoes.component';
 import { GastosCeapComponent } from './gastos-ceap/gastos-ceap.component';
 
@@ -17,35 +11,6 @@ const routes: Routes = [
     component: ParlamentarComponent,
     data: { animation: 'ParlamentarComponent' },
     children: [
-      {
-        path: '',
-        redirectTo: 'votacoes',
-        pathMatch: 'full'
-      },
-      {
-        path: 'votacoes',
-        component: VotacoesComponent
-      },
-      {
-        path: 'posicoes',
-        component: PosicoesComponent
-      },
-      {
-        path: 'cargos',
-        component: CargosComponent
-      },
-      {
-        path: 'aderencia',
-        component: AderenciaComponent
-      },
-      {
-        path: 'peso',
-        component: CapitalComponent
-      },
-      {
-        path: 'trajetoria',
-        component: TrajetoriaComponent
-      },
       {
         path: 'proposicoes',
         component: ProposicoesComponent

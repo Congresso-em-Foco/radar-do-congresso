@@ -212,7 +212,13 @@ router.get("/:id", (req, res) => {
 */
 router.get("/:id/info", (req, res) => {
   Parlamentar.findOne({
-    attributes: ["id_parlamentar_voz", "id_parlamentar", "casa", "nome_eleitoral", "uf", "em_exercicio", "id_perfil_politico"],
+    attributes: [
+      "id_parlamentar_voz",
+      "id_parlamentar",
+      "casa",
+      "nome_eleitoral",
+      "uf",
+      "em_exercicio"],
     where: {
       id_parlamentar_voz: req.params.id
     },
