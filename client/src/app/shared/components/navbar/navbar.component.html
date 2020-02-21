@@ -1,1 +1,27 @@
-<h1>Ne=avegação</h1>
+<ul class="nav justify-content-center">
+  <li class="nav-item">
+    <a class="nav-link"
+    [routerLink]="['./parlamentares/senado']"
+    [routerLinkActive]="'active'">Senadores</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link"
+    [routerLink]="['./parlamentares/camara']"
+    [routerLinkActive]="'active'">Deputados</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link"
+    [routerLink]="['./votacoes']"
+    [routerLinkActive]="'active'">Votações</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link"
+    [routerLink]="['./votacoes']"
+    [routerLinkActive]="'active'">Gastos</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link"
+    [routerLink]="['./frentes']"
+    [routerLinkActive]="'active'">Frentes</a>
+  </li>
+</ul>
