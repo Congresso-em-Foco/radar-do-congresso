@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { LazyLoadImageModule, intersectionObserverPreset } from 'ng-lazyload-image';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { GoogleChartsModule } from 'angular-google-charts';
 
 import { SharedModule } from '../shared/components/shared.module';
 import { ParlamentarRoutingModule } from './parlamentar-routing.module';
@@ -24,6 +25,7 @@ import { TrajetoriaComponent } from './trajetoria/trajetoria.component';
 import { TrajetoriaChartComponent } from './trajetoria-chart/trajetoria-chart.component';
 import { ProposicoesComponent } from './proposicoes/proposicoes.component';
 import { ProposicaoComponent } from './proposicoes/proposicao/proposicao.component';
+import { GastosCeapComponent } from './gastos-ceap/gastos-ceap.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +42,8 @@ import { ProposicaoComponent } from './proposicoes/proposicao/proposicao.compone
     TrajetoriaComponent,
     TrajetoriaChartComponent,
     ProposicoesComponent,
-    ProposicaoComponent
+    ProposicaoComponent,
+    GastosCeapComponent
   ],
   imports: [
     CommonModule,
@@ -52,7 +55,8 @@ import { ProposicaoComponent } from './proposicoes/proposicao/proposicao.compone
     NgbModule,
     SharedModule,
     ParlamentarRoutingModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    GoogleChartsModule.forRoot()
   ]
 })
 export class ParlamentarModule { }

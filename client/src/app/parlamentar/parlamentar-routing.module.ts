@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { ParlamentarComponent } from './parlamentar.component';
 import { ProposicoesComponent } from './proposicoes/proposicoes.component';
+import { GastosCeapComponent } from './gastos-ceap/gastos-ceap.component';
 
 const routes: Routes = [
   {
@@ -13,6 +14,10 @@ const routes: Routes = [
       {
         path: 'proposicoes',
         component: ProposicoesComponent
+      },
+      {
+        path: 'gastos-ceap',
+        component: GastosCeapComponent
       }
     ]
   }
