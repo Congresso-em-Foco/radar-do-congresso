@@ -25,6 +25,7 @@ export class GastosCeapComponent implements OnInit, OnDestroy {
     private activatedroute: ActivatedRoute) { }
 
   ngOnInit() {
+    this.gastosCeapAgregados = [];
     this.activatedroute.parent.params.pipe(take(1)).subscribe(params => {
       this.getParlamentarGastosCeapById(params.id);
     });
@@ -36,11 +37,27 @@ export class GastosCeapComponent implements OnInit, OnDestroy {
     .subscribe(
       parlamentarGastosCeap => {
         this.gastosCeap = parlamentarGastosCeap.parlamentarGastosCeap;
+        this.agregaGastorPorCategoria(this.gastosCeap);
       },
       error => {
         console.log(error);
       }
     );
+
+  }
+  agregaGastorPorCategoria(gastosCeap: GastosCeap[]) {
+    let arr = [];
+
+    gastosCeap.reduce((rv, x) => {
+        if(!rv[x.categoria]) {
+          rv[x.categoria] = {"categoria": x.categoria, "valor_gasto": 0};
+          arr.push(rv[x.categoria]);
+        } 
+        rv[x.categoria].valor_gasto = rv[x.categoria].valor_gasto + x.valor_gasto;
+        return rv;
+      }, {});
+    
+    arr.map(x => this.gastosCeapAgregados.push([x.categoria, x.valor_gasto]));
   }
 
   ngOnDestroy() {
