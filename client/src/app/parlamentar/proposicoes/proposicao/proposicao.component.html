@@ -1,0 +1,18 @@
+<div class="proposicao">
+  <div class="proposicao-title">
+    {{ proposicao?.proposicaoDetalhes?.nome }}
+    <a
+      [href]="getUrlProposicao(proposicao?.proposicaoDetalhes?.idProposicao, proposicao?.proposicaoDetalhes?.casa)"
+      target="_blank"
+      class="btn btn-link btn-sm"
+    >
+      Ver >>
+    </a>
+  </div>
+  <div class="proposicao-ementa">
+    <p>
+      {{ proposicao?.proposicaoDetalhes?.ementa }}
+    </p>
+  </div>
+
+</div>
