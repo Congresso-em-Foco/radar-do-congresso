@@ -19,6 +19,7 @@ export class GastosCeapComponent implements OnInit, OnDestroy {
 
   gastosCeap: GastosCeap [];
   gastosCeapAgregados: any[];
+  chartData: any[];
 
   constructor(
     private parlamentarService: ParlamentarService,
@@ -26,9 +27,14 @@ export class GastosCeapComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.gastosCeapAgregados = [];
+    this.setChartdata([]);
     this.activatedroute.parent.params.pipe(take(1)).subscribe(params => {
       this.getParlamentarGastosCeapById(params.id);
     });
+  }
+
+  setChartdata(newData) {
+    this.chartData = newData;
   }
 
   getParlamentarGastosCeapById(id: string) {
@@ -52,12 +58,13 @@ export class GastosCeapComponent implements OnInit, OnDestroy {
         if(!rv[x.categoria]) {
           rv[x.categoria] = {"categoria": x.categoria, "valor_gasto": 0};
           arr.push(rv[x.categoria]);
-        } 
+        }
         rv[x.categoria].valor_gasto = rv[x.categoria].valor_gasto + x.valor_gasto;
         return rv;
       }, {});
-    
+
     arr.map(x => this.gastosCeapAgregados.push([x.categoria, x.valor_gasto]));
+    this.setChartdata(this.gastosCeapAgregados);
   }
 
   ngOnDestroy() {

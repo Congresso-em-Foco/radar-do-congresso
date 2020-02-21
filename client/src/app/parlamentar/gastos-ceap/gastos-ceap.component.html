@@ -1,6 +1,10 @@
 <div class="container-sm mb-3">
   <h4 class="title-main my-4">Gastos CEAP</h4>
   <div class="d-flex justify-content-center mt-3 pl-4">
-    <google-chart [type]="'PieChart'" [data]="gastosCeapAgregados"></google-chart>
+    <google-chart
+      [type]="'PieChart'"
+      [data]="chartData"
+      [dynamicResize]="true"
+    ></google-chart>
   </div>
 </div>
