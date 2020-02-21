@@ -6,9 +6,11 @@ const models = require("../../models/index");
 const casaValidator = require("../../utils/middlewares/casa.validator");
 
 const Parlamentar = models.parlamentar;
+const Proposicao = models.proposicao;
+const ParlamentarProposicao = models.parlamentarProposicao;
+
 const Votacao = models.votacao;
 const Voto = models.voto;
-const Proposicao = models.proposicao;
 const Comissoes = models.comissoes;
 const ComposicaoComissoes = models.composicaoComissoes;
 const Liderancas = models.liderancas;
@@ -387,6 +389,38 @@ router.get("/:id/gastos-ceap", (req, res) => {
         model: GastosCeap,
         attributes: attGastosCeap,
         as: "parlamentarGastosCeap"
+      }
+    ],
+    where: { id_parlamentar_voz: req.params.id }
+  })
+    .then(parlamentar => {
+      return res.json(parlamentar);
+    })
+    .catch(err => res.status(BAD_REQUEST).json({ err: err.message }));
+});
+
+/**
+ * Recupera informações de proposições autoradas por um parlamentar a partir de seu id
+ * @name get/api/parlamentares/:id/proposicoes
+ * @function
+ * @memberof module:routes/parlamentares
+ * @param {string} id - id do parlamentar na plataforma Radar do Congresso
+ */
+router.get("/:id/proposicoes", (req, res) => {
+  Parlamentar.findOne({
+    attributes: [["id_parlamentar_voz", "idParlamentarVoz"]],
+    include: [
+      {
+        model: ParlamentarProposicao,        
+        attributes: [["id_proposicao_voz", "idProposicaoVoz"]],
+        as: "proposicaoAutores",
+        required: false,
+        include: [{
+          model: Proposicao,          
+          attributes: [["id_proposicao", "idProposicao"], "casa", "nome", "ementa"],
+          as: "proposicaoDetalhes",
+          required: true
+        }]
       }
     ],
     where: { id_parlamentar_voz: req.params.id }

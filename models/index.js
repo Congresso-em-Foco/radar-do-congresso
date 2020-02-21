@@ -5,6 +5,8 @@ const logger = require("heroku-logger");
 const ParlamentarModel = "./postgres/parlamentar.js";
 const PartidoModel = "./postgres/partidos.js";
 const GastosCeapModel = "./postgres/gastos-ceap.js";
+const ProposicaoModel = "./postgres/proposicao.js";
+const ParlamentarProposicaoModel = "./postgres/parlamentar-proposicao.js";
 
 if (!global.hasOwnProperty("models")) {
   const db = require("../config/keys").postgresURI;
@@ -30,7 +32,9 @@ if (!global.hasOwnProperty("models")) {
     sequelize: sequelize,
     parlamentar: sequelize.import(ParlamentarModel),
     partido: sequelize.import(PartidoModel),
-    gastosCeap: sequelize.import(GastosCeapModel)
+    gastosCeap: sequelize.import(GastosCeapModel),
+    proposicao: sequelize.import(ProposicaoModel),
+    parlamentarProposicao: sequelize.import(ParlamentarProposicaoModel) 
     // add your other models here
   };
 

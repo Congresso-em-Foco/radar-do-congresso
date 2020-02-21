@@ -17,8 +17,7 @@ module.exports = (sequelize, type) => {
         situacao: type.STRING,
         condicao_eleitoral: type.STRING,
         ultima_legislatura: type.STRING,
-        em_exercicio: type.BOOLEAN,
-        id_perfil_politico: type.STRING
+        em_exercicio: type.BOOLEAN
       },
       {
         timestamps: false
@@ -34,51 +33,12 @@ module.exports = (sequelize, type) => {
         foreignKey: "id_parlamentar_voz",
         targetKey: "id_parlamentar_voz",      
         as: "parlamentarGastosCeap"
+      }),
+      parlamentar.hasMany(models.parlamentarProposicao, {
+        foreignKey: "id_parlamentar_voz",
+        targetKey: "id_parlamentar_voz",
+        as: "proposicaoAutores"
       })
-    //   parlamentar.hasMany(models.resposta, {
-    //     foreignKey: "id_parlamentar_voz",
-    //     targetKey: "id_parlamentar_voz",
-    //     as: "cpf_resp"
-    //   }),
-    //   parlamentar.hasMany(models.voto, {
-    //     foreignKey: "id_parlamentar_voz",
-    //     targetKey: "id_parlamentar_voz",
-    //     as: "votos"
-    //   }),
-    //   parlamentar.hasMany(models.composicaoComissoes, {
-    //     foreignKey: "id_parlamentar_voz",
-    //     targetKey: "id_parlamentar_voz",      
-    //     as: "parlamentarComissoes"
-    //   }),
-    //   parlamentar.hasMany(models.aderencia, {
-    //     foreignKey: "id_parlamentar_voz",
-    //     targetKey: "id_parlamentar_voz",      
-    //     as: "parlamentarAderencia"
-    //   }),
-    //   parlamentar.hasMany(models.liderancas, {
-    //     foreignKey: "id_parlamentar_voz",
-    //     targetKey: "id_parlamentar_voz",      
-    //     as: "parlamentarLiderancas"
-    //   }),      
-    //   parlamentar.hasOne(models.perfilMais, {
-    //     foreignKey: "id_parlamentar_voz",
-    //     targetKey: "id_parlamentar_voz",      
-    //     as: "parlamentarPerfilMais"
-    //   }),
-    //   parlamentar.hasMany(models.investimentoPartidarioParlamentar, {
-    //     foreignKey: "id_parlamentar_voz",
-    //     targetKey: "id_parlamentar_voz",      
-    //     as: "parlamentarInvestimento"
-    //   }),
-    //   parlamentar.hasMany(models.ligacoesEconomicas, {
-    //     foreignKey: "id_parlamentar_voz",
-    //     targetKey: "id_parlamentar_voz",      
-    //     as: "parlamentarLigacoes"
-    //   }),
-    //   parlamentar.hasMany(models.empresasParlamentares, {
-    //     foreignKey: "id_parlamentar_voz",
-    //     targetKey: "id_parlamentar_voz",      
-    //     as: "parlamentarEmpresas"
     };
 
     return parlamentar;
