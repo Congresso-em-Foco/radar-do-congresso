@@ -17,11 +17,6 @@ const routes: Routes = [
     data: { animation: 'ParlamentarComponent' },
     children: [
       {
-        path: '',
-        redirectTo: 'votacoes',
-        pathMatch: 'full'
-      },
-      {
         path: 'votacoes',
         component: VotacoesComponent
       },
