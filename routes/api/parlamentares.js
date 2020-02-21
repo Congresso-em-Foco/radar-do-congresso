@@ -384,7 +384,7 @@ router.get("/:id/proposicoes", (req, res) => {
         required: false,
         include: [{
           model: Proposicao,          
-          attributes: ["casa", "nome", "ementa", "url"],
+          attributes: [["id_proposicao", "idProposicao"], "casa", "nome", "ementa"],
           as: "proposicaoDetalhes",
           required: true
         }]
