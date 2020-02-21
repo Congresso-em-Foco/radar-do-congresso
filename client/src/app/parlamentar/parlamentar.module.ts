@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 
 import { LazyLoadImageModule, intersectionObserverPreset } from 'ng-lazyload-image';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 import { SharedModule } from '../shared/components/shared.module';
 import { ParlamentarRoutingModule } from './parlamentar-routing.module';
@@ -50,7 +51,8 @@ import { ProposicaoComponent } from './proposicoes/proposicao/proposicao.compone
     }),
     NgbModule,
     SharedModule,
-    ParlamentarRoutingModule
+    ParlamentarRoutingModule,
+    NgxPaginationModule
   ]
 })
 export class ParlamentarModule { }

@@ -5,7 +5,7 @@ import { Subject } from 'rxjs';
 import { take, takeUntil } from 'rxjs/operators';
 
 import { ParlamentarService } from '../../shared/services/parlamentar.service';
-import { ParlamentarProposicoes } from '../../shared/models/parlamentarProposicoes.model'
+import { ProposicaoInfo } from '../../shared/models/proposicaoInfo.model';
 
 @Component({
   selector: 'app-proposicoes',
@@ -16,7 +16,9 @@ export class ProposicoesComponent implements OnInit, OnDestroy {
 
   private unsubscribe = new Subject();
 
-  parlamentarProposicoes: ParlamentarProposicoes;
+  proposicoesAutoradas: ProposicaoInfo[];
+
+  p = 1;
 
   constructor(
     private parlamentarService: ParlamentarService,
@@ -24,8 +26,12 @@ export class ProposicoesComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.activatedroute.parent.params.pipe(take(1)).subscribe(params => {
-      this.getParlamentarProposicoesById(params.id)      
+      this.getParlamentarProposicoesById(params.id);
     });
+  }
+
+  pageChange(p: number) {
+    this.p = p;
   }
 
   getParlamentarProposicoesById(id: string) {
@@ -34,8 +40,7 @@ export class ProposicoesComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(
         proposicoes => {
-          this.parlamentarProposicoes = proposicoes;
-          console.log(proposicoes);
+          this.proposicoesAutoradas = proposicoes.proposicaoAutores;
         },
         error => {
           console.log(error);
