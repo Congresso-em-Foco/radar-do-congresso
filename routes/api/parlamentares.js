@@ -13,6 +13,7 @@ const Comissoes = models.comissoes;
 const ComposicaoComissoes = models.composicaoComissoes;
 const Liderancas = models.liderancas;
 const Partido = models.partido;
+const GastosCeap = models.gastosCeap;
 
 const BAD_REQUEST = 400;
 const SUCCESS = 200;
@@ -31,6 +32,13 @@ const att = [
 const attComissoes = ["sigla", "nome"];
 const attComposicaoComissoes = [["id_comissao_voz", "idComissaoVoz"], "cargo"];
 const attPartido = [["id_partido", "idPartido"], "sigla", "tipo"]
+const attGastosCeap = [
+  "categoria", 
+  "especificacao",
+  ["data_emissao", "dataEmissao"],
+  "fornecedor",
+  "valor_gasto"
+];
 
 /**
  * Testa a rota de parlamentares.
@@ -354,6 +362,31 @@ router.get("/:id/liderancas", (req, res) => {
             situacao: "Ativo"
           }
         }]
+      }
+    ],
+    where: { id_parlamentar_voz: req.params.id }
+  })
+    .then(parlamentar => {
+      return res.json(parlamentar);
+    })
+    .catch(err => res.status(BAD_REQUEST).json({ err: err.message }));
+});
+
+/**
+ * Recupera informações de gastos de ceap para um parlamentar a partir de seu id
+ * @name get/api/parlamentares/:id/gastos-ceap
+ * @function
+ * @memberof module:routes/parlamentares
+ * @param {string} id - id do parlamentar na plataforma Radar
+ */
+router.get("/:id/gastos-ceap", (req, res) => {
+  Parlamentar.findOne({
+    attributes: [["id_parlamentar_voz", "idParlamentarVoz"]],
+    include: [
+      {
+        model: GastosCeap,
+        attributes: attGastosCeap,
+        as: "parlamentarGastosCeap"
       }
     ],
     where: { id_parlamentar_voz: req.params.id }
