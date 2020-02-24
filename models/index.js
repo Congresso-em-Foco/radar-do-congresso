@@ -7,6 +7,7 @@ const PartidoModel = "./postgres/partidos.js";
 const GastosCeapModel = "./postgres/gastos-ceap.js";
 const ProposicaoModel = "./postgres/proposicao.js";
 const ParlamentarProposicaoModel = "./postgres/parlamentar-proposicao.js";
+const DiscursosModel = "./postgres/discursos.js";
 
 if (!global.hasOwnProperty("models")) {
   const db = require("../config/keys").postgresURI;
@@ -34,7 +35,8 @@ if (!global.hasOwnProperty("models")) {
     partido: sequelize.import(PartidoModel),
     gastosCeap: sequelize.import(GastosCeapModel),
     proposicao: sequelize.import(ProposicaoModel),
-    parlamentarProposicao: sequelize.import(ParlamentarProposicaoModel) 
+    parlamentarProposicao: sequelize.import(ParlamentarProposicaoModel),
+    discursos: sequelize.import(DiscursosModel)     
     // add your other models here
   };
 
