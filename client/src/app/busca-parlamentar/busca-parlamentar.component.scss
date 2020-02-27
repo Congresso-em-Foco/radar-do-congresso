@@ -24,3 +24,22 @@
     justify-content: center;
   }
 }
+
+.btn-light-icon:not(:disabled):not(.disabled):active,
+.btn-light-icon:not(:disabled):not(.disabled).active,
+.show > .btn-light-icon.dropdown-toggle {
+  background-color: #fff;
+  border-color: #fff;
+  color: #00AB56;
+
+  &.active {
+    background-color: #00AB56;
+    border-color: #00AB56;
+    color: #fff;
+  }
+}
+
+.btn-icon-label {
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+}
