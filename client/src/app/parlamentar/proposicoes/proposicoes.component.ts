@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { Subject } from 'rxjs';
@@ -22,12 +22,14 @@ export class ProposicoesComponent implements OnInit, OnDestroy {
 
   constructor(
     private parlamentarService: ParlamentarService,
-    private activatedroute: ActivatedRoute) { }
+    private activatedroute: ActivatedRoute,
+    private cdr: ChangeDetectorRef) { }
 
   ngOnInit() {
     this.activatedroute.parent.params.pipe(take(1)).subscribe(params => {
       this.getParlamentarProposicoesById(params.id);
     });
+    this.cdr.detectChanges();
   }
 
   pageChange(p: number) {
