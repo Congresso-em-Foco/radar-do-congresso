@@ -1,110 +1,32 @@
 <div class="votacao">
   <div class="votacao-body">
-    <div class="votacao-title">
-      {{ proposicao?.projetoLei }}
+    <div class="votacao-title">{{ proposicao?.nome }}
       <a
-        [href]="getUrlProposicao(proposicao?.idProposicao, proposicao?.casa)"
-        target="_blank"
-        class="btn btn-link btn-sm"
+      [href]="getUrlProposicao(proposicao?.proposicaoDetalhes?.idProposicao, proposicao?.proposicaoDetalhes?.casa)"
+      target="_blank"
+      class="btn btn-link btn-sm"
+    >
+      Ver >>
+    </a>
+    </div>
+    <!-- Votos -->
+    <div>
+      <div
+        *ngFor="let votacao of proposicao?.proposicaoVotacoes"
+        class="votacao-wrapper"
       >
-        Ver <span class="icon-chevrons-right"></span>
-      </a>
-    </div>
-
-    <!-- Votos -->
-    <div class="votos-wrapper">
-      <div class="d-flex">
-        <div>
-          <div class="votos-header votos-box-A">
-            <span class="d-none d-sm-inline-block">Deputado</span>
-            <span class="d-inline-block d-sm-none">Dept</span>
-            <span class="icon-chevron-right"></span>
-          </div>
-          <div class="votos-header votos-box-B">
-            <span class="d-none d-sm-inline-block">Governo</span>
-            <span class="d-inline-block d-sm-none">Gov</span>
-            <span class="icon-chevron-right"></span>
-          </div>
-        </div>
-        <div class="votos">
-          <div
-            class="votos-box"
-            *ngFor="let votacao of proposicao?.proposicaoVotacoes"
-            [ngbPopover]="tooltipVotacoes"
-            [popoverClass]="'popover-lg'"
-            [container]="'body'"
-            [triggers]="'click'"
-            [autoClose]="'outside'"
-          >
-            <div [ngClass]="getClass(parlamentar?.votos[votacao.idVotacao], 'parlamentar')">
-              <span class="d-none">
-                {{ parlamentar?.votos[votacao.idVotacao] }}
-              </span>
+        <div class="row">
+          <div class="col-2">
+            <div [ngClass]="getVotacaoClass(parlamentar?.votos[votacao.idVotacao], 'parlamentar')" class="text-center">
+              {{ getTextoVoto(parlamentar.votos[votacao.idVotacao], 'parlamentar') }}
             </div>
-            <div [ngClass]="getClass(orientacao?.orientacoes[votacao.idVotacao], 'governo')">
-              <span class="d-none">
-                {{ orientacao?.orientacoes[votacao.idVotacao] }}
-              </span>
-            </div>
-            <ng-template #tooltipVotacoes>
-              <div class="tooltip-votacao py-2">
-                <div>{{ proposicao?.projetoLei }}</div>
-                <div class="text-date">
-                  {{ votacao.horario | date:'dd-MM-yyyy'}}
-                </div>
-                <div class="text-votante py-3">{{ votacao.objetoVotacao }}</div>
-                <div class="row gutters-sm">
-                  <div class="col">
-                    {{ parlamentar?.genero === "F" ? "Ela" : "Ele" }} {{ parlamentar?.votos[votacao.idVotacao] === 0 ? "" : "votou" }}
-                  </div>
-                  <div class="col">
-                    GOVERNO {{ orientacao?.orientacoes[votacao.idVotacao] ? "orientou" : "" }}
-                  </div>
-                </div>
-                <div class="row gutters-sm">
-                  <div class="col text-center">
-                    <div
-                      class="py-1"
-                      [ngClass]="getVotacaoClass(parlamentar?.votos[votacao.idVotacao], 'parlamentar')"
-                    >
-                      {{ getTextoVoto(parlamentar.votos[votacao.idVotacao], 'parlamentar') }}
-                    </div>
-                  </div>
-                  <div class="col text-center">
-                    <div
-                      class="py-1"
-                      [ngClass]="getVotacaoClass(orientacao?.orientacoes[votacao.idVotacao], 'governo')"
-                    >
-                      {{ getTextoVoto(orientacao.orientacoes[votacao.idVotacao], 'governo') }}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </ng-template>
+          </div>
+          <div class="col-10">
+            {{ votacao?.objetoVotacao }}
+            <p class="text-date">{{ votacao.data | date:'dd-MM-yyyy'}}</p>
           </div>
         </div>
       </div>
     </div>
-
-    <!-- Votos -->
-    <!-- <div class="votos-wrapper">
-      <div class="d-flex">
-        <div class="votos-header">
-          <div class="votos-box-A">
-            Aderência
-            <span class="icon-chevron-right"></span>
-          </div>
-        </div>
-        <div class="votos">
-          <div
-            class="votos-box"
-            *ngFor="let votacao of proposicao.proposicaoVotacoes"
-          >
-            <div [ngClass]="getClassComparado(parlamentar.votos[votacao.idVotacao], orientacao.orientacoes[votacao.idVotacao])"></div>
-          </div>
-        </div>
-      </div>
-    </div> -->
-
   </div>
 </div>
