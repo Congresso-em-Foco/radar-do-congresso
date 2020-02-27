@@ -5,61 +5,83 @@
       alt="Radar do Congresso"
     >
   </div>
-  <ul class="nav justify-content-center">
-    <li class="nav-item text-center">
-      <a
-        class="nav-link"
-        [routerLink]="['./parlamentares/senado']"
-        [routerLinkActive]="'active'"
-      >
-        <img src="assets/imgs/senado.png" alt="Senadores" class="nav-img">
-        <br>
-        Senadores
-      </a>
-    </li>
-    <li class="nav-item text-center">
-      <a
-        class="nav-link"
-        [routerLink]="['./parlamentares/camara']"
-        [routerLinkActive]="'active'"
-      >
-        <img src="assets/imgs/camara.png" alt="Senadores" class="nav-img">
-        <br>
-        Deputados
-      </a>
-    </li>
-    <li class="nav-item text-center">
-      <a
-        class="nav-link"
-        [routerLink]="['./votacoes']"
-        [routerLinkActive]="'active'"
-      >
-        <img src="assets/imgs/votacao.png" alt="Senadores" class="nav-img">
-        <br>
-        Votações
-      </a>
-    </li>
-    <li class="nav-item text-center">
-      <a
-        class="nav-link"
-        [routerLink]="['./votacoes']"
-        [routerLinkActive]="'active'"
-      >
-        <img src="assets/imgs/gastos.png" alt="Senadores" class="nav-img">
-        <br>
-        Gastos
-      </a>
-    </li>
-    <li class="nav-item text-center">
-      <a
-        class="nav-link"
-        [routerLink]="['./frentes']"
-        [routerLinkActive]="'active'"
-      >
-        <img src="assets/imgs/frente.png" alt="Senadores" class="nav-img">
-        <br>
-        Frentes
-      </a>
-    </li>
-  </ul>
+  <div class="main-navbar">
+    <ul class="nav justify-content-center">
+      <li class="nav-item text-center">
+        <a
+          class="nav-link"
+          [routerLink]="['./parlamentares/senado']"
+          [routerLinkActive]="'active'"
+        >
+          <img
+            src="assets/imgs/senado.png"
+            alt="Senadores"
+            class="nav-img"
+          >
+          <br>
+          Senadores
+        </a>
+      </li>
+      <li class="nav-item text-center">
+        <a
+          class="nav-link"
+          [routerLink]="['./parlamentares/camara']"
+          [routerLinkActive]="'active'"
+        >
+          <img
+            src="assets/imgs/camara.png"
+            alt="Senadores"
+            class="nav-img"
+          >
+          <br>
+          Deputados
+        </a>
+      </li>
+      <li class="nav-item text-center">
+        <a
+          class="nav-link"
+          [routerLink]="['./votacoes']"
+          [routerLinkActive]="'active'"
+        >
+          <img
+            src="assets/imgs/votacao.png"
+            alt="Senadores"
+            class="nav-img"
+          >
+          <br>
+          Votações
+        </a>
+      </li>
+      <li class="nav-item text-center">
+        <a
+          class="nav-link"
+          [routerLink]="['./votacoes']"
+          [routerLinkActive]="'active'"
+        >
+          <img
+            src="assets/imgs/gastos.png"
+            alt="Senadores"
+            class="nav-img"
+          >
+          <br>
+          Gastos
+        </a>
+      </li>
+      <li class="nav-item text-center">
+        <a
+          class="nav-link"
+          [routerLink]="['./frentes']"
+          [routerLinkActive]="'active'"
+        >
+          <img
+            src="assets/imgs/frente.png"
+            alt="Senadores"
+            class="nav-img"
+          >
+          <br>
+          Frentes
+        </a>
+      </li>
+    </ul>
+  </div>
 </div>

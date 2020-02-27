@@ -7,3 +7,12 @@
 @import "../node_modules/bootstrap/scss/bootstrap";
 @import "assets/bootstrap/overhide";
 @import "assets/styles/fonts";
+
+.img-filter {
+  -webkit-filter: grayscale(100%);
+  filter: grayscale(100%);
+  -webkit-filter: gray;
+  filter: gray;
+
+  border-radius: 20px;
+}

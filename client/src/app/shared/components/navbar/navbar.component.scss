@@ -12,3 +12,15 @@
     font-weight: 700;
   }
 }
+
+.main-navbar {
+  @media (max-width: 992px) {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+
+    > .nav {
+      flex: 0 0 auto;
+    }
+  }
+}

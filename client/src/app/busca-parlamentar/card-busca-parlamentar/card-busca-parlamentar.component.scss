@@ -1,5 +1,5 @@
 .card-parlamentar {
-  border: solid 1.5px #20201e;
+  border: solid 1px black;
   margin-bottom: 0.5rem;
   margin-right: 0.5rem;
   padding: 1rem 0.5rem;
@@ -36,7 +36,7 @@
   }
 
   @media (min-width: 576px) {
-    height: 108px;
+    height: 80px;
     display: flex;
     flex-direction: column;
     justify-content: center;
