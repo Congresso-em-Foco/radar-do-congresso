@@ -26,6 +26,8 @@ import { TrajetoriaChartComponent } from './trajetoria-chart/trajetoria-chart.co
 import { ProposicoesComponent } from './proposicoes/proposicoes.component';
 import { ProposicaoComponent } from './proposicoes/proposicao/proposicao.component';
 import { GastosCeapComponent } from './gastos-ceap/gastos-ceap.component';
+import { DiscursosComponent } from './discursos/discursos.component';
+import { DiscursoComponent } from './discursos/discurso/discurso.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +45,9 @@ import { GastosCeapComponent } from './gastos-ceap/gastos-ceap.component';
     TrajetoriaChartComponent,
     ProposicoesComponent,
     ProposicaoComponent,
-    GastosCeapComponent
+    GastosCeapComponent,
+    DiscursosComponent,
+    DiscursoComponent
   ],
   imports: [
     CommonModule,
