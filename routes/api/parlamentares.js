@@ -4,6 +4,7 @@ const { validationResult } = require('express-validator');
 
 const models = require("../../models/index");
 const casaValidator = require("../../utils/middlewares/casa.validator");
+const { formataVotacoes } = require("../../utils/functions");
 
 const Parlamentar = models.parlamentar;
 const Proposicao = models.proposicao;
@@ -281,7 +282,7 @@ router.get("/:id/posicoes", (req, res) => {
  */
 router.get("/:id/votos", (req, res) => {
   Parlamentar.findAll({
-    attributes: [["id_parlamentar_voz", "idParlamentarVoz"], "genero"],
+    attributes: [["id_parlamentar_voz", "idParlamentarVoz"]],
     include: [
       {
         model: Voto,
@@ -290,15 +291,14 @@ router.get("/:id/votos", (req, res) => {
         required: false,
         include: [{
           model: Votacao,
-          as: "votacoesVoto",
+          as: "votoVotacao",
           attributes: [],
           required: true,
           include: [{
             model: Proposicao,
-            as: "proposicaoVotacoes",
+            as: "votacoesProposicoes",
             attributes: [],
-            required: true,
-            where: { status_importante: "Ativa" }
+            required: true
           }]
         }]
       }
