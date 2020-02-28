@@ -1,21 +1,14 @@
 .discurso {
-    border: solid 2px #20201e;
-    margin-bottom: 1rem;
-    padding: 0.5rem;
+  border: solid 1px black;
+  margin-bottom: 1rem;
+  padding: 0.5rem;
 }
 
-.discurso-title {
-    font-size: 1.2rem;
-    padding-bottom: 0.5rem;
-    line-height: 0.6rem;
+.discurso-titulo {
+  padding: 0;
+  margin: 0;
 }
 
-.discurso-resumo {
-    font-size: 0.9rem;
-}
-
-.data {
-    font-size: 0.9rem;
-    font-style: italic;
-    color: gray;
+.texto-menor {
+  font-size: 0.8rem;
 }

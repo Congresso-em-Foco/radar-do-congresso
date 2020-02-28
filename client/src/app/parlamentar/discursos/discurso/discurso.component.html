@@ -1,18 +1,13 @@
 <div class="discurso">
-  <div class="discurso-title d-block mb-2">
-    <div>
-      {{ discurso?.tipo }}
-      <a
-        [href]="discurso?.link"
-        target="_blank"
-        class="btn btn-link btn-sm"
-      >
-        Ver na íntegra >>
-      </a>
-    </div>
-    <span class="data">{{ discurso?.data }}</span>
+  <div class="mb-2">
+    <h5 class="discurso-titulo">{{ discurso?.tipo }}</h5>
+    <span class="texto-menor text-muted">{{ discurso?.data | date:'dd-MM-yyyy' }}</span>
   </div>
-  <div class="discurso-resumo">
-    <p>{{ discurso?.resumo }}</p>
-  </div>
+  <p class="texto-menor">{{ discurso?.resumo }}</p>
+  <a
+    [href]="discurso?.link"
+    target="_blank"
+  >
+    Ver na íntegra >>
+  </a>
 </div>
