@@ -7,6 +7,9 @@ const PartidoModel = "./postgres/partidos.js";
 const GastosCeapModel = "./postgres/gastos-ceap.js";
 const ProposicaoModel = "./postgres/proposicao.js";
 const ParlamentarProposicaoModel = "./postgres/parlamentar-proposicao.js";
+const PatrimonioModel = "./postgres/patrimonio.js";
+const VotacaoModel = "./postgres/votacao.js";
+const VotoModel = "./postgres/voto.js";
 const DiscursosModel = "./postgres/discursos.js";
 
 if (!global.hasOwnProperty("models")) {
@@ -36,6 +39,9 @@ if (!global.hasOwnProperty("models")) {
     gastosCeap: sequelize.import(GastosCeapModel),
     proposicao: sequelize.import(ProposicaoModel),
     parlamentarProposicao: sequelize.import(ParlamentarProposicaoModel),
+    votacao: sequelize.import(VotacaoModel),
+    voto: sequelize.import(VotoModel),
+    patrimonio: sequelize.import(PatrimonioModel),
     discursos: sequelize.import(DiscursosModel)     
     // add your other models here
   };

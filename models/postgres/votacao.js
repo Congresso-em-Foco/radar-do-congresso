@@ -1,25 +1,28 @@
 module.exports = (sequelize, type) => {
   const votacao = sequelize.define(
-    "votacoe",    
+    "votacoes",    
     {
       id_votacao: {
         type: type.STRING,
         primaryKey: true
       },
-      id_proposicao: type.STRING,
-      objeto_votacao: type.STRING,
-      horario: type.DATE,
-      codigo_sessao: type.INTEGER
+      id_proposicao_voz: type.STRING,
+      casa: type.STRING,
+      obj_votacao: type.STRING,
+      data_hora: type.DATE,
+      votacao_secreta: type.BOOLEAN,
+      url_votacao: type.INTEGER
     },
     {
-      timestamps: false
+      timestamps: false,
+      freezeTableName: true
     }
   );
   votacao.associate = function(models) {
     votacao.belongsTo(models.proposicao, {
-      foreignKey: "id_proposicao",
-      sourceKey: "id_proposicao",
-      as: "proposicaoVotacoes"
+      foreignKey: "id_proposicao_voz",
+      sourceKey: "id_proposicao_voz",
+      as: "votacoesProposicoes"
     }),
     votacao.hasMany(models.voto, {
       foreignKey: "id_votacao",

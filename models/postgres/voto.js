@@ -20,12 +20,12 @@ module.exports = (sequelize, type) => {
     voto.belongsTo(models.votacao, {
       foreignKey: "id_votacao",
       sourceKey: "id_votacao",
-      as: "votacoesVoto"
+      as: "votoVotacao"
     }),
     voto.belongsTo(models.parlamentar, {
         foreignKey: "id_parlamentar_voz",
         sourceKey: "id_parlamentar_voz",
-        as: "votos"
+        as: "votoParlamentar"
       });
   };
   return voto;

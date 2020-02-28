@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { ParlamentarComponent } from './parlamentar.component';
 import { ProposicoesComponent } from './proposicoes/proposicoes.component';
 import { GastosCeapComponent } from './gastos-ceap/gastos-ceap.component';
+import { VotacoesComponent } from './votacoes/votacoes.component';
 import { DiscursosComponent } from './discursos/discursos.component';
 
 const routes: Routes = [
@@ -19,6 +20,10 @@ const routes: Routes = [
       {
         path: 'gastos-ceap',
         component: GastosCeapComponent
+      },
+      {
+        path: 'votacoes',
+        component: VotacoesComponent
       },
       {
         path: 'discursos',
