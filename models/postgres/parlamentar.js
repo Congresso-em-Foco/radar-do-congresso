@@ -39,11 +39,16 @@ module.exports = (sequelize, type) => {
         targetKey: "id_parlamentar_voz",
         as: "proposicaoAutores"
       }),
+      parlamentar.hasMany(models.patrimonio, {
+        foreignKey: "id_parlamentar_voz",
+        targetKey: "id_parlamentar_voz",
+        as: "parlamentarPatrimonio"
+      }),
       parlamentar.hasMany(models.voto, {
         foreignKey: "id_parlamentar_voz",
         targetKey: "id_parlamentar_voz",
         as: "votos"
-      })
+      })      
     };
 
     return parlamentar;

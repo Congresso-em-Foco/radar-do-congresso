@@ -17,6 +17,7 @@ const ComposicaoComissoes = models.composicaoComissoes;
 const Liderancas = models.liderancas;
 const Partido = models.partido;
 const GastosCeap = models.gastosCeap;
+const Patrimonio = models.patrimonio;
 
 const BAD_REQUEST = 400;
 const SUCCESS = 200;
@@ -428,6 +429,35 @@ router.get("/:id/proposicoes", (req, res) => {
           required: true
         }]
       }
+    ],
+    where: { id_parlamentar_voz: req.params.id }
+  })
+    .then(parlamentar => {
+      return res.json(parlamentar);
+    })
+    .catch(err => res.status(BAD_REQUEST).json({ err: err.message }));
+});
+
+/**
+ * Recupera informações de patrimônio declarado por um parlamentar ao TSE a partir de seu id
+ * @name get/api/parlamentares/:id/patrimonio
+ * @function
+ * @memberof module:routes/parlamentares
+ * @param {string} id - id do parlamentar na plataforma Radar do Congresso
+ */
+router.get("/:id/patrimonio", (req, res) => {
+  Parlamentar.findOne({
+    attributes: [["id_parlamentar_voz", "idParlamentarVoz"]],
+    include: [
+      {
+        model: Patrimonio,        
+        attributes: [["ano_eleicao", "anoEleicao"], ["ds_cargo", "cargo"], ["ds_tipo_bem", "tipoBem"], 
+        ["ds_bem", "descricaoBem"], ["valor_bem", "valorBem"]],
+        as: "parlamentarPatrimonio",        
+      }
+    ],
+    order: [
+      ['parlamentarPatrimonio', 'valor_bem', 'DESC']
     ],
     where: { id_parlamentar_voz: req.params.id }
   })
