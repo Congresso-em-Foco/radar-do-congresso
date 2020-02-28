@@ -1,22 +1,22 @@
-import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef  } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { Subject } from 'rxjs';
 import { take, takeUntil } from 'rxjs/operators';
 
 import { ParlamentarService } from '../../shared/services/parlamentar.service';
-import { ProposicaoInfo } from '../../shared/models/proposicaoInfo.model';
+import { Discurso } from '../../shared/models/discurso.model';
 
 @Component({
-  selector: 'app-proposicoes',
-  templateUrl: './proposicoes.component.html',
-  styleUrls: ['./proposicoes.component.scss']
+  selector: 'app-discursos',
+  templateUrl: './discursos.component.html',
+  styleUrls: ['./discursos.component.scss']
 })
-export class ProposicoesComponent implements OnInit, OnDestroy {
+export class DiscursosComponent implements OnInit, OnDestroy {
 
   private unsubscribe = new Subject();
 
-  proposicoesAutoradas: ProposicaoInfo[];
+  parlamentarDiscursos: Discurso[];
 
   p = 1;
 
@@ -27,7 +27,7 @@ export class ProposicoesComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.activatedroute.parent.params.pipe(take(1)).subscribe(params => {
-      this.getParlamentarProposicoesById(params.id);
+      this.getParlamentarDiscursosById(params.id);
     });
     this.cdr.detectChanges();
   }
@@ -36,13 +36,13 @@ export class ProposicoesComponent implements OnInit, OnDestroy {
     this.p = p;
   }
 
-  getParlamentarProposicoesById(id: string) {
+  getParlamentarDiscursosById(id: string) {
     this.parlamentarService
-      .getProposicoesParlamentarbyId(id)
+      .getDiscursosParlamentarById(id)
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(
-        proposicoes => {
-          this.proposicoesAutoradas = proposicoes.proposicaoAutores;
+        discursos => {
+          this.parlamentarDiscursos = discursos.parlamentarDiscursos;
         },
         error => {
           console.log(error);

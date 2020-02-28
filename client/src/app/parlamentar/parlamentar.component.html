@@ -2,18 +2,60 @@
   class="container pt-3"
   *ngIf="parlamentar"
 >
+
+  <div class="parlementar-subnav">
+    <div class="subnav">
+      <ul class="nav nav-pills">
+        <li class="nav-item">
+          <a
+            class="nav-link subnav-link"
+            [routerLink]="['./votacoes']"
+            [routerLinkActive]="'active'"
+          >
+            Votações
+          </a>
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link subnav-link"
+            [routerLink]="['./proposicoes']"
+            [routerLinkActive]="'active'"
+          >
+            Proposições
+          </a>
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link subnav-link"
+            [routerLink]="['./gastos-ceap']"
+            [routerLinkActive]="'active'"
+          >
+            Gastos
+          </a>
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link subnav-link"
+            [routerLink]="['./discursos']"
+            [routerLinkActive]="'active'"
+          >
+            Discursos
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
   <div class="parlamentar">
     <div class="row gutters-sm">
       <div class="col-auto">
-        <div class="profile-img">
-          <img
-            [defaultImage]="'assets/imgs/nophoto.png'"
-            [lazyLoad]="parlamentar.getFoto()"
-            [offset]="100"
-            width="100%"
-            class="img-filter"
-          >
-        </div>
+        <img
+          [defaultImage]="'assets/imgs/nophoto.png'"
+          [lazyLoad]="parlamentar.getFoto()"
+          [offset]="100"
+          width="100%"
+          class="parlementar-img"
+        >
       </div>
       <div class="col">
         <div class="parlamentar-title">{{ parlamentar.nomeEleitoral }}</div>
@@ -26,38 +68,6 @@
     </div>
   </div>
 
-</div>
-
-<div class="parlementar-subnav">
-  <ul class="nav nav-tabs justify-content-center">
-    <li class="nav-item">
-      <a
-        class="nav-link nav-link-parlamentar"
-        [routerLink]="['./proposicoes']"
-        [routerLinkActive]="'active'"
-      >
-        Proposições
-      </a>
-    </li>
-    <li class="nav-item">
-      <a
-        class="nav-link nav-link-parlamentar"
-        [routerLink]="['./gastos-ceap']"
-        [routerLinkActive]="'active'"
-      >
-        Gastos
-      </a>
-    </li>
-    <li class="nav-item">
-      <a
-        class="nav-link nav-link-parlamentar"
-        [routerLink]="['./votacoes']"
-        [routerLinkActive]="'active'"
-      >
-        Votações
-      </a>
-    </li>
-  </ul>
 </div>
 
 <div class="parlamentar-pages container">

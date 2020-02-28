@@ -11,7 +11,7 @@
     </div>
     <div class="controls-toolbar">
       <div class="btn-toolbar">
-        <div class="d-none d-sm-block">Exibir:</div>
+        <div class="d-none d-sm-block btn-icon-label">Exibir:</div>
         <button
           [ngClass]="{'btn btn-light btn-light-icon': true, 'active': view == VIEW_MD}"
           (click)="setView('md')"
@@ -24,7 +24,7 @@
         >
           <span class="icon-th-sm"></span>
         </button>
-        <div class="d-none d-sm-block">Ordernar:</div>
+        <div class="d-none d-sm-block btn-icon-label">Ordernar:</div>
         <button
           class="btn btn-light btn-light-icon active"
           (click)="toggleOrderBy()"

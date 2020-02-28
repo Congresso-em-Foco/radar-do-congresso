@@ -1,31 +1,35 @@
 .parlamentar {
   margin-top: 15px;
-  display: flex;
-  justify-content: center;
   margin-bottom: 15px;
+  border: solid 1px black;
+  padding: 1rem;
 }
 
 .parlamentar-title {
   font-weight: 700;
-}
-
-.nav-link-parlamentar {
-  font-size: 0.8rem;
-  padding: 0.5rem 0.5rem;
-
-  &:link {
-    text-decoration: none;
-  }
+  font-size: 1.2rem;
 }
 
 .parlementar-subnav {
-  @media (max-width: 400px) {
-    display: flex;
-    flex-wrap: nowrap;
-    overflow-x: auto;
+  display: flex;
+  justify-content: center;
+}
 
-    > .nav {
-      flex: 0 0 auto;
-    }
+.subnav {
+  background-color: #29348E;
+}
+
+.subnav-link {
+  color: #fff;
+
+  &.active {
+    font-weight: 700;
   }
+}
+
+.parlementar-img {
+  width: 114px;
+  height: 152px;
+  border-radius: 20px;
+  filter: grayscale(100%);
 }
