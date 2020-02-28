@@ -2,7 +2,7 @@
   <div class="votacao-body">
     <div class="votacao-title">{{ proposicao?.nome }}
       <a
-      [href]="getUrlProposicao(proposicao?.proposicaoDetalhes?.idProposicao, proposicao?.proposicaoDetalhes?.casa)"
+      [href]="getUrlProposicao(proposicao?.idProposicao, proposicao?.casa)"
       target="_blank"
       class="btn btn-link btn-sm"
     >
