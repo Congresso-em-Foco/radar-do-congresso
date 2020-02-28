@@ -16,6 +16,7 @@ const ComposicaoComissoes = models.composicaoComissoes;
 const Liderancas = models.liderancas;
 const Partido = models.partido;
 const GastosCeap = models.gastosCeap;
+const Discursos = models.discursos;
 
 const BAD_REQUEST = 400;
 const SUCCESS = 200;
@@ -428,6 +429,34 @@ router.get("/:id/proposicoes", (req, res) => {
           required: true
         }]
       }
+    ],
+    where: { id_parlamentar_voz: req.params.id }
+  })
+    .then(parlamentar => {
+      return res.json(parlamentar);
+    })
+    .catch(err => res.status(BAD_REQUEST).json({ err: err.message }));
+});
+
+/**
+ * Recupera informações de discursos autoradas por um parlamentar a partir de seu id
+ * @name get/api/parlamentares/:id/discursos
+ * @function
+ * @memberof module:routes/parlamentares
+ * @param {string} id - id do parlamentar na plataforma Radar do Congresso
+ */
+router.get("/:id/discursos", (req, res) => {
+  Parlamentar.findOne({
+    attributes: [["id_parlamentar_voz", "idParlamentarVoz"]],
+    include: [
+      {
+        model: Discursos,        
+        attributes: ["casa", "tipo", "data", "resumo", "link"],
+        as: "parlamentarDiscursos",        
+      }
+    ],
+    order: [
+      ['parlamentarDiscursos', 'data', 'DESC']
     ],
     where: { id_parlamentar_voz: req.params.id }
   })

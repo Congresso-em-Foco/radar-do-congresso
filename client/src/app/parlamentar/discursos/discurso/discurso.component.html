@@ -1,0 +1,18 @@
+<div class="discurso">
+  <div class="discurso-title d-block mb-2">
+    <div>
+      {{ discurso?.tipo }}
+      <a
+        [href]="discurso?.link"
+        target="_blank"
+        class="btn btn-link btn-sm"
+      >
+        Ver na íntegra >>
+      </a>
+    </div>
+    <span class="data">{{ discurso?.data }}</span>
+  </div>
+  <div class="discurso-resumo">
+    <p>{{ discurso?.resumo }}</p>
+  </div>
+</div>
