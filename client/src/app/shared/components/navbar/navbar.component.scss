@@ -1,61 +1,26 @@
-a:link.nav-link-login,
-a:visited.nav-link-login {
-  width: 40px;
-  text-align: right;
-  color: #20201e;
-  text-decoration: underline;
+.nav-img {
+  width: 50px;
+  height: 50px;
+  margin-bottom: 0.5rem;
 }
 
-a:hover.nav-link-active,
-a:active.nav-link-active {
-  color: #43a467;
-  text-decoration: underline;
-}
+.nav-link {
+  font-size: 0.9rem;
 
-.img-user {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-}
-
-.dropdown-toggle {
-  cursor: pointer;
-}
-
-.dropdown-menu {
-  padding: 0;
-  border: solid 1px #20201E;
-}
-
-.navbrand-wrapper {
-  width: 80px;
-
-  @media (min-width: 992px) {
-    width: 140px;
-  }
-}
-
-.navbar-nav-va {
-  @media (max-width: 991.98px) {
-    display: none;
-  }
-}
-
-.navbar-nav-va-link {
-  padding: 22px 10px;
-  width: 165px;
-  text-decoration: none;
-  text-transform: uppercase;
-  font-size: 0.8rem;
-  color: #20201e;
-
-  &.active {
+  &.active,
+  &:hover {
     font-weight: 700;
-    background-color: #20201e;
-    color: #fff;
   }
 }
 
-.nav-line {
-  line-height: 40px;
+.main-navbar {
+  @media (max-width: 992px) {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+
+    > .nav {
+      flex: 0 0 auto;
+    }
+  }
 }

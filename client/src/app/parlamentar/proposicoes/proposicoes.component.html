@@ -1,15 +1,13 @@
 <div class="container-sm mb-3">
-  <h4 class="title-main my-4">Proposições de Autoria</h4>
+  <h4 class="title-main my-4">Proposições</h4>
 
   <pagination-template
     #pag="paginationApi"
     maxSize="5"
     (pageChange)="pageChange($event)"
-    [hidden]="pag.isFirstPage()"
   >
     <nav
       aria-label="Paginação"
-      class="pb-1"
     >
       <ul class="pagination justify-content-center">
         <li class="page-item">
@@ -63,7 +61,6 @@
   >
     <nav
       aria-label="Paginação"
-      class="pb-1"
     >
       <ul class="pagination justify-content-center">
         <li class="page-item">
