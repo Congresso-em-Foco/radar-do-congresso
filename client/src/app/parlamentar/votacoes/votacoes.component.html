@@ -1,11 +1,10 @@
 <div class="container-sm mb-3">
-  <h4 class="title-main my-4">Votos nas Votações Nominais</h4>
+  <h4 class="title-main my-4">Votos nas votações nominais</h4>
 
   <pagination-template
     #pag="paginationApi"
     maxSize="5"
     (pageChange)="pageChange($event)"
-    [hidden]="pag.isFirstPage()"
   >
     <nav
       aria-label="Paginação"

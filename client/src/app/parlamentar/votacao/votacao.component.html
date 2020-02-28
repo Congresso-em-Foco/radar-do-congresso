@@ -1,31 +1,33 @@
 <div class="votacao">
-  <div class="votacao-body">
-    <div class="votacao-title">{{ proposicao?.nome }}
+  <div class="mb-4">
+    <h5 class="titulo">
+      {{ proposicao?.nome }}
       <a
-      [href]="getUrlProposicao(proposicao?.idProposicao, proposicao?.casa)"
-      target="_blank"
-      class="btn btn-link btn-sm"
-    >
-      Ver >>
-    </a>
-    </div>
-    <!-- Votos -->
-    <div>
-      <div
-        *ngFor="let votacao of proposicao?.proposicaoVotacoes"
-        class="votacao-wrapper"
+        [href]="getUrlProposicao(proposicao?.idProposicao, proposicao?.casa)"
+        target="_blank"
+        class="btn btn-link btn-sm"
       >
-        <div class="row">
-          <div class="col-2">
-            <div [ngClass]="getVotacaoClass(parlamentar?.votos[votacao.idVotacao], 'parlamentar')" class="text-center">
-              {{ getTextoVoto(parlamentar.votos[votacao.idVotacao], 'parlamentar') }}
-            </div>
-          </div>
-          <div class="col-10">
-            {{ votacao?.objetoVotacao }}
-            <p class="text-date">{{ votacao.data | date:'dd-MM-yyyy'}}</p>
-          </div>
+        Ver >>
+      </a>
+    </h5>
+  </div>
+  <div
+    *ngFor="let votacao of proposicao?.proposicaoVotacoes"
+    class="votacao-wrapper"
+  >
+    <div class="row">
+      <div class="col-2">
+        <div
+          [ngClass]="getVotacaoClass(parlamentar?.votos[votacao.idVotacao], 'parlamentar')"
+          class="text-center"
+        >
+          {{ getTextoVoto(parlamentar?.votos[votacao.idVotacao], 'parlamentar') }}
         </div>
+      </div>
+      <div class="col-10 texto-menor">
+        {{ votacao?.objetoVotacao }}
+        <br>
+        <span class="texto-menor text-muted">{{ votacao?.data | date:'dd-MM-yyyy' }}</span>
       </div>
     </div>
   </div>
