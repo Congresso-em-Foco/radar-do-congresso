@@ -1,5 +1,5 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 import { Subject } from 'rxjs';
 import { take, takeUntil } from 'rxjs/operators';
@@ -35,7 +35,8 @@ export class VotacoesComponent implements OnInit, OnDestroy {
     private activatedroute: ActivatedRoute,
     private parlamentarService: ParlamentarService,
     private proposicaoService: ProposicaoService,
-    private casaService: CasaService) { }
+    private casaService: CasaService,
+    private cdr: ChangeDetectorRef) { }
 
   ngOnInit() {
     this.activatedroute.parent.params.pipe(take(1)).subscribe(params => {
@@ -45,6 +46,7 @@ export class VotacoesComponent implements OnInit, OnDestroy {
       this.getParlamentarById(params.id);
       this.getProposicoesVotacoes(casa);
     });
+    this.cdr.detectChanges();
   }
 
   pageChange(p: number) {
