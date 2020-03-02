@@ -4,4 +4,5 @@ export interface Votacao {
   data: string;
   idProposicao: number;
   nomeProposicao: string;
+  votacaoSecreta: boolean;
 }

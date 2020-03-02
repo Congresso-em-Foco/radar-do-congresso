@@ -29,9 +29,9 @@ export class VotacaoComponent implements OnInit {
     this.isCollapsed = true;
   }
 
-  getClass(voto: number, tipo: string): string[] {
+  getClass(voto: number, tipo: string, votacaoSecreta: boolean): string[] {
     const classes = ['voto'];
-    return classes.concat(this.getVotacaoClass(voto, tipo));
+    return classes.concat(this.getVotacaoClass(voto, tipo, votacaoSecreta));
   }
 
   getClassComparado(votoA: number, votoB: number): string[] {
@@ -50,84 +50,92 @@ export class VotacaoComponent implements OnInit {
     return classes;
   }
 
-  getVotacaoClass(voto: number, tipo: string): string[] {
+  getVotacaoClass(voto: number, tipo: string, votoSecreto: boolean): string[] {
     const classes = ['voto-lg'];
-    switch (voto) {
-      case this.SIM:
-        classes.push('voto-sim');
-        break;
-      case this.NAO:
-        classes.push('voto-nao');
-        break;
-      case this.FALTOU:
-        classes.push('voto-faltou');
-        break;
-      case this.OBSTRUCAO:
-        classes.push('voto-obstrucao');
-        break;
-      case this.LIBEROU:
-        classes.push('voto-liberou');
-        break;
-      case this.ABSTENCAO:
-        classes.push('voto-abstencao');
-        break;
-      case undefined:
-        if (tipo === 'governo') {
+    if (votoSecreto) {
+      classes.push('voto-secreto');
+    } else {
+      switch (voto) {
+        case this.SIM:
+          classes.push('voto-sim');
+          break;
+        case this.NAO:
+          classes.push('voto-nao');
+          break;
+        case this.FALTOU:
+          classes.push('voto-faltou');
+          break;
+        case this.OBSTRUCAO:
+          classes.push('voto-obstrucao');
+          break;
+        case this.LIBEROU:
           classes.push('voto-liberou');
           break;
-        }
-        classes.push('voto-sem-exercicio');
-        break;
-      case null:
-        if (tipo === 'governo') {
-          classes.push('voto-liberou');
+        case this.ABSTENCAO:
+          classes.push('voto-abstencao');
           break;
-        }
-        classes.push('voto-sem-exercicio');
-        break;
-      default:
-        break;
+        case undefined:
+          if (tipo === 'governo') {
+            classes.push('voto-liberou');
+            break;
+          }
+          classes.push('voto-sem-exercicio');
+          break;
+        case null:
+          if (tipo === 'governo') {
+            classes.push('voto-liberou');
+            break;
+          }
+          classes.push('voto-sem-exercicio');
+          break;
+        default:
+          break;
+      }
     }
     return classes;
   }
 
-  getTextoVoto(voto: number, tipo: string): string {
+  getTextoVoto(voto: number, tipo: string, votoSecreto: boolean): string {
     let textoVoto: string;
-    switch (voto) {
-      case this.SIM:
-        textoVoto = 'SIM';
-        break;
-      case this.NAO:
-        textoVoto = 'NÃO';
-        break;
-      case this.FALTOU:
-        textoVoto = 'FALTOU';
-        break;
-      case this.OBSTRUCAO:
-        textoVoto = 'OBSTRUÇÃO';
-        break;
-      case this.LIBEROU:
-        textoVoto = 'LIBEROU';
-        break;
-      case this.ABSTENCAO:
-        textoVoto = 'ABSTENÇÃO';
-        break;
-      case undefined:
-        if (tipo === 'governo') {
+    if (votoSecreto) {
+      textoVoto = 'VOTO SECRETO'
+    } else {
+      switch (voto) {
+        case this.SIM:
+          textoVoto = 'SIM';
+          break;
+        case this.NAO:
+          textoVoto = 'NÃO';
+          break;
+        case this.FALTOU:
+          textoVoto = 'FALTOU';
+          break;
+        case this.OBSTRUCAO:
+          textoVoto = 'OBSTRUÇÃO';
+          break;
+        case this.LIBEROU:
           textoVoto = 'LIBEROU';
           break;
-        }
-        textoVoto = '--';
-        break;
-      case null:
-        if (tipo === 'governo') {
-          textoVoto = 'LIBEROU';
+        case this.ABSTENCAO:
+          textoVoto = 'ABSTENÇÃO';
           break;
-        }
-        textoVoto = '--';
-        break;
-      default:
-        break;
+        case undefined:
+          if (tipo === 'governo') {
+            textoVoto = 'LIBEROU';
+            break;
+          }
+          textoVoto = '--';
+          break;
+        case null:
+          if (tipo === 'governo') {
+            textoVoto = 'LIBEROU';
+            break;
+          }
+          textoVoto = '--';
+          break;
+        default:
+          break;
+      }
     }
     return textoVoto;
   }
