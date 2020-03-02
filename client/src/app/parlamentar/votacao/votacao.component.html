@@ -18,10 +18,10 @@
     <div class="row">
       <div class="col-2">
         <div
-          [ngClass]="getVotacaoClass(parlamentar?.votos[votacao.idVotacao], 'parlamentar')"
+          [ngClass]="getVotacaoClass(parlamentar?.votos[votacao.idVotacao], 'parlamentar', votacao?.votacaoSecreta)"
           class="text-center"
         >
-          {{ getTextoVoto(parlamentar?.votos[votacao.idVotacao], 'parlamentar') }}
+          {{ getTextoVoto(parlamentar?.votos[votacao.idVotacao], 'parlamentar', votacao?.votacaoSecreta) }}
         </div>
       </div>
       <div class="col-10 texto-menor">

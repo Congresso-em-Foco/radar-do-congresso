@@ -14,7 +14,9 @@ const SUCCESS = 200;
 const attVotacao = [
   ["id_votacao", "idVotacao"], 
   ["obj_votacao", "objetoVotacao"], 
-  ["data_hora", "data"]];
+  ["data_hora", "data"],
+  ["votacao_secreta", "votacaoSecreta"]
+];
 
 /**
  * Lista proposições com votações
