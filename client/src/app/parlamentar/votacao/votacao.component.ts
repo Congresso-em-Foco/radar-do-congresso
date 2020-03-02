@@ -145,7 +145,7 @@ export class VotacaoComponent implements OnInit {
       url = senadoUrl;
     }
 
-    return url + str.substring(1, str.length);
+    return url + str;
   }
 
 }
