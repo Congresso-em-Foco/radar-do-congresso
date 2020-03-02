@@ -16,6 +16,7 @@ import { PartidoInvestimento } from '../models/partidoInvestimento.model';
 import { ParlamentarProposicoes } from '../models/parlamentarProposicoes.model';
 import { ParlamentarGastosCeap } from '../models/parlamentarGastosCeap.model';
 import { ParlamentarDiscursos } from '../models/parlamentarDiscursos.model';
+import { ParlamentarPatrimonio } from '../models/parlamentarPatrimonio.model';
 
 @Injectable({
   providedIn: 'root'
@@ -43,6 +44,11 @@ export class ParlamentarService {
   getDiscursosParlamentarById(id: string): Observable<ParlamentarDiscursos> {
     return this.http
       .get<ParlamentarDiscursos>(this.url + '/' + id + '/discursos');
+  }
+
+  getPatrimonioById(id: string): Observable<ParlamentarPatrimonio> {
+    return this.http
+      .get<ParlamentarPatrimonio>(this.url + '/' + id + '/patrimonio');
   }
 
   getVotacoesParlamentarPorId(id: string): Observable<Parlamentar> {
