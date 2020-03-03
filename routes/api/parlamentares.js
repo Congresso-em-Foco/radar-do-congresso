@@ -475,7 +475,7 @@ router.get("/:id/discursos", (req, res) => {
  * @param {string} id - id do parlamentar na plataforma Radar do Congresso
  */
 router.get("/:id/patrimonio", (req, res) => {
-  Parlamentar.findOne({
+  Parlamentar.find({
     attributes: [["id_parlamentar_voz", "idParlamentarVoz"]],
     include: [
       {
@@ -491,7 +491,7 @@ router.get("/:id/patrimonio", (req, res) => {
     where: { id_parlamentar_voz: req.params.id }
   })
     .then(parlamentar => {
-      return res.json(parlamentar);
+      return res.json(parlamentar.parlamentarPatrimonio);
     })
     .catch(err => res.status(BAD_REQUEST).json({ err: err.message }));
 });

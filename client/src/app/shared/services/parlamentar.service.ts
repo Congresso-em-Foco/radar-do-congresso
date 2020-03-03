@@ -46,9 +46,9 @@ export class ParlamentarService {
       .get<ParlamentarDiscursos>(this.url + '/' + id + '/discursos');
   }
 
-  getPatrimonioById(id: string): Observable<ParlamentarPatrimonio> {
+  getPatrimonioById(id: string): Observable<ParlamentarPatrimonio[]> {
     return this.http
-      .get<ParlamentarPatrimonio>(this.url + '/' + id + '/patrimonio');
+      .get<ParlamentarPatrimonio[]>(this.url + '/' + id + '/patrimonio');
   }
 
   getVotacoesParlamentarPorId(id: string): Observable<Parlamentar> {

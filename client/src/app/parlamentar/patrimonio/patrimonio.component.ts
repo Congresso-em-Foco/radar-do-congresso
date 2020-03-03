@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { Subject } from 'rxjs';
@@ -16,7 +16,9 @@ export class PatrimonioComponent implements OnInit, OnDestroy {
 
   private unsubscribe = new Subject();
 
-  public patrimonio: ParlamentarPatrimonio[];
+  patrimonio: ParlamentarPatrimonio[];
+
+  p = 1;
 
   constructor(
     private parlamentarService: ParlamentarService,
@@ -28,13 +30,17 @@ export class PatrimonioComponent implements OnInit, OnDestroy {
     });
   }
 
+  pageChange(p: number) {
+    this.p = p;
+  }
+
   getPatrimonioById(id: string) {
     this.parlamentarService
       .getPatrimonioById(id)
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(
         patrimonio => {
-          this.patrimonio = patrimonio.parlamentarPatrimonio;
+          this.patrimonio = patrimonio;
         },
         error => {
           console.log(error);
