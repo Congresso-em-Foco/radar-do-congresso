@@ -28,6 +28,7 @@ import { ProposicaoComponent } from './proposicoes/proposicao/proposicao.compone
 import { GastosCeapComponent } from './gastos-ceap/gastos-ceap.component';
 import { DiscursosComponent } from './discursos/discursos.component';
 import { DiscursoComponent } from './discursos/discurso/discurso.component';
+import { EleicaoComponent } from './eleicao/eleicao.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { DiscursoComponent } from './discursos/discurso/discurso.component';
     ProposicaoComponent,
     GastosCeapComponent,
     DiscursosComponent,
-    DiscursoComponent
+    DiscursoComponent,
+    EleicaoComponent
   ],
   imports: [
     CommonModule,
