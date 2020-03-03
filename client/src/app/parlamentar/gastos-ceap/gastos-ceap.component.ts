@@ -17,7 +17,7 @@ export class GastosCeapComponent implements OnInit, OnDestroy {
 
   private unsubscribe = new Subject();
 
-  gastosCeap: GastosCeap [];
+  gastosCeap: GastosCeap[];
   gastosCeapAgregados: any[];
   chartData: any[];
 
@@ -39,29 +39,29 @@ export class GastosCeapComponent implements OnInit, OnDestroy {
 
   getParlamentarGastosCeapById(id: string) {
     this.parlamentarService.getGastosCeapByid(id)
-    .pipe(takeUntil(this.unsubscribe))
-    .subscribe(
-      parlamentarGastosCeap => {
-        this.gastosCeap = parlamentarGastosCeap.parlamentarGastosCeap;
-        this.agregaGastorPorCategoria(this.gastosCeap);
-      },
-      error => {
-        console.log(error);
-      }
-    );
+      .pipe(takeUntil(this.unsubscribe))
+      .subscribe(
+        parlamentarGastosCeap => {
+          this.gastosCeap = parlamentarGastosCeap.parlamentarGastosCeap;
+          this.agregaGastorPorCategoria(this.gastosCeap);
+        },
+        error => {
+          console.log(error);
+        }
+      );
 
   }
   agregaGastorPorCategoria(gastosCeap: GastosCeap[]) {
-    let arr = [];
+    const arr = [];
 
     gastosCeap.reduce((rv, x) => {
-        if(!rv[x.categoria]) {
-          rv[x.categoria] = {"categoria": x.categoria, "valor_gasto": 0};
-          arr.push(rv[x.categoria]);
-        }
-        rv[x.categoria].valor_gasto = rv[x.categoria].valor_gasto + x.valor_gasto;
-        return rv;
-      }, {});
+      if (!rv[x.categoria]) {
+        rv[x.categoria] = { categoria: x.categoria, valor_gasto: 0 };
+        arr.push(rv[x.categoria]);
+      }
+      rv[x.categoria].valor_gasto = rv[x.categoria].valor_gasto + x.valor_gasto;
+      return rv;
+    }, {});
 
     arr.map(x => this.gastosCeapAgregados.push([x.categoria, x.valor_gasto]));
     this.setChartdata(this.gastosCeapAgregados);

@@ -98,7 +98,7 @@ export class VotacaoComponent implements OnInit {
   getTextoVoto(voto: number, tipo: string, votoSecreto: boolean): string {
     let textoVoto: string;
     if (votoSecreto) {
-      textoVoto = 'VOTO SECRETO'
+      textoVoto = 'VOTO SECRETO';
     } else {
       switch (voto) {
         case this.SIM:
