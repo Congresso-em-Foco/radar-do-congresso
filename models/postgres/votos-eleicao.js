@@ -11,6 +11,8 @@ module.exports = (sequelize, type) => {
         type: type.INTEGER,
         primaryKey: true
       },
+      uf: type.STRING,
+      id_partido: type.STRING,
       total_votos: type.INTEGER,
       total_votos_uf: type.INTEGER,
       proporcao_votos: type.REAL
@@ -26,6 +28,11 @@ module.exports = (sequelize, type) => {
       foreignKey: "id_parlamentar_voz",
       sourceKey: "id_parlamentar_voz",
       as: "votosEleicaoParlamentares"
+    }),
+    votosEleicao.belongsTo(models.partido, {
+      foreignKey: "id_partido",
+      targetKey: "id_partido",      
+      as: "votosEleicaoPartido"
     })
   };
   return votosEleicao;

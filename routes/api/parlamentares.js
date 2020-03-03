@@ -506,8 +506,15 @@ router.get("/:id/patrimonio", (req, res) => {
  */
 router.get("/:id/eleicao", (req, res) => {
   VotosEleicao.findOne({
-    attributes: [["id_parlamentar_voz", "idParlamentarVoz"], "casa", "ano", ["total_votos", "totalVotos"],
+    attributes: [["id_parlamentar_voz", "idParlamentarVoz"], "casa", "ano", ["total_votos", "totalVotos"], "uf",
     ["total_votos_uf", "totalVotosUF"], ["proporcao_votos", "proporcaoVotos"]],
+    include: [
+      {
+        model: Partido,        
+        as: "votosEleicaoPartido",
+        attributes: ["sigla"]
+      }
+    ],
     where: { id_parlamentar_voz: req.params.id }
   })
     .then(parlamentar => {
