@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 
@@ -15,7 +15,10 @@ export class AssiduidadeService {
 
   constructor(private http: HttpClient) { }
 
-  get(): Observable<Assiduidade[]> {
-    return this.http.get<Assiduidade[]>(this.url);
+  get(casa: string, ano: string): Observable<Assiduidade[]> {
+    const params = new HttpParams()
+      .set('casa', casa)
+      .set('ano', ano);
+    return this.http.get<Assiduidade[]>(this.url, { params });
   }
 }

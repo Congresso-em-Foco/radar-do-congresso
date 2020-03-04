@@ -1,3 +1,47 @@
 <div class="container">
-  <h1>Assiduidade</h1>
+  <h2>Assiduidade na Câmara dos Deputados</h2>
+  <div class="mb-4">
+    <button
+      type="button"
+      [ngClass]="{'btn': true, 'btn-primary': ano == '2020', 'btn-light': ano != '2020'}"
+      (click)="setAno('2020')"
+    >
+      2020
+    </button>
+    &nbsp;
+    <button
+      type="button"
+      [ngClass]="{'btn': true, 'btn-primary': ano == '2019', 'btn-light': ano != '2019'}"
+      (click)="setAno('2019')"
+    >
+      2019
+    </button>
+  </div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Parlamentar</th>
+        <th>Partido/UF</th>
+        <th>Sessões</th>
+        <th>Presença</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let parlamentar of assiduidade?.parlamentares">
+        <td>
+          {{ parlamentar.assiduidadeParlamentar.nomeEleitoral }}
+        </td>
+        <td>
+          {{ parlamentar.assiduidadeParlamentar.parlamentarPartido.sigla }} /
+          {{ parlamentar.assiduidadeParlamentar.uf }}
+        </td>
+        <td class="text-right">
+          {{ parlamentar.totalSessoesDeliberativas }}
+        </td>
+        <td class="text-right">
+          {{ parlamentar.totalPresenca | percent:'1.1' }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>

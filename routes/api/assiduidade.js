@@ -51,7 +51,8 @@ router.get("/", casaValidator.validate, (req, res) => {
     return res.status(400).json({ errors: errors.array() });
   }
 
-  const casa = req.param("casa") || "camara"
+  const casa = req.param("casa") || "camara";
+  const ano = req.param("ano") || 2020;
 
   Assiduidade.findAll({
     attributes: attAssiduidade,
@@ -71,7 +72,8 @@ router.get("/", casaValidator.validate, (req, res) => {
       }
     ],
     where: {
-      casa: casa
+      casa: casa,
+      ano: ano
     },
     order: [
       ["ano", "ASC"],

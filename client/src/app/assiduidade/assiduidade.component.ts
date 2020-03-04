@@ -15,26 +15,33 @@ export class AssiduidadeComponent implements OnInit, OnDestroy {
 
   private unsubscribe = new Subject();
 
-  public assiduidade: Assiduidade[];
+  public assiduidade: Assiduidade;
+  public ano: string;
 
   constructor(private assiduidadeService: AssiduidadeService) { }
 
   ngOnInit() {
-    this.getAssiduidade();
+    this.ano = '2020';
+    this.getAssiduidade(this.ano);
   }
 
-  getAssiduidade() {
+  getAssiduidade(ano: string) {
     this.assiduidadeService
-      .get()
+      .get('camara', ano)
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(
         assiduidade => {
-          this.assiduidade = assiduidade;
+          this.assiduidade = assiduidade[0];
         },
         error => {
           console.log(error);
         }
       );
+  }
+
+  setAno(ano: string) {
+    this.ano = ano;
+    this.getAssiduidade(this.ano);
   }
 
   ngOnDestroy() {
