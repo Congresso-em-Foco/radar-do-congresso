@@ -67,12 +67,12 @@ router.get("/", casaValidator.validate, (req, res) => {
           as: "parlamentarPartido",
           attributes: attPartido,
           }
-        ],
-        where: {
-          casa: casa
-        }
+        ]
       }
     ],
+    where: {
+      casa: casa
+    },
     order: [
       ["ano", "ASC"],
       ["dias_presentes", "DESC"]

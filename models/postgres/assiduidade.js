@@ -10,6 +10,7 @@ module.exports = (sequelize, type) => {
         type: type.INTEGER,
         primaryKey: true
       },
+      casa: type.STRING,
       dias_com_sessoes_deliberativas: type.INTEGER,
       dias_presentes: type.INTEGER,
       dias_ausencias_justificadas: type.INTEGER,
