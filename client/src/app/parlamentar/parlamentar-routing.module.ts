@@ -7,6 +7,7 @@ import { GastosCeapComponent } from './gastos-ceap/gastos-ceap.component';
 import { VotacoesComponent } from './votacoes/votacoes.component';
 import { DiscursosComponent } from './discursos/discursos.component';
 import { PatrimonioComponent } from './patrimonio/patrimonio.component';
+import { EleicaoComponent } from './eleicao/eleicao.component';
 
 const routes: Routes = [
   {
@@ -33,6 +34,10 @@ const routes: Routes = [
       {
         path: 'patrimonio',
         component: PatrimonioComponent
+      },
+      {
+        path: 'eleicao',
+        component: EleicaoComponent
       }
     ]
   }

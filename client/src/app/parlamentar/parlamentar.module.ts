@@ -30,6 +30,7 @@ import { DiscursosComponent } from './discursos/discursos.component';
 import { DiscursoComponent } from './discursos/discurso/discurso.component';
 import { PatrimonioComponent } from './patrimonio/patrimonio.component';
 import { BemComponent } from './patrimonio/bem/bem.component';
+import { EleicaoComponent } from './eleicao/eleicao.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { BemComponent } from './patrimonio/bem/bem.component';
     DiscursosComponent,
     DiscursoComponent,
     PatrimonioComponent,
-    BemComponent
+    BemComponent,
+    EleicaoComponent
   ],
   imports: [
     CommonModule,

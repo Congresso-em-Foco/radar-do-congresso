@@ -1,0 +1,26 @@
+<div class="container-sm mb-3">
+  <h4 class="title-main my-4">Votos na eleição {{ eleicao?.ano }}</h4>
+  <div class="eleicao ">
+    <div class="progress">
+      <div
+        class="progress-bar"
+        role="progressbar"
+        aria-valuemin="0"
+        aria-valuemax="100"
+        [ngStyle]="{ width: ((eleicao?.totalVotos/eleicao?.totalVotosUF) * 100) + '%' }"
+      ></div>
+    </div>
+    <div class="row">
+      <div class="col">
+        {{ eleicao?.totalVotos | number }} / {{ eleicao?.totalVotosUF | number }}
+      </div>
+      <div class="col text-right">
+        {{ eleicao?.totalVotos/eleicao?.totalVotosUF | percent:'1.2' }}
+      </div>
+    </div>
+    <div class="mt-4">
+      <strong>Partido nas eleições:</strong>
+      {{ eleicao?.votosEleicaoPartido.sigla }}
+    </div>
+  </div>
+</div>
