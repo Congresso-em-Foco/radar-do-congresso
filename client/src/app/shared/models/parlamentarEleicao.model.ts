@@ -5,6 +5,5 @@ export interface ParlamentarEleicao {
   totalVotos: number;
   uf: string;
   totalVotosUF: number;
-  proporcaoVotos: number;
   votosEleicaoPartido: any;
 }
