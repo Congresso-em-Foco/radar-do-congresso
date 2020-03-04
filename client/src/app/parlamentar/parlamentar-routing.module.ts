@@ -6,6 +6,7 @@ import { ProposicoesComponent } from './proposicoes/proposicoes.component';
 import { GastosCeapComponent } from './gastos-ceap/gastos-ceap.component';
 import { VotacoesComponent } from './votacoes/votacoes.component';
 import { DiscursosComponent } from './discursos/discursos.component';
+import { PatrimonioComponent } from './patrimonio/patrimonio.component';
 
 const routes: Routes = [
   {
@@ -28,6 +29,10 @@ const routes: Routes = [
       {
         path: 'discursos',
         component: DiscursosComponent
+      },
+      {
+        path: 'patrimonio',
+        component: PatrimonioComponent
       }
     ]
   }
