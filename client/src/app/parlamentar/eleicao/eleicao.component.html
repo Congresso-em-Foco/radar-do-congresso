@@ -7,7 +7,7 @@
         role="progressbar"
         aria-valuemin="0"
         aria-valuemax="100"
-        [ngStyle]="{ width: (eleicao?.proporcaoVotos * 100) + '%' }"
+        [ngStyle]="{ width: ((eleicao?.totalVotos/eleicao?.totalVotosUF) * 100) + '%' }"
       ></div>
     </div>
     <div class="row">
@@ -15,7 +15,7 @@
         {{ eleicao?.totalVotos | number }} / {{ eleicao?.totalVotosUF | number }}
       </div>
       <div class="col text-right">
-        {{ eleicao?.proporcaoVotos | percent:'1.2' }}
+        {{ eleicao?.totalVotos/eleicao?.totalVotosUF | percent:'1.2' }}
       </div>
     </div>
     <div class="mt-4">

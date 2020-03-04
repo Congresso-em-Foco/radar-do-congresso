@@ -14,8 +14,7 @@ module.exports = (sequelize, type) => {
       uf: type.STRING,
       id_partido: type.STRING,
       total_votos: type.INTEGER,
-      total_votos_uf: type.INTEGER,
-      proporcao_votos: type.REAL
+      total_votos_uf: type.INTEGER
     },
     {
       timestamps: false,
