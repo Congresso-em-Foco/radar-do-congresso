@@ -11,6 +11,7 @@ const forceSsl = require('force-ssl-heroku');
 const parlamentares = require("./routes/api/parlamentares");
 const buscaParlamentar = require("./routes/api/busca-parlamentar");
 const proposicoes = require("./routes/api/proposicao");
+const assiduidade = require("./routes/api/assiduidade");
 
 const app = express();
 app.use(forceSsl);
@@ -46,6 +47,7 @@ db.sequelize
 app.use("/api/parlamentares", parlamentares);
 app.use("/api/busca-parlamentar", buscaParlamentar);
 app.use("/api/proposicoes", proposicoes);
+app.use("/api/assiduidade", assiduidade);
 
 // Set static folder
 app.use(express.static("client/build"));
