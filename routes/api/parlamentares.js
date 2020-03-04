@@ -19,6 +19,7 @@ const Partido = models.partido;
 const GastosCeap = models.gastosCeap;
 const Patrimonio = models.patrimonio;
 const Discursos = models.discursos;
+const VotosEleicao = models.votosEleicao;
 
 const BAD_REQUEST = 400;
 const SUCCESS = 200;
@@ -38,7 +39,7 @@ const attComissoes = ["sigla", "nome"];
 const attComposicaoComissoes = [["id_comissao_voz", "idComissaoVoz"], "cargo"];
 const attPartido = [["id_partido", "idPartido"], "sigla", "tipo"]
 const attGastosCeap = [
-  "categoria", 
+  "categoria",
   "especificacao",
   ["data_emissao", "dataEmissao"],
   "fornecedor",
@@ -125,52 +126,52 @@ router.get("/", (req, res) => {
  */
 router.get("/partidos", casaValidator.validate, (req, res) => {
 
-    const errors = validationResult(req);
+  const errors = validationResult(req);
 
-    if (!errors.isEmpty()) {
-      return res.status(BAD_REQUEST).json({ errors: errors.array() });
-    }
+  if (!errors.isEmpty()) {
+    return res.status(BAD_REQUEST).json({ errors: errors.array() });
+  }
 
-    const casa = req.param("casa") || "camara"
+  const casa = req.param("casa") || "camara"
 
-    Parlamentar.findAll({
-      attributes: att,
-      where: {
-        em_exercicio: true,
-        casa: casa
-      },
-      include: [{
-        model: Partido,
-        as: "parlamentarPartido"
-      }]
-    })
-      .then(parlamentares => {
-        let partidosPorEstado = []
+  Parlamentar.findAll({
+    attributes: att,
+    where: {
+      em_exercicio: true,
+      casa: casa
+    },
+    include: [{
+      model: Partido,
+      as: "parlamentarPartido"
+    }]
+  })
+    .then(parlamentares => {
+      let partidosPorEstado = []
 
-        const estados = [...new Set(parlamentares.map(item => item.uf))];
+      const estados = [...new Set(parlamentares.map(item => item.uf))];
 
-        estados.push("Estados");
+      estados.push("Estados");
 
-        estados.forEach(estado => {
-          let parlamentaresFiltered;
-          if (estado !== "Estados")
-            parlamentaresFiltered = parlamentares.filter(value => value.uf === estado);
-          else
-            parlamentaresFiltered = parlamentares;
+      estados.forEach(estado => {
+        let parlamentaresFiltered;
+        if (estado !== "Estados")
+          parlamentaresFiltered = parlamentares.filter(value => value.uf === estado);
+        else
+          parlamentaresFiltered = parlamentares;
 
-          const partidosSet = new Set();
+        const partidosSet = new Set();
 
-          parlamentaresFiltered.forEach(cand => {
-            partidosSet.add(cand.parlamentarPartido.sigla);
-          });
-
-          partidosPorEstado.push({ estado: estado, partidos: [...partidosSet].sort((a, b) => a.localeCompare(b)) });
+        parlamentaresFiltered.forEach(cand => {
+          partidosSet.add(cand.parlamentarPartido.sigla);
         });
 
-        res.json(partidosPorEstado);
-      })
-      .catch(err => res.status(BAD_REQUEST).json({ error: err.message }));
-  });
+        partidosPorEstado.push({ estado: estado, partidos: [...partidosSet].sort((a, b) => a.localeCompare(b)) });
+      });
+
+      res.json(partidosPorEstado);
+    })
+    .catch(err => res.status(BAD_REQUEST).json({ error: err.message }));
+});
 
 
 /**
@@ -419,12 +420,12 @@ router.get("/:id/proposicoes", (req, res) => {
     attributes: [["id_parlamentar_voz", "idParlamentarVoz"]],
     include: [
       {
-        model: ParlamentarProposicao,        
+        model: ParlamentarProposicao,
         attributes: [["id_proposicao_voz", "idProposicaoVoz"]],
         as: "proposicaoAutores",
         required: false,
         include: [{
-          model: Proposicao,          
+          model: Proposicao,
           attributes: [["id_proposicao", "idProposicao"], "casa", "nome", "ementa"],
           as: "proposicaoDetalhes",
           required: true
@@ -451,9 +452,9 @@ router.get("/:id/discursos", (req, res) => {
     attributes: [["id_parlamentar_voz", "idParlamentarVoz"]],
     include: [
       {
-        model: Discursos,        
+        model: Discursos,
         attributes: ["casa", "tipo", "data", "resumo", "link"],
-        as: "parlamentarDiscursos",        
+        as: "parlamentarDiscursos",
       }
     ],
     order: [
@@ -479,14 +480,40 @@ router.get("/:id/patrimonio", (req, res) => {
     attributes: [["id_parlamentar_voz", "idParlamentarVoz"]],
     include: [
       {
-        model: Patrimonio,        
-        attributes: [["ano_eleicao", "anoEleicao"], ["ds_cargo", "cargo"], ["ds_tipo_bem", "tipoBem"], 
+        model: Patrimonio,
+        attributes: [["ano_eleicao", "anoEleicao"], ["ds_cargo", "cargo"], ["ds_tipo_bem", "tipoBem"],
         ["ds_bem", "descricaoBem"], ["valor_bem", "valorBem"]],
-        as: "parlamentarPatrimonio",        
+        as: "parlamentarPatrimonio",
       }
     ],
     order: [
       ['parlamentarPatrimonio', 'valor_bem', 'DESC']
+    ],
+    where: { id_parlamentar_voz: req.params.id }
+  })
+    .then(parlamentar => {
+      return res.json(parlamentar);
+    })
+    .catch(err => res.status(BAD_REQUEST).json({ err: err.message }));
+});
+
+/**
+ * Recupera informações de votos na eleição para um parlamentar a partir de seu id
+ * @name get/api/parlamentares/:id/eleicao
+ * @function
+ * @memberof module:routes/parlamentares
+ * @param {string} id - id do parlamentar na plataforma Radar do Congresso
+ */
+router.get("/:id/eleicao", (req, res) => {
+  VotosEleicao.findOne({
+    attributes: [["id_parlamentar_voz", "idParlamentarVoz"], "casa", "ano", ["total_votos", "totalVotos"], "uf",
+    ["total_votos_uf", "totalVotosUF"]],
+    include: [
+      {
+        model: Partido,        
+        as: "votosEleicaoPartido",
+        attributes: ["sigla"]
+      }
     ],
     where: { id_parlamentar_voz: req.params.id }
   })

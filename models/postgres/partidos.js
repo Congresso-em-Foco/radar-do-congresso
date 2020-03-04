@@ -19,6 +19,11 @@ module.exports = (sequelize, type) => {
       foreignKey: "id_partido",
       targetKey: "id_partido",
       as: "parlamentarPartido"
+    }),
+    partido.hasMany(models.votosEleicao, {
+      foreignKey: "id_partido",
+      targetKey: "id_partido",
+      as: "votosEleicaoPartido"
     })
   };
   return partido;
