@@ -17,6 +17,7 @@ export class AssiduidadeComponent implements OnInit, OnDestroy {
 
   public assiduidade: Assiduidade;
   public ano: string;
+  public p = 1;
 
   constructor(private assiduidadeService: AssiduidadeService) { }
 
@@ -41,7 +42,12 @@ export class AssiduidadeComponent implements OnInit, OnDestroy {
 
   setAno(ano: string) {
     this.ano = ano;
+    this.pageChange(1);
     this.getAssiduidade(this.ano);
+  }
+
+  pageChange(p: number) {
+    this.p = p;
   }
 
   ngOnDestroy() {
