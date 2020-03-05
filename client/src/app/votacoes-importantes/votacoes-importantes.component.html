@@ -8,6 +8,7 @@
           name="proposicao"
           class="form-control"
           [(ngModel)]="proposicaoSelecionada"
+          (change)="onChangeProposicao()"
         >
           <option
             *ngFor="let proposicao of proposicoes"
@@ -21,7 +22,7 @@
   </div>
   <div class="my-4" *ngIf="proposicaoSelecionada">
     <div class="objeto">
-      <h3>{{ proposicaoSelecionada?.nome }}</h3>
+      <h4>{{ proposicaoSelecionada?.nome }}</h4>
       <p><strong>Ementa:</strong> {{ proposicaoSelecionada?.ementa }}</p>
     </div>
 

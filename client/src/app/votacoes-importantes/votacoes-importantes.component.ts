@@ -47,7 +47,12 @@ export class VotacoesImportantesComponent implements OnInit, OnDestroy {
   }
 
   selecionarProposicao(proposicao: Proposicao) {
+    this.p = 1;
     this.proposicaoSelecionada = proposicao;
+  }
+
+  onChangeProposicao() {
+    this.p = 1;
   }
 
   getTextoVoto(voto: number, votoSecreto: boolean): string {
