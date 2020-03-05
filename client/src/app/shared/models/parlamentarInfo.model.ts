@@ -10,6 +10,11 @@ export class ParlamentarInfo {
   public parlamentarPartido: Partido;
   public emExercicio: boolean;
   public idPerfilPolitico: string;
+  public dataNascimento: Date;
+  public naturalidade: string;
+  public endereco: string;
+  public telefone: string;
+  public email: string;
 
   constructor(parlamentar: any) {
     this.idParlamentarVoz = parlamentar.id_parlamentar_voz;
@@ -20,6 +25,11 @@ export class ParlamentarInfo {
     this.parlamentarPartido = parlamentar.parlamentarPartido;
     this.emExercicio = parlamentar.em_exercicio;
     this.idPerfilPolitico = parlamentar.id_perfil_politico;
+    this.dataNascimento = parlamentar.dataNascimento;
+    this.naturalidade = parlamentar.naturalidade;
+    this.endereco = parlamentar.endereco;
+    this.telefone = parlamentar.telefone;
+    this.email = parlamentar.email;
   }
 
   getFoto(): string {

@@ -17,7 +17,11 @@ module.exports = (sequelize, type) => {
         situacao: type.STRING,
         condicao_eleitoral: type.STRING,
         ultima_legislatura: type.STRING,
-        em_exercicio: type.BOOLEAN
+        em_exercicio: type.BOOLEAN,
+        data_nascimento: type.DATE,
+        naturalidade: type.STRING,
+        endereco: type.STRING,
+        telefone: type.STRING
       },
       {
         timestamps: false
