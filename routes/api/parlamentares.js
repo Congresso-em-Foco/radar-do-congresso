@@ -222,12 +222,12 @@ router.get("/:id/info", (req, res) => {
       "nome_eleitoral",
       "uf",
       "em_exercicio",
-      "casa",
-    ["data_nascimento", "dataNascimento"],
-    "naturalidade",
-    "endereco",
-    "telefone",
-    "email"],
+      ["data_nascimento", "dataNascimento"],
+      "naturalidade",
+      "endereco",
+      "telefone",
+      "email"
+    ],
     where: {
       id_parlamentar_voz: req.params.id
     },
