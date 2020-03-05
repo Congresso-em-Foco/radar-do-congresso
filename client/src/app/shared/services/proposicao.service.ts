@@ -17,7 +17,10 @@ export class ProposicaoService {
   getProposicoesVotacoes(casa: string): Observable<Proposicao[]> {
     const params = new HttpParams().set('casa', casa);
 
-    return this.http
-      .get<Proposicao[]>(this.url + '/votacoes', { params });
+    return this.http.get<Proposicao[]>(this.url + '/votacoes', { params });
+  }
+
+  getProposicoesImportantes(): Observable<Proposicao[]> {
+    return this.http.get<Proposicao[]>(this.url + '/importantes');
   }
 }
