@@ -32,7 +32,8 @@ const att = [
   ["nome_eleitoral", "nomeEleitoral"],
   "uf",
   "genero",
-  ["em_exercicio", "emExercicio"]
+  ["em_exercicio", "emExercicio"],
+  "casa"
 ];
 const attComissoes = ["sigla", "nome"];
 const attComposicaoComissoes = [["id_comissao_voz", "idComissaoVoz"], "cargo"];
