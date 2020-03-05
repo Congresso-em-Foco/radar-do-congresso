@@ -9,6 +9,7 @@ const routes: Routes = [
   },
   { path: 'parlamentar', loadChildren: './parlamentar/parlamentar.module#ParlamentarModule' },
   { path: 'parlamentares', loadChildren: './busca-parlamentar/busca-parlamentar.module#BuscaParlamentarModule' },
+  { path: 'votacoes', loadChildren: './votacoes-importantes/votacoes-importantes.module#VotacoesImportantesModule' },
   { path: 'sobre', loadChildren: './main/main.module#MainModule' },
   { path: '**', redirectTo: '' }
 ];
