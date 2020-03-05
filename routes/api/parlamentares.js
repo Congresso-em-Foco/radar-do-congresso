@@ -33,7 +33,11 @@ const att = [
   "uf",
   "genero",
   ["em_exercicio", "emExercicio"],
-  "casa"
+  "casa",
+  ["data_nascimento", "dataNascimento"],
+  "naturalidade",
+  "endereco",
+  "telefone"
 ];
 const attComissoes = ["sigla", "nome"];
 const attComposicaoComissoes = [["id_comissao_voz", "idComissaoVoz"], "cargo"];
