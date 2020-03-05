@@ -32,12 +32,7 @@ const att = [
   ["nome_eleitoral", "nomeEleitoral"],
   "uf",
   "genero",
-  ["em_exercicio", "emExercicio"],
-  "casa",
-  ["data_nascimento", "dataNascimento"],
-  "naturalidade",
-  "endereco",
-  "telefone"
+  ["em_exercicio", "emExercicio"]
 ];
 const attComissoes = ["sigla", "nome"];
 const attComposicaoComissoes = [["id_comissao_voz", "idComissaoVoz"], "cargo"];
@@ -226,7 +221,13 @@ router.get("/:id/info", (req, res) => {
       "casa",
       "nome_eleitoral",
       "uf",
-      "em_exercicio"],
+      "em_exercicio",
+      "casa",
+    ["data_nascimento", "dataNascimento"],
+    "naturalidade",
+    "endereco",
+    "telefone",
+    "email"],
     where: {
       id_parlamentar_voz: req.params.id
     },

@@ -78,9 +78,27 @@
       <div class="col">
         <div class="parlamentar-title">{{ parlamentar.nomeEleitoral }}</div>
         <p>
-          {{getCargoParlamentar(parlamentar?.casa)}}
-          <br>
-          {{ parlamentar.parlamentarPartido.sigla }}/{{ parlamentar.uf }}
+          {{getCargoParlamentar(parlamentar?.casa)}} - {{ parlamentar.parlamentarPartido.sigla }}/{{ parlamentar.uf }}
+        </p>
+        <p>
+          <b>Data de nascimento:</b>
+          {{ parlamentar.dataNascimento | date:'dd-MM-yyyy' }}
+        </p>
+        <p>
+          <b>Naturalidade:</b>
+          {{ parlamentar.naturalidade }}
+        </p>
+        <p>
+          <b>Endereço:</b>
+          {{ parlamentar.endereco ? parlamentar.endereco : 'Indisponível'}}
+        </p>
+        <p>
+          <b>Telefone:</b>
+          {{ parlamentar.telefone ? parlamentar.telefone : 'Indisponível'}}
+        </p>
+        <p>
+          <b>Email:</b>
+          {{ parlamentar.email ? parlamentar.email : 'Indisponível'}}
         </p>
       </div>
     </div>
