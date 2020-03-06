@@ -7,3 +7,61 @@
 #content-wrap {
   padding-bottom: 150px;
 }
+#page-container {
+  position: relative;
+  min-height: 100vh;
+  background-color: #fff;
+}
+
+#content-wrap {
+  padding-bottom: 150px;
+}
+
+h4 {
+  padding-top: 20px;
+  font-weight: bold;
+}
+
+#relatorios img, #analises img, #artigos img {
+  width: 70px;
+  height: 70px;
+}
+
+#relatorios, #artigos, #analises {
+  width: 340px;
+  height: 210px;
+  padding: 20px 20px 20px 20px;
+  background-color: #00AB56;
+  margin-right: 10px;
+  margin-left: 10px;
+  display: inline-block;
+}
+
+#relatorios a, #artigos a, #analises a {
+  text-decoration: none;
+  color: white;
+}
+
+#analises {
+  background-color: #29348E;
+}
+
+#rodape {
+  width: 100%;
+  height: auto;
+  text-align: center;
+  color: white;
+}
+
+.footer {
+  padding: 20px 0px 20px 0px;
+}
+
+@media all and (max-width: 980px) {
+
+	#relatorios, #artigos, #analises {
+    margin-right: 0px;
+    margin-bottom: 20px;
+    width: 100%;
+  }
+}
