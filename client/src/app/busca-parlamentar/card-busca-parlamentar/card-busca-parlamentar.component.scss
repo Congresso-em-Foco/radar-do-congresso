@@ -71,6 +71,13 @@
   > span {
     color: #adb5bd;
   }
+
+}
+
+  .parlamentar-title {
+    @media (max-width: 980px) {
+      padding-bottom: 20px;
+    }
 }
 
 .parlamentar-subtitle {
