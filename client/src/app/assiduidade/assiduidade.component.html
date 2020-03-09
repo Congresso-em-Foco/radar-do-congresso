@@ -1,5 +1,7 @@
 <div class="container">
-  <h2>Assiduidade na Câmara dos Deputados</h2>
+  <div class="assiduidade-header">
+    <h4>Assiduidade na Câmara dos Deputados</h4>
+    <br>
   <div class="mb-4">
     <button
       type="button"
@@ -16,6 +18,7 @@
     >
       2019
     </button>
+  </div>
   </div>
 
   <pagination-template
@@ -83,10 +86,10 @@
           {{ parlamentar.assiduidadeParlamentar.parlamentarPartido.sigla }} /
           {{ parlamentar.assiduidadeParlamentar.uf }}
         </td>
-        <td class="text-right">
+        <td class="text-left">
           {{ parlamentar.totalSessoesDeliberativas }}
         </td>
-        <td class="text-right">
+        <td class="text-left">
           {{ parlamentar.totalPresenca | percent:'1.1' }}
         </td>
       </tr>
