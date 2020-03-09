@@ -82,7 +82,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let voto of proposicaoSelecionada?.proposicaoVotacoes[0].votacoesVoto | paginate: { itemsPerPage: 50, currentPage: p }; index as i;">
+        <tr *ngFor="let voto of proposicaoSelecionada?.proposicaoVotacoes[0].votacoesVoto | paginate: { itemsPerPage: 90, currentPage: p }; index as i;">
           <td>
             {{ voto.votoParlamentar.nomeEleitoral }}
           </td>

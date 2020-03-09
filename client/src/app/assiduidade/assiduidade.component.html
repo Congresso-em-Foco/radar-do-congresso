@@ -1,8 +1,7 @@
 <div class="container">
   <div class="assiduidade-header">
-    <h4>Assiduidade na Câmara dos Deputados</h4>
-    <br>
-  <div class="mb-4">
+    <p>Assiduidade na Câmara dos Deputados</p>
+ <div class="mb-4">
     <button
       type="button"
       [ngClass]="{'btn': true, 'btn-primary': ano == '2020', 'btn-light': ano != '2020'}"
@@ -78,7 +77,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let parlamentar of assiduidade?.parlamentares | paginate: { itemsPerPage: 50, currentPage: p }; index as i;">
+      <tr *ngFor="let parlamentar of assiduidade?.parlamentares | paginate: { itemsPerPage: 90, currentPage: p }; index as i;">
         <td>
           {{ parlamentar.assiduidadeParlamentar.nomeEleitoral }}
         </td>
