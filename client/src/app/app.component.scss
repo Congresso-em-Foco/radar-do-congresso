@@ -28,11 +28,6 @@ h4 {
   display: inline-block;
 }
 
-#relatorios a, #artigos a, #analises a {
-  text-decoration: none;
-  color: white;
-}
-
 #analises {
   background-color: #29348E;
 }
@@ -58,6 +53,7 @@ h4 {
   }
 }
 
-.link {
+.link, #artigos {
   cursor: pointer;
 }
+
