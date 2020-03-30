@@ -71,11 +71,18 @@
   > span {
     color: #adb5bd;
   }
+
 }
 
 .parlamentar-subtitle {
   @media (min-width: 576px) {
     text-align: center;
+  }
+}
+
+.parlamentar-title {
+  @media (max-width: 575.98px) {
+    margin-top: 20px;
   }
 }
 

@@ -8,5 +8,32 @@
       ></router-outlet>
     </div>
   </div>
-  <!-- <app-footer></app-footer> -->
+  
+<footer class="page-footer">
+  <div id="rodape">
+    <div id="relatorios">
+      <!--<a href="">-->
+      <img src="assets/imgs/newspaper.png">
+      <h4>Relatórios</h4>
+      <p>Relatórios sob demanda baseados nos dados do Radar do Congresso</p>
+      <!--</a>-->
+    </div>
+    <div id="analises">
+      <!--<a href="">-->
+      <img src="assets/imgs/research.png">
+      <h4>Análises</h4>
+      <p>Análises exclusivas sobre a atividade do Congresso Nacional</p>
+      <!--</a>-->
+    </div>
+    <div id="artigos" (click)='tagCongressoNacional()'>
+      <img src="assets/imgs/news.png">
+      <h4>Artigos</h4>
+      <p>Confira as últimas notícias do Congresso Nacional</p>
+    </div>
+  </div>
+  <div class="footer text-center">Desenvolvido por:<br><br>
+    <img class="link" src="assets/imgs/congresso_em_foco.png" (click)='siteCongressoEmFoco()'>
+    <br><br>© 2020 - Radar do Congresso<br>Todos os direitos reservados
+  </div>
+</footer>
 </div>
