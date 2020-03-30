@@ -114,7 +114,7 @@
       <thead>
         <tr>
           <th>Parlamentar</th>
-          <th>UF</th>
+          <th>Partido/UF</th>
           <th>Voto</th>
         </tr>
       </thead>
@@ -123,7 +123,7 @@
           <td>
             {{ voto.votoParlamentar.nomeEleitoral }}
           </td>
-          <td>{{ voto.votoParlamentar.uf }}</td>
+          <td>{{ voto.votoParlamentar.parlamentarPartido.sigla }}/{{ voto.votoParlamentar.uf }}</td>
           <td class="text-center">
             {{ getTextoVoto(voto.voto, proposicaoSelecionada?.votacaoSecreta) }}
           </td>

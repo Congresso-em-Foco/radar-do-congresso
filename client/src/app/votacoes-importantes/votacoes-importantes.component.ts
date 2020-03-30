@@ -58,11 +58,12 @@ export class VotacoesImportantesComponent implements OnInit, OnDestroy {
   onChangeProposicao() {
     this.votacaoSelecionada = this.proposicaoSelecionada.proposicaoVotacoes[0];
     this.votacaoSelecionadaVotos = this.getVotosByVotacao(this.proposicaoSelecionada.proposicaoVotacoes[0]);
+    this.onChangeVotacao();
   }
 
   onChangeVotacao() {
     this.p = 1;
-    this.votacaoSelecionadaVotos = this.getVotosByVotacao(this.proposicaoSelecionada.proposicaoVotacoes[0]);
+    this.votacaoSelecionadaVotos = this.getVotosByVotacao(this.votacaoSelecionada);
   }
 
   getVotosByVotacao(votacao: any) {
