@@ -96,33 +96,35 @@
     </nav>
   </pagination-template>
 
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Parlamentar</th>
-        <th>Partido/UF</th>
-        <th>Sessões</th>
-        <th>Presença</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let parlamentar of assiduidade?.parlamentares | paginate: { itemsPerPage: 90, currentPage: p }; index as i;">
-        <td>
-          {{ parlamentar.assiduidadeParlamentar.nomeEleitoral }}
-        </td>
-        <td>
-          {{ parlamentar.assiduidadeParlamentar.parlamentarPartido.sigla }} /
+  <div class="table-responsive">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Parlamentar</th>
+          <th>Partido/UF</th>
+          <th>Sessões</th>
+          <th>Presença</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let parlamentar of assiduidade?.parlamentares | paginate: { itemsPerPage: 90, currentPage: p }; index as i;">
+          <td>
+            {{ parlamentar.assiduidadeParlamentar.nomeEleitoral }}
+          </td>
+          <td>
+            {{ parlamentar.assiduidadeParlamentar.parlamentarPartido.sigla }} /
           {{ parlamentar.assiduidadeParlamentar.uf }}
-        </td>
-        <td class="text-left">
-          {{ parlamentar.totalSessoesDeliberativas }}
-        </td>
-        <td class="text-left">
-          {{ parlamentar.totalPresenca | percent:'1.1' }}
-        </td>
-      </tr>
-    </tbody>
-  </table>
+          </td>
+          <td class="text-left">
+            {{ parlamentar.totalSessoesDeliberativas }}
+          </td>
+          <td class="text-left">
+            {{ parlamentar.totalPresenca | percent:'1.1' }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
   <pagination-template
     #pag="paginationApi"
