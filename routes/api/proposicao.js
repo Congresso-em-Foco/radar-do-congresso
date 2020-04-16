@@ -17,6 +17,7 @@ const SUCCESS = 200;
 const attVotacao = [
   ["id_votacao", "idVotacao"],
   ["obj_votacao", "objetoVotacao"],
+  "apelido",
   ["data_hora", "data"],
   ["votacao_secreta", "votacaoSecreta"]
 ];
@@ -80,27 +81,38 @@ router.get("/importantes", (req, res) => {
         required: true,
         where: {
           status_importante: true
-        },
+        }
+      }
+    ]
+  })
+    .then(proposicoes => {
+      return res.status(SUCCESS).json(proposicoes);
+    })
+    .catch(err => res.status(BAD_REQUEST).json(err));
+});
+
+router.get("/importantes/votos", (req, res) => {
+  Votacao.findAll({
+    attributes: attVotacao,
+    where: { status_importante: true },
+    include: [
+      {
+        model: Voto,
+        attributes: attVoto,
+        as: "votacoesVoto",
+        required: true,
         include: [
           {
-            model: Voto,
-            attributes: attVoto,
-            as: "votacoesVoto",
+            model: Parlamentar,
+            attributes: attParlamentar,
+            as: "votoParlamentar",
             required: true,
             include: [
               {
-                model: Parlamentar,
-                attributes: attParlamentar,
-                as: "votoParlamentar",
-                required: true,
-                include: [
-                  {
-                    model: Partido,
-                    // attributes: attPartido,
-                    as: "parlamentarPartido",
-                    required: true
-                  }
-                ]
+                model: Partido,
+                attributes: attPartido,
+                as: "parlamentarPartido",
+                required: true
               }
             ]
           }
@@ -108,8 +120,8 @@ router.get("/importantes", (req, res) => {
       }
     ]
   })
-    .then(proposicoes => {
-      return res.status(SUCCESS).json(proposicoes);
+    .then(votacoes => {
+      return res.status(SUCCESS).json(votacoes);
     })
     .catch(err => res.status(BAD_REQUEST).json(err));
 });
