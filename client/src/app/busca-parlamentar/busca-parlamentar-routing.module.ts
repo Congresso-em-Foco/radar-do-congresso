@@ -6,7 +6,7 @@ import { BuscaParlamentarComponent } from './busca-parlamentar.component';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'camara'
+    redirectTo: 'senado'
   },
   {
     path: ':casa',

@@ -45,4 +45,12 @@ export class AppComponent implements OnDestroy {
     this.unsubscribe.complete();
   }
 
+  public siteCongressoEmFoco() {
+    window.open('https://congressoemfoco.uol.com.br/', '_blank');
+  }
+
+  public tagCongressoNacional() {
+    window.open('https://congressoemfoco.uol.com.br/tag/congresso-nacional', '_blank');
+  }
+
 }

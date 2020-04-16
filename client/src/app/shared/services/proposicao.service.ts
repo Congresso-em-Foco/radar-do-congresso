@@ -23,4 +23,8 @@ export class ProposicaoService {
   getProposicoesImportantes(): Observable<Proposicao[]> {
     return this.http.get<Proposicao[]>(this.url + '/importantes');
   }
+
+  getVotosImportantes(): Observable<any> {
+    return this.http.get(this.url + '/importantes/votos');
+  }
 }

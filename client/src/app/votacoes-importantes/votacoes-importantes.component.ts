@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
-import { Subject } from 'rxjs';
+import { Subject, forkJoin } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 import { ProposicaoService } from '../shared/services/proposicao.service';
@@ -24,30 +24,50 @@ export class VotacoesImportantesComponent implements OnInit, OnDestroy {
 
   public proposicoes: Proposicao[];
   public proposicaoSelecionada: Proposicao;
+  public votacoes: any[];
+  public votacoesFiltradas: any[];
+  public votacaoSelecionada: any;
+  public votacaoSelecionadaVotos: any;
 
   p = 1;
 
   constructor(private proposicaoService: ProposicaoService) { }
 
   ngOnInit() {
-    this.getImportantes();
+    this.getVotosImportantes();
   }
 
-  getImportantes() {
-    this.proposicaoService
-      .getProposicoesImportantes()
+  getVotosImportantes() {
+    forkJoin(
+      this.proposicaoService.getProposicoesImportantes(),
+      this.proposicaoService.getVotosImportantes()
+    )
       .pipe(takeUntil(this.unsubscribe))
-      .subscribe(proposicoes => {
-        this.proposicoes = proposicoes;
+      .subscribe(data => {
+        this.proposicoes = data[0];
         this.proposicaoSelecionada = this.proposicoes[0];
+        this.votacoes = data[1];
+        this.votacaoSelecionada = this.proposicaoSelecionada.proposicaoVotacoes[0];
+        this.votacaoSelecionadaVotos = this.getVotosByVotacao(this.proposicaoSelecionada.proposicaoVotacoes[0]);
       },
-      error => {
-        console.log(error);
-      });
+        error => {
+          console.log(error);
+        });
   }
 
   onChangeProposicao() {
+    this.votacaoSelecionada = this.proposicaoSelecionada.proposicaoVotacoes[0];
+    this.votacaoSelecionadaVotos = this.getVotosByVotacao(this.proposicaoSelecionada.proposicaoVotacoes[0]);
+    this.onChangeVotacao();
+  }
+
+  onChangeVotacao() {
     this.p = 1;
+    this.votacaoSelecionadaVotos = this.getVotosByVotacao(this.votacaoSelecionada);
+  }
+
+  getVotosByVotacao(votacao: any) {
+    return this.votacoes.find(item => item.idVotacao === votacao.idVotacao);
   }
 
   getTextoVoto(voto: number, votoSecreto: boolean): string {

@@ -6,7 +6,7 @@
   <div class="parlementar-subnav">
     <div class="subnav">
       <ul class="nav nav-pills">
-        <li class="nav-item">
+        <li class="nav-item text-center">
           <a
             class="nav-link subnav-link"
             [routerLink]="['./votacoes']"
@@ -15,7 +15,7 @@
             Votações
           </a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item text-center">
           <a
             class="nav-link subnav-link"
             [routerLink]="['./proposicoes']"
@@ -24,7 +24,7 @@
             Proposições
           </a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item text-center">
           <a
             class="nav-link subnav-link"
             [routerLink]="['./gastos-ceap']"
@@ -33,7 +33,7 @@
             Gastos
           </a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item text-center">
           <a
             class="nav-link subnav-link"
             [routerLink]="['./discursos']"
@@ -42,7 +42,7 @@
             Discursos
           </a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item text-center">
           <a
             class="nav-link subnav-link"
             [routerLink]="['./patrimonio']"
@@ -51,7 +51,7 @@
             Patrimônio
           </a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item text-center">
           <a
             class="nav-link subnav-link"
             [routerLink]="['./eleicao']"
@@ -93,11 +93,11 @@
           {{ parlamentar.endereco ? parlamentar.endereco : 'Indisponível'}}
         </p>
         <p>
-          <b>Telefone:</b>
+          <b>Telefone: </b>(61) 
           {{ parlamentar.telefone ? parlamentar.telefone : 'Indisponível'}}
         </p>
         <p>
-          <b>Email:</b>
+          <b>E-mail:</b>
           {{ parlamentar.email ? parlamentar.email : 'Indisponível'}}
         </p>
       </div>

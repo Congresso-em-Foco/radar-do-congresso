@@ -28,6 +28,7 @@
   },
   "homepage": "https://github.com/Congresso-em-Foco/radar-do-congresso#readme",
   "dependencies": {
+    "@angular/cli": "^9.0.5",
     "@webassemblyjs/helper-wasm-section": "^1.8.0",
     "@webassemblyjs/wasm-opt": "^1.8.0",
     "@webassemblyjs/wast-parser": "^1.8.0",

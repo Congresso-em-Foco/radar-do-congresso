@@ -1,7 +1,7 @@
 {
   "name": "Radar do Congresso",
   "short_name": "Radar do Congresso",
-  "description": "Congresso em foco",
+  "description": "Ferramenta para busca e análise de dados dos deputados e senadores do Congresso Nacional. Desenvolvido pelo Congresso em Foco",
   "lang": "pt-BR",
   "start_url": "index.html",
   "display": "standalone",
