@@ -22,7 +22,7 @@ export class GastosCeapComponent implements OnInit, OnDestroy {
   chartData: any[];
   gastoSelecionado: any[];
   despesasEspecificas: GastosCeap[];
-  
+
   public p = 1;
   public ordenacao: string;
 
@@ -76,13 +76,13 @@ export class GastosCeapComponent implements OnInit, OnDestroy {
   }
 
   onSelect(selection: any) {
-    if(selection !== undefined && selection.length > 0) {
-      const indice = selection[0].row
+    if (selection !== undefined && selection.length > 0) {
+      const indice = selection[0].row;
       if (indice !== undefined) {
         this.gastoSelecionado = this.gastosCeapAgregados[indice];
         this.despesasEspecificas = this.gastosCeap.filter(e => e.categoria === this.gastoSelecionado[0]);
         this.ordenar();
-      }      
+      }    
     }
   }
 
