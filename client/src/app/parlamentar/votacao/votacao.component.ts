@@ -15,6 +15,7 @@ export class VotacaoComponent implements OnInit {
   readonly FALTOU = 0;
   readonly OBSTRUCAO = 2;
   readonly ABSTENCAO = 3;
+  readonly PRESIDENTE = 4;
   readonly LIBEROU = 5;
 
   @Input() proposicao: Proposicao;
@@ -68,6 +69,9 @@ export class VotacaoComponent implements OnInit {
         case this.OBSTRUCAO:
           classes.push('voto-obstrucao');
           break;
+        case this.PRESIDENTE:
+          classes.push('voto-presidente');
+          break;
         case this.LIBEROU:
           classes.push('voto-liberou');
           break;
@@ -112,6 +116,9 @@ export class VotacaoComponent implements OnInit {
           break;
         case this.OBSTRUCAO:
           textoVoto = 'OBSTRUÇÃO';
+          break;
+        case this.PRESIDENTE:
+          textoVoto = 'PRESIDENTE';
           break;
         case this.LIBEROU:
           textoVoto = 'LIBEROU';

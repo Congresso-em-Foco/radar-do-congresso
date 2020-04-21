@@ -18,6 +18,7 @@ export class VotacoesImportantesComponent implements OnInit, OnDestroy {
   readonly FALTOU = 0;
   readonly OBSTRUCAO = 2;
   readonly ABSTENCAO = 3;
+  readonly PRESIDENTE = 4;
   readonly LIBEROU = 5;
 
   private unsubscribe = new Subject();
@@ -87,6 +88,9 @@ export class VotacoesImportantesComponent implements OnInit, OnDestroy {
           break;
         case this.OBSTRUCAO:
           textoVoto = 'OBSTRUÇÃO';
+          break;
+        case this.PRESIDENTE:
+          textoVoto = 'PRESIDENTE';
           break;
         case this.LIBEROU:
           textoVoto = 'LIBEROU';
