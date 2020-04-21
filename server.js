@@ -4,7 +4,6 @@ const bodyParser = require("body-parser");
 const path = require("path");
 const logger = require("heroku-logger");
 const cors = require("cors");
-const passport = require("passport");
 const compression = require("compression");
 const forceSsl = require('force-ssl-heroku');
 
@@ -20,7 +19,7 @@ app.use(compression());
 var db = require("./models/index");
 
 const corsOptions = {
-  origin: ['http://localhost:4200', 'http://localhost:3000', 'https://front.dev.leggo.org.br', 'https://leggo.org.br'],
+  origin: ['http://localhost:4200', 'http://localhost:3000'],
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true,
   allowedHeaders: ["Content-Type", "Authorization"],
@@ -30,7 +29,6 @@ app.use(cors(corsOptions));
 
 // Body parser middleware
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(passport.initialize());
 app.use(bodyParser.json());
 
 // Testa conexão com o BD

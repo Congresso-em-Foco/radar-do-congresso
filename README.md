@@ -34,6 +34,12 @@ Caso for preciso reconstruir as imagens (backend e frontend) basta fazer:
 ```
 docker-compose up --build
 ```
+ou 
+
+```
+docker-compose build
+```
+e em seguida subir novamente os serviços usando o `docker-compose up`
 
 **Limitação**: Alterações no arquivo package.json (do frontend ou do backend) exigem um rebuild (reconstrução) da imagem com o comando citado acima.
 
@@ -63,7 +69,7 @@ Para matar um container
 docker kill <container_id>
 ```
 
-# Desenvolvimento sem Docker
+# Desenvolvimento sem Docker (não recomendado)
 
 ## Configuração das variáveis de ambiente
 

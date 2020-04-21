@@ -6,9 +6,6 @@ const models = require("../../models/index");
 
 const Parlamentar = models.parlamentar;
 const Partido = models.partido;
-const ComposicaoComissoes = models.composicaoComissoes;
-const Comissoes = models.comissoes;
-const Liderancas = models.liderancas;
 
 const BAD_REQUEST = 400;
 const SUCCESS = 200;
