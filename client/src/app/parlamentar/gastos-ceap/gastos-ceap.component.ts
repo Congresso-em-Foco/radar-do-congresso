@@ -102,7 +102,7 @@ export class GastosCeapComponent implements OnInit, OnDestroy {
       });
     } else if (this.ordenacao === 'valor') {
       this.despesasEspecificas.sort((a, b) => {
-        return (a.valor_gasto > b.valor_gasto) ? 1 : -1;
+        return (b.valor_gasto > a.valor_gasto) ? 1 : -1;
       });
     }
   }
