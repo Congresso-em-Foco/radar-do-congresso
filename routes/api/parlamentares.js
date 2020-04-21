@@ -9,12 +9,8 @@ const { formataVotacoes } = require("../../utils/functions");
 const Parlamentar = models.parlamentar;
 const Proposicao = models.proposicao;
 const ParlamentarProposicao = models.parlamentarProposicao;
-
 const Votacao = models.votacao;
 const Voto = models.voto;
-const Comissoes = models.comissoes;
-const ComposicaoComissoes = models.composicaoComissoes;
-const Liderancas = models.liderancas;
 const Partido = models.partido;
 const GastosCeap = models.gastosCeap;
 const Patrimonio = models.patrimonio;
@@ -35,8 +31,6 @@ const att = [
   ["em_exercicio", "emExercicio"],
   "casa"
 ];
-const attComissoes = ["sigla", "nome"];
-const attComposicaoComissoes = [["id_comissao_voz", "idComissaoVoz"], "cargo"];
 const attPartido = [["id_partido", "idPartido"], "sigla", "tipo"]
 const attGastosCeap = [
   "categoria",
@@ -45,57 +39,6 @@ const attGastosCeap = [
   "fornecedor",
   "valor_gasto"
 ];
-
-/**
- * Testa a rota de parlamentares.
- * @name get/api/parlamentares/test
- * @function
- * @memberof module:routes/parlamentares
- */
-router.get("/test", (req, res) =>
-  res.json({ msg: "Testando a rota de parlamentares." })
-);
-
-/**
- * Recupera infomações dos parlamentares incluindo suas votações (quando existem)
- * @name get/api/parlamentares/votacoes
- * @function
- * @memberof module:routes/parlamentares
- */
-router.get("/votacoes", (req, res) => {
-  Parlamentar.findAll({
-    attributes: att,
-    include: [
-      {
-        model: Votacao,
-        as: "votacoes",
-        attributes: attVotacao,
-        required: false,
-        include: {
-          model: Proposicao,
-          attributes: [],
-          as: "vot_prop",
-          required: false,
-          where: { status_proposicao: "Ativa" }
-        }
-      },
-      {
-        model: Partido,
-        as: "parlamentarPartido",
-        attributes: attPartido
-      }
-    ],
-    where: {
-      em_exercicio: true
-    },
-    limit: 513
-  })
-    .then(votacoes => {
-      novaVotacao = formataVotacoes(votacoes);
-      return res.json(novaVotacao);
-    })
-    .catch(err => res.status(BAD_REQUEST).json({ err: err.message }));
-});
 
 /**
  * Recupera informações sobre os parlamentares
@@ -175,7 +118,7 @@ router.get("/partidos", casaValidator.validate, (req, res) => {
 
 
 /**
- * Recupera informações do mapeamento ID do parlamentar e o id na plataforma Voz Ativa
+ * Recupera informações do mapeamento ID do parlamentar e o id na plataforma Radar do Congresso
  * @name get/api/parlamentares
  * @function
  * @memberof module:routes/parlamentares
@@ -190,11 +133,11 @@ router.get("/mapeamento-id", (req, res) => {
 });
 
 /**
- * Recupera informações do parlamentar de acordo com o id (no Voz Ativa).
+ * Recupera informações do parlamentar de acordo com o id (no Radar do Congresso).
  * @name get/api/parlamentares/:id
  * @function
  * @memberof module:routes/parlamentares
- * @param {string} id - id do parlamentar na plataforma Voz Ativa
+ * @param {string} id - id do parlamentar na plataforma Radar do Congresso
  */
 router.get("/:id", (req, res) => {
   Parlamentar.findAll({
@@ -208,11 +151,11 @@ router.get("/:id", (req, res) => {
 
 
 /**
-* Recupera informações básicas do parlamentar de acordo com o id (no Voz Ativa).
+* Recupera informações básicas do parlamentar de acordo com o id (no Radar do Congresso).
 * @name get/api/parlamentares/:id/info
 * @function
 * @memberof module:routes/parlamentares
-* @param {string} id - id do parlamentar na plataforma Voz Ativa
+* @param {string} id - id do parlamentar na plataforma Radar do Congresso
 */
 router.get("/:id/info", (req, res) => {
   Parlamentar.findOne({
@@ -243,51 +186,11 @@ router.get("/:id/info", (req, res) => {
 });
 
 /**
- * Recupera informações de posições do parlamentar a partir de seu id (no Voz Ativa)
- * @name get/api/parlamentares/:id/posicoes
- * @function
- * @memberof module:routes/parlamentares
- * @param {string} id - id do parlamentar na plataforma Voz Ativa
- */
-router.get("/:id/posicoes", (req, res) => {
-  Parlamentar.findAll({
-    attributes: [["id_parlamentar_voz", "idParlamentarVoz"], "genero"],
-    include: [
-      {
-        model: Voto,
-        as: "votos",
-        attributes: attVotacao,
-        required: false,
-        include: [{
-          model: Votacao,
-          as: "votacoesVoto",
-          attributes: [],
-          required: true,
-          include: [{
-            model: Proposicao,
-            as: "proposicaoVotacoes",
-            attributes: [],
-            required: true,
-            where: { status_proposicao: "Ativa" }
-          }]
-        }]
-      }
-    ],
-    where: { id_parlamentar_voz: req.params.id }
-  })
-    .then(votacoes => {
-      novaVotacao = formataVotacoes(votacoes);
-      return res.json(novaVotacao[0]);
-    })
-    .catch(err => res.status(BAD_REQUEST).json({ err: err.message }));
-});
-
-/**
- * Recupera informações de votos (usados para o cálculo da aderência) do parlamentar a partir de seu id (no Voz Ativa)
+ * Recupera informações de votos (usados para o cálculo da aderência) do parlamentar a partir de seu id (no Radar do Congresso)
  * @name get/api/parlamentares/:id/votos
  * @function
  * @memberof module:routes/parlamentares
- * @param {string} id - id do parlamentar na plataforma Voz Ativa
+ * @param {string} id - id do parlamentar na plataforma Radar do Congresso
  */
 router.get("/:id/votos", (req, res) => {
   Parlamentar.findAll({
@@ -317,74 +220,6 @@ router.get("/:id/votos", (req, res) => {
     .then(votacoes => {
       novaVotacao = formataVotacoes(votacoes);
       return res.json(novaVotacao[0]);
-    })
-    .catch(err => res.status(BAD_REQUEST).json({ err: err.message }));
-});
-
-/**
- * Recupera informações de comissões do parlamentar a partir de seu id (no Voz Ativa)
- * @name get/api/parlamentares/:id/comissoes
- * @function
- * @memberof module:routes/parlamentares
- * @param {string} id - id do parlamentar na plataforma Voz Ativa
- */
-router.get("/:id/comissoes", (req, res) => {
-  Parlamentar.findOne({
-    attributes: [["id_parlamentar_voz", "idParlamentarVoz"]],
-    include: [
-      {
-        model: ComposicaoComissoes,
-        attributes: attComposicaoComissoes,
-        as: "parlamentarComissoes",
-        required: false,
-        include: [
-          {
-            model: Comissoes,
-            attributes: attComissoes,
-            as: "infoComissao",
-            required: false
-          }
-        ]
-      }
-    ],
-    where: { id_parlamentar_voz: req.params.id }
-  })
-    .then(parlamentar => {
-      return res.json(parlamentar);
-    })
-    .catch(err => res.status(BAD_REQUEST).json({ err: err.message }));
-});
-
-/**
- * Recupera informações de lideranças para um parlamentar a partir de seu id (no Voz Ativa)
- * @name get/api/parlamentares/:id/liderancas
- * @function
- * @memberof module:routes/parlamentares
- * @param {string} id - id do parlamentar na plataforma Voz Ativa
- */
-router.get("/:id/liderancas", (req, res) => {
-  Parlamentar.findOne({
-    attributes: [["id_parlamentar_voz", "idParlamentarVoz"]],
-    include: [
-      {
-        model: Liderancas,
-        attributes: ["cargo"],
-        as: "parlamentarLiderancas",
-        required: false,
-        include: [{
-          model: Partido,
-          attributes: attPartido,
-          as: "liderancaPartido",
-          where: {
-            situacao: "Ativo"
-          }
-        }]
-      }
-    ],
-    where: { id_parlamentar_voz: req.params.id }
-  })
-    .then(parlamentar => {
-      return res.json(parlamentar);
     })
     .catch(err => res.status(BAD_REQUEST).json({ err: err.message }));
 });
