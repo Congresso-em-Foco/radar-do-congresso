@@ -20,6 +20,11 @@ export class GastosCeapComponent implements OnInit, OnDestroy {
   gastosCeap: GastosCeap[];
   gastosCeapAgregados: any[];
   chartData: any[];
+  gastoSelecionado: any[];
+  despesasEspecificas: GastosCeap[];
+
+  public p = 1;
+  public ordenacao: string;
 
   constructor(
     private parlamentarService: ParlamentarService,
@@ -27,6 +32,9 @@ export class GastosCeapComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.gastosCeapAgregados = [];
+    this.gastoSelecionado = [];
+    this.despesasEspecificas = [];
+    this.ordenacao = 'despesa';
     this.setChartdata([]);
     this.activatedroute.parent.params.pipe(take(1)).subscribe(params => {
       this.getParlamentarGastosCeapById(params.id);
@@ -65,6 +73,42 @@ export class GastosCeapComponent implements OnInit, OnDestroy {
 
     arr.map(x => this.gastosCeapAgregados.push([x.categoria, x.valor_gasto]));
     this.setChartdata(this.gastosCeapAgregados);
+  }
+
+  onSelect(selection: any) {
+    if (selection !== undefined && selection.length > 0) {
+      const indice = selection[0].row;
+      if (indice !== undefined) {
+        this.gastoSelecionado = this.gastosCeapAgregados[indice];
+        this.despesasEspecificas = this.gastosCeap.filter(e => e.categoria === this.gastoSelecionado[0]);
+        this.ordenar();
+      }
+    }
+  }
+
+  ordenar() {
+    this.p = 1;
+    if (this.ordenacao === 'despesa') {
+      this.despesasEspecificas.sort((a, b) => {
+        return (a.especificacao > b.especificacao) ? 1 : -1;
+      });
+    } else if (this.ordenacao === 'data') {
+      this.despesasEspecificas.sort((a, b) => {
+        return (a.dataEmissao > b.dataEmissao) ? 1 : -1;
+      });
+    } else if (this.ordenacao === 'fornecedor') {
+      this.despesasEspecificas.sort((a, b) => {
+        return (a.fornecedor > b.fornecedor) ? 1 : -1;
+      });
+    } else if (this.ordenacao === 'valor') {
+      this.despesasEspecificas.sort((a, b) => {
+        return (b.valor_gasto > a.valor_gasto) ? 1 : -1;
+      });
+    }
+  }
+
+  pageChange(p: number) {
+    this.p = p;
   }
 
   ngOnDestroy() {
