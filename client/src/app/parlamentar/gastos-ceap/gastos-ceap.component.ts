@@ -87,6 +87,7 @@ export class GastosCeapComponent implements OnInit, OnDestroy {
   }
 
   ordenar() {
+    this.p = 1;
     if (this.ordenacao === 'despesa') {
       this.despesasEspecificas.sort((a, b) => {
         return (a.especificacao > b.especificacao) ? 1 : -1;
