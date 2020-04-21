@@ -7,12 +7,7 @@ import { map } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import { Parlamentar } from '../models/parlamentar.model';
 import { ParlamentarInfo } from '../models/parlamentarInfo.model';
-import { ParlamentarPosicao } from '../models/parlamentarPosicao.model';
-import { ParlamentarComissoes } from '../models/parlamentarComissoes.model';
-import { ParlamentarLiderancas } from '../models/parlamentarLiderancas.model';
 import { ParlamentarVotos } from '../models/parlamentarVotos.model';
-import { ParlamentarInvestimento } from '../models/parlamentarInvestimento.model';
-import { PartidoInvestimento } from '../models/partidoInvestimento.model';
 import { ParlamentarProposicoes } from '../models/parlamentarProposicoes.model';
 import { ParlamentarGastosCeap } from '../models/parlamentarGastosCeap.model';
 import { ParlamentarDiscursos } from '../models/parlamentarDiscursos.model';
@@ -52,14 +47,6 @@ export class ParlamentarService {
       .get<ParlamentarPatrimonio[]>(this.url + '/' + id + '/patrimonio');
   }
 
-  getVotacoesParlamentarPorId(id: string): Observable<Parlamentar> {
-    return this.http
-      .get<Parlamentar>(this.url + '/' + id + '/votacoes')
-      .pipe(map(parlamentar => {
-        return new Parlamentar(parlamentar);
-      }));
-  }
-
   getInfoById(id: string): Observable<ParlamentarInfo> {
     return this.http
       .get<ParlamentarInfo>(this.url + '/' + id + '/info')
@@ -68,34 +55,9 @@ export class ParlamentarService {
       }));
   }
 
-  getPosicoesById(id: string): Observable<ParlamentarPosicao> {
-    return this.http
-      .get<ParlamentarPosicao>(this.url + '/' + id + '/posicoes');
-  }
-
-  getComissoesByid(id: string): Observable<ParlamentarComissoes> {
-    return this.http
-      .get<ParlamentarComissoes>(this.url + '/' + id + '/comissoes');
-  }
-
-  getLiderancasByid(id: string): Observable<ParlamentarLiderancas> {
-    return this.http
-      .get<ParlamentarLiderancas>(this.url + '/' + id + '/liderancas');
-  }
-
   getVotosbyId(id: string): Observable<ParlamentarVotos> {
     return this.http
       .get<ParlamentarVotos>(this.url + '/' + id + '/votos');
-  }
-
-  getInvestimentoById(id: string): Observable<ParlamentarInvestimento> {
-    return this.http
-      .get<ParlamentarInvestimento>(environment.apiUrl + 'investimento/parlamentar/' + id);
-  }
-
-  getInvestimentoPartido(idPartido: number, uf: string, esfera: string): Observable<PartidoInvestimento> {
-    return this.http
-      .get<PartidoInvestimento>(environment.apiUrl + 'investimento/partido/' + idPartido + '/' + uf + '/' + esfera);
   }
 
   getGastosCeapByid(id: string): Observable<ParlamentarGastosCeap> {
