@@ -82,7 +82,7 @@ export class GastosCeapComponent implements OnInit, OnDestroy {
         this.gastoSelecionado = this.gastosCeapAgregados[indice];
         this.despesasEspecificas = this.gastosCeap.filter(e => e.categoria === this.gastoSelecionado[0]);
         this.ordenar();
-      }    
+      }
     }
   }
 
