@@ -2,7 +2,6 @@ import { Component, OnInit, Input } from '@angular/core';
 
 import { Proposicao } from 'src/app/shared/models/proposicao.model';
 import { ParlamentarVotos } from 'src/app/shared/models/parlamentarVotos.model';
-import { Orientacao } from 'src/app/shared/models/orientacao.model';
 
 @Component({
   selector: 'app-votacao',
@@ -19,7 +18,6 @@ export class VotacaoComponent implements OnInit {
 
   @Input() proposicao: Proposicao;
   @Input() parlamentar: ParlamentarVotos;
-  @Input() orientacao: Orientacao;
 
   isCollapsed: boolean;
 

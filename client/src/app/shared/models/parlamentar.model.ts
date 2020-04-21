@@ -1,5 +1,4 @@
 import { Partido } from './partido.model';
-import { ComposicaoComissao } from './composicaoComissao.model';
 
 export class Parlamentar {
 
@@ -13,7 +12,6 @@ export class Parlamentar {
   public emExercicio: boolean;
   public votacoes: any;
   public alinhamento?: any;
-  public comissoes?: ComposicaoComissao[];
 
   constructor(parlamentar: any) {
     this.idParlamentarVoz = parlamentar.id_parlamentar_voz;
@@ -26,7 +24,6 @@ export class Parlamentar {
     this.emExercicio = parlamentar.em_exercicio;
     this.votacoes = parlamentar.votacoes;
     this.alinhamento = parlamentar.alinhamento;
-    this.comissoes = parlamentar.parlamentarComissoes;
   }
 
   getFoto(): string {
