@@ -1,5 +1,6 @@
 <div class="container-sm mb-3">
   <h4 class="title-main my-4">Gastos</h4>
+  Selecione uma despesa para ver a tabela de gastos detalhados.
   <div>
     <google-chart
       style="width: 100%;"
@@ -10,6 +11,42 @@
     ></google-chart>
   </div>
   <div class="teste" [hidden]="despesasEspecificas.length === 0">
+    <div class="form-group row">
+      <label
+        for="ordemSelecionada"
+        class="col-6 col-form-label text-right">
+        Ordenar por:
+      </label>
+      <div class="col-6 col-md-4 col-lg-3">
+        <select
+          id="ordemSelecionadaGasto"
+          name="gasto"
+          class="form-control"
+          [(ngModel)]="ordenacao"
+          (change)="ordenar()">
+          <option
+            name="ordenacao"
+            value="despesa">
+            Despesa
+          </option>
+          <option
+            name="ordenacao"
+            value="data">
+            Data
+          </option>
+          <option
+            name="ordenacao"
+            value="fornecedor">
+            Fornecedor
+          </option>
+          <option
+            name="ordenacao"
+            value="valor">
+            Valor
+          </option>
+        </select>
+      </div>
+    </div>
     <pagination-template
     #pag="paginationApi"
     maxSize="5"
