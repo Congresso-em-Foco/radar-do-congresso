@@ -21,4 +21,5 @@ export class AssiduidadeService {
       .set('ano', ano);
     return this.http.get<Assiduidade[]>(this.url, { params });
   }
+
 }

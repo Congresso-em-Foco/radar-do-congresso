@@ -78,9 +78,6 @@ export class BuscaParlamentarService {
     const estado = filters.estado;
     const nome = filters.nome;
     const partido = filters.partido;
-    const comissao = filters.comissao;
-    const lideranca = filters.lideranca;
-    const cargoComissao = filters.cargoComissao;
     const casa = filters.casa;
 
     return parlamentar.filter(p => {
@@ -101,21 +98,6 @@ export class BuscaParlamentarService {
           : filtered;
 
       filtered =
-        comissao && comissao !== '-1' && filtered
-          ? p.comissoes.filter(com => com.idComissaoVoz === comissao).length > 0
-          : filtered;
-
-      filtered =
-        lideranca && lideranca !== 'Lideranças partidárias' && filtered
-          ? p.parlamentarLiderancas.filter(l => l.cargo === lideranca).length > 0
-          : filtered;
-
-      filtered =
-        cargoComissao && cargoComissao !== 'Cargo em comissões' && filtered
-          ? p.comissoes.filter(c => c.cargo === cargoComissao).length > 0
-          : filtered;
-
-      filtered =
         nome && filtered
           ? p.nomeProcessado.toLowerCase().includes(nome.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase())
           : filtered;
@@ -128,9 +110,6 @@ export class BuscaParlamentarService {
     return p.estado === q.estado &&
       p.nome === q.nome &&
       p.partido === q.partido &&
-      p.comissao === q.comissao &&
-      p.lideranca === q.lideranca &&
-      p.cargoComissao === q.cargoComissao &&
       p.casa === q.casa &&
       p.orderBy === q.orderBy;
   }

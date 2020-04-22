@@ -19,11 +19,85 @@
         </select>
       </div>
     </div>
+
+    <div class="d-flex justify-content-center">
+      <div class="form-group">
+        <select
+          id="votacao-selecionada"
+          name="votacao"
+          class="form-control"
+          [(ngModel)]="votacaoSelecionada"
+          (change)="onChangeVotacao()"
+        >
+          <option
+            *ngFor="let votacao of proposicaoSelecionada?.proposicaoVotacoes"
+            [ngValue]="votacao"
+          >
+            {{ votacao.apelido }}
+          </option>
+        </select>
+      </div>
+    </div>
   </div>
-  <div class="my-4" *ngIf="proposicaoSelecionada">
+
+  <div
+    class="my-4"
+    *ngIf="proposicaoSelecionada"
+  >
     <div class="objeto">
       <h4>{{ proposicaoSelecionada?.nome }}</h4>
-      <p><strong>Ementa:</strong> {{ proposicaoSelecionada?.ementa }}</p>
+      <p>
+        <strong>Ementa:</strong>
+        {{ proposicaoSelecionada?.ementa }}
+      </p>
+    </div>
+
+    <div class="objeto">
+      <h4>{{ votacaoSelecionada?.apelido }}</h4>
+      <p>
+        <strong>Objeto:</strong>
+        {{ votacaoSelecionada?.objetoVotacao }}
+        <br>
+        <strong>Data:</strong>
+        {{ votacaoSelecionada?.data | date:'dd/MM/yyyy' }}
+      </p>
+    </div>
+
+    <div class="form-group row">
+      <label
+        for="ordemSelecionada"
+        class="col-6 col-form-label text-right">
+        Ordenar por:
+      </label>
+      <div class="col-6 col-md-4 col-lg-3">
+        <select
+          id="ordemSelecionadaVotacoes"
+          name="gasto"
+          class="form-control"
+          [(ngModel)]="ordenacao"
+          (change)="ordenar()">
+          <option
+            name="ordenacao"
+            value="parlamentar">
+            Parlamentar
+          </option>
+          <option
+            name="ordenacao"
+            value="partido">
+            Partido
+          </option>
+          <option
+            name="ordenacao"
+            value="uf">
+            UF
+          </option>
+          <option
+            name="ordenacao"
+            value="voto">
+            Voto
+          </option>
+        </select>
+      </div>
     </div>
 
     <pagination-template
@@ -76,21 +150,18 @@
     <table class="table">
       <thead>
         <tr>
-          <th>Parlamentar</th>
-          <th>UF</th>
-          <th>Voto</th>
+          <th class="text-center">Parlamentar</th>
+          <th class="text-center">Partido/UF</th>
+          <th class="text-center">Voto</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let voto of proposicaoSelecionada?.proposicaoVotacoes[0].votacoesVoto | paginate: { itemsPerPage: 90, currentPage: p }; index as i;">
+        <tr *ngFor="let voto of votacaoSelecionadaVotos?.votacoesVoto | paginate: { itemsPerPage: 50, currentPage: p }; index as i;">
           <td>
             {{ voto.votoParlamentar.nomeEleitoral }}
           </td>
-          <td>
-            {{ voto.votoParlamentar.uf }}
-          </td>
-          <!--<td class="text-center">-->
-          <td>
+          <td>{{ voto.votoParlamentar.parlamentarPartido.sigla }}/{{ voto.votoParlamentar.uf }}</td>
+          <td class="text-center">
             {{ getTextoVoto(voto.voto, proposicaoSelecionada?.votacaoSecreta) }}
           </td>
         </tr>

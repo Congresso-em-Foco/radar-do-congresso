@@ -50,7 +50,7 @@ export class AppComponent implements OnDestroy {
   }
 
   public tagCongressoNacional() {
-    window.open('https://congressoemfoco.uol.com.br/tag/congresso-nacional', '_blank')
+    window.open('https://congressoemfoco.uol.com.br/tag/congresso-nacional', '_blank');
   }
 
 }
