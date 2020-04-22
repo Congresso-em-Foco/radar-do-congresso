@@ -63,6 +63,43 @@
       </p>
     </div>
 
+    <div class="form-group row">
+      <label
+        for="ordemSelecionada"
+        class="col-6 col-form-label text-right">
+        Ordenar por:
+      </label>
+      <div class="col-6 col-md-4 col-lg-3">
+        <select
+          id="ordemSelecionadaVotacoes"
+          name="gasto"
+          class="form-control"
+          [(ngModel)]="ordenacao"
+          (change)="ordenar()">
+          <option
+            name="ordenacao"
+            value="parlamentar">
+            Parlamentar
+          </option>
+          <option
+            name="ordenacao"
+            value="partido">
+            Partido
+          </option>
+          <option
+            name="ordenacao"
+            value="uf">
+            UF
+          </option>
+          <option
+            name="ordenacao"
+            value="voto">
+            Voto
+          </option>
+        </select>
+      </div>
+    </div>
+
     <pagination-template
       #pag="paginationApi"
       maxSize="5"
@@ -113,9 +150,9 @@
     <table class="table">
       <thead>
         <tr>
-          <th>Parlamentar</th>
-          <th>Partido/UF</th>
-          <th>Voto</th>
+          <th class="text-center">Parlamentar</th>
+          <th class="text-center">Partido/UF</th>
+          <th class="text-center">Voto</th>
         </tr>
       </thead>
       <tbody>
