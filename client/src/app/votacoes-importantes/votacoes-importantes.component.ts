@@ -29,12 +29,14 @@ export class VotacoesImportantesComponent implements OnInit, OnDestroy {
   public votacoesFiltradas: any[];
   public votacaoSelecionada: any;
   public votacaoSelecionadaVotos: any;
+  public ordenacao: string;
 
   p = 1;
 
   constructor(private proposicaoService: ProposicaoService) { }
 
   ngOnInit() {
+    this.ordenacao = 'parlamentar';
     this.getVotosImportantes();
   }
 
@@ -50,6 +52,7 @@ export class VotacoesImportantesComponent implements OnInit, OnDestroy {
         this.votacoes = data[1];
         this.votacaoSelecionada = this.proposicaoSelecionada.proposicaoVotacoes[0];
         this.votacaoSelecionadaVotos = this.getVotosByVotacao(this.proposicaoSelecionada.proposicaoVotacoes[0]);
+        this.ordenar();
       },
         error => {
           console.log(error);
@@ -65,6 +68,7 @@ export class VotacoesImportantesComponent implements OnInit, OnDestroy {
   onChangeVotacao() {
     this.p = 1;
     this.votacaoSelecionadaVotos = this.getVotosByVotacao(this.votacaoSelecionada);
+    this.ordenar();
   }
 
   getVotosByVotacao(votacao: any) {
@@ -106,6 +110,27 @@ export class VotacoesImportantesComponent implements OnInit, OnDestroy {
       }
     }
     return textoVoto;
+  }
+
+  ordenar() {
+    this.p = 1;
+    if (this.ordenacao === 'parlamentar') {
+      this.votacaoSelecionadaVotos.votacoesVoto.sort((a, b) => {
+        return (a.votoParlamentar.nomeEleitoral > b.votoParlamentar.nomeEleitoral) ? 1 : -1;
+      });
+    } else if (this.ordenacao === 'partido') {
+      this.votacaoSelecionadaVotos.votacoesVoto.sort((a, b) => {
+        return (a.votoParlamentar.parlamentarPartido.sigla > b.votoParlamentar.parlamentarPartido.sigla) ? 1 : -1;
+      });
+    } else if (this.ordenacao === 'uf') {
+      this.votacaoSelecionadaVotos.votacoesVoto.sort((a, b) => {
+        return (a.votoParlamentar.uf > b.votoParlamentar.uf) ? 1 : -1;
+      });
+    } else if (this.ordenacao === 'voto') {
+      this.votacaoSelecionadaVotos.votacoesVoto.sort((a, b) => {
+        return b.voto - a.voto;
+      });
+    }
   }
 
   pageChange(p: number) {
