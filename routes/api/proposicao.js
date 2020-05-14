@@ -81,7 +81,13 @@ router.get("/importantes", (req, res) => {
         required: true,
         where: {
           status_importante: true
-        }
+        },
+        include: [
+          {
+            model: Proposicao,
+            as: "votacoesProposicoes"
+          }
+        ]
       }
     ]
   })

@@ -7,34 +7,17 @@
           id="proposicao-selecionada"
           name="proposicao"
           class="form-control"
-          [(ngModel)]="proposicaoSelecionada"
-          (change)="onChangeProposicao()"
-        >
-          <option
-            *ngFor="let proposicao of proposicoes"
-            [ngValue]="proposicao"
-          >
-            {{ proposicao.nome }} ({{ proposicao.casa }})
-          </option>
-        </select>
-      </div>
-    </div>
-
-    <div class="d-flex justify-content-center">
-      <div class="form-group">
-        <select
-          id="votacao-selecionada"
-          name="votacao"
-          class="form-control"
           [(ngModel)]="votacaoSelecionada"
-          (change)="onChangeVotacao()"
-        >
-          <option
-            *ngFor="let votacao of proposicaoSelecionada?.proposicaoVotacoes"
-            [ngValue]="votacao"
-          >
-            {{ votacao.apelido }}
-          </option>
+          (change)="onChangeVotacao()">
+          <optgroup
+            *ngFor="let proposicao of proposicoes"
+            [label]="proposicao.nome + ' (' + proposicao.casa + ')'">
+            <option
+              *ngFor="let votacao of proposicao.proposicaoVotacoes"
+              [ngValue]="votacao">
+              {{ votacao.apelido }}
+            </option>
+          </optgroup>
         </select>
       </div>
     </div>
