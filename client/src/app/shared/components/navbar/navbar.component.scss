@@ -6,7 +6,10 @@
 
 .nav-link {
   font-size: 0.9rem;
-  margin-right: -25px;
+  margin-left: 0px;
+  margin-right: 0px;
+  padding-right: 0px;
+  padding-left: 20px;
   &.active,
   &:hover {
     font-weight: 700;
