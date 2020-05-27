@@ -137,4 +137,14 @@ export class VotacoesImportantesComponent implements OnInit, OnDestroy {
     this.unsubscribe.complete();
   }
 
+  getCasa(casa: string) {
+    if (casa === 'camara') {
+      return 'Câmara';
+    } else if (casa === 'senado') {
+      return 'Senado';
+    } else {
+      return undefined;
+    }
+  }
+
 }
