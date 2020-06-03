@@ -11,7 +11,7 @@
           (change)="onChangeVotacao()">
           <optgroup
             *ngFor="let proposicao of proposicoes"
-            [label]="proposicao.nome + ' (' + proposicao.casa + ')'">
+            [label]="proposicao.nome + ' (' + getCasa(proposicao.casa) + ')'">
             <option
               *ngFor="let votacao of proposicao.proposicaoVotacoes"
               [ngValue]="votacao">

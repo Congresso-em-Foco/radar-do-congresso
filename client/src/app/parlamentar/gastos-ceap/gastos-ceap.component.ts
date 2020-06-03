@@ -34,7 +34,7 @@ export class GastosCeapComponent implements OnInit, OnDestroy {
     this.gastosCeapAgregados = [];
     this.gastoSelecionado = [];
     this.despesasEspecificas = [];
-    this.ordenacao = 'despesa';
+    this.ordenacao = 'data';
     this.setChartdata([]);
     this.activatedroute.parent.params.pipe(take(1)).subscribe(params => {
       this.getParlamentarGastosCeapById(params.id);
@@ -93,7 +93,7 @@ export class GastosCeapComponent implements OnInit, OnDestroy {
         return (a.especificacao > b.especificacao) ? 1 : -1;
       });
     } else if (this.ordenacao === 'data') {
-      this.despesasEspecificas.sort((a, b) => {
+      this.despesasEspecificas.sort((b, a) => {
         return (a.dataEmissao > b.dataEmissao) ? 1 : -1;
       });
     } else if (this.ordenacao === 'fornecedor') {
