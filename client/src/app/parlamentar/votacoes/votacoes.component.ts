@@ -70,7 +70,14 @@ export class VotacoesComponent implements OnInit, OnDestroy {
   getProposicoesVotacoes(casa: string) {
     this.proposicaoService.getProposicoesVotacoes(casa)
     .pipe(takeUntil(this.unsubscribe)).subscribe(proposicoes => {
-      this.proposicoes = proposicoes;
+      proposicoes.map(prop => {
+        prop.proposicaoVotacoes.sort((a, b) => {
+          return new Date(b.data).getTime() - new Date(a.data).getTime();
+        })
+      })
+      this.proposicoes = proposicoes.sort((a, b) => {
+        return new Date(b.proposicaoVotacoes[0].data).getTime() - new Date(a.proposicaoVotacoes[0].data).getTime();
+      });
     },
       error => console.log(error)
     );
