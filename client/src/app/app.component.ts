@@ -17,6 +17,7 @@ declare let ga;
     routeAnimation
   ]
 })
+
 export class AppComponent implements OnDestroy {
 
   private unsubscribe = new Subject();

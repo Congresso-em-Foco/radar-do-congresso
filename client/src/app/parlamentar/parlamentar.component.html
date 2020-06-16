@@ -93,12 +93,15 @@
           {{ parlamentar.endereco ? parlamentar.endereco : 'Indisponível'}}
         </p>
         <p>
-          <b>Telefone: </b>(61) 
-          {{ parlamentar.telefone ? parlamentar.telefone : 'Indisponível'}}
+          <b>Telefone: </b>(61) {{ parlamentar.telefone ? parlamentar.telefone : 'Indisponível'}}
         </p>
         <p>
           <b>E-mail:</b>
           {{ parlamentar.email ? parlamentar.email : 'Indisponível'}}
+        </p>
+        <p *ngIf="parlamentar.nomeEleitoral === 'Abílio Santana'">
+          <b>Teste: </b>
+          Banana
         </p>
       </div>
     </div>

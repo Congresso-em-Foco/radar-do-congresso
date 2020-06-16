@@ -1,3 +1,5 @@
+import * as myGlobals from '../../../globals';
+
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { Subject } from 'rxjs';
@@ -11,6 +13,8 @@ import { CasaService } from '../../services/casa.service';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit, OnDestroy {
+
+  public dataAtualizacao: string = myGlobals.dataAtualizacao;
 
   private unsubscribe = new Subject();
 

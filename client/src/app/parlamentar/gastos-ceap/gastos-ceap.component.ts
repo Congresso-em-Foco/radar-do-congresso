@@ -1,3 +1,5 @@
+import * as myGlobals from '../../globals';
+
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
@@ -15,11 +17,15 @@ import { GastosCeap } from 'src/app/shared/models/parlamentarGastosCeap.model';
 })
 export class GastosCeapComponent implements OnInit, OnDestroy {
 
+  public dataAtualizacao: string = myGlobals.dataAtualizacao;
+
   private unsubscribe = new Subject();
 
   gastosCeap: GastosCeap[];
   gastosCeapAgregados: any[];
+  teste: any[];
   chartData: any[];
+  gastoValor: any[];
   gastoSelecionado: any[];
   despesasEspecificas: GastosCeap[];
 
@@ -32,10 +38,12 @@ export class GastosCeapComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.gastosCeapAgregados = [];
+    this.teste = [];
     this.gastoSelecionado = [];
     this.despesasEspecificas = [];
     this.ordenacao = 'data';
     this.setChartdata([]);
+    this.setGastovalor;
     this.activatedroute.parent.params.pipe(take(1)).subscribe(params => {
       this.getParlamentarGastosCeapById(params.id);
     });
@@ -43,6 +51,10 @@ export class GastosCeapComponent implements OnInit, OnDestroy {
 
   setChartdata(newData) {
     this.chartData = newData;
+  }
+
+  setGastovalor(newData) {
+    this.gastoValor = newData;
   }
 
   getParlamentarGastosCeapById(id: string) {
@@ -71,6 +83,13 @@ export class GastosCeapComponent implements OnInit, OnDestroy {
       return rv;
     }, {});
 
+    arr.map(y => this.teste.push([y.valor_gasto]));
+    var total = 0;
+    for (var i = 0; i < this.teste.length; i++) {
+      total += parseFloat(this.teste[i]);
+    }
+    this.setGastovalor(total.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'}));
+
     arr.map(x => this.gastosCeapAgregados.push([x.categoria, x.valor_gasto]));
     this.setChartdata(this.gastosCeapAgregados);
   }
@@ -80,6 +99,7 @@ export class GastosCeapComponent implements OnInit, OnDestroy {
       const indice = selection[0].row;
       if (indice !== undefined) {
         this.gastoSelecionado = this.gastosCeapAgregados[indice];
+        this.teste = this.gastosCeapAgregados[indice];
         this.despesasEspecificas = this.gastosCeap.filter(e => e.categoria === this.gastoSelecionado[0]);
         this.ordenar();
       }
