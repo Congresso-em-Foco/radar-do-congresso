@@ -35,9 +35,9 @@ function calculaAssiduidade(resultado) {
       const percentualAusenciasJustificadas = parlamentar.totalAusenciasJustificadas / parlamentar.totalSessoesDeliberativas;
       const percentualAusenciasNaoJustificadas = parlamentar.totalAusenciasNaoJustificadas / parlamentar.totalSessoesDeliberativas;
     
-      parlamentar.totalPresenca = percentualPresenca;
-      parlamentar.totalAusenciasJustificadas = percentualAusenciasJustificadas;
-      parlamentar.totalAusenciasNaoJustificadas = percentualAusenciasNaoJustificadas;
+      parlamentar.Presenca = percentualPresenca;
+      //parlamentar.totalAusenciasJustificadas = percentualAusenciasJustificadas;
+      //parlamentar.totalAusenciasNaoJustificadas = percentualAusenciasNaoJustificadas;
 
       delete parlamentar.ano;
     });

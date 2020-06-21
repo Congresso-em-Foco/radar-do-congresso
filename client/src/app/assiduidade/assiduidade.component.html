@@ -103,6 +103,9 @@
           <th>Parlamentar</th>
           <th>Partido/UF</th>
           <th>Sessões</th>
+          <th>Dias Presentes</th>
+          <th>Ausências Justi.</th>
+          <th>Ausências Não Justi.</th>
           <th>Presença</th>
         </tr>
       </thead>
@@ -118,7 +121,16 @@
             {{ parlamentar.totalSessoesDeliberativas }}
           </td>
           <td class="text-left">
-            {{ parlamentar.totalPresenca | percent:'1.1' }}
+            {{ parlamentar.totalPresenca }}
+          </td>
+          <td class="text-left">
+            {{ parlamentar.totalAusenciasJustificadas }}
+          </td>
+          <td class="text-left">
+            {{ parlamentar.totalAusenciasNaoJustificadas }}
+          </td>
+          <td class="text-left">
+            {{ parlamentar.Presenca | percent:'1.2' }}
           </td>
         </tr>
       </tbody>
