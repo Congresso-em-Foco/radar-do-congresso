@@ -112,7 +112,7 @@
             {{ despesa.fornecedor | titlecase }}
           </td>
           <td class="text-left">
-            {{ despesa.valor_gasto | currency:"R$" }}
+            {{ despesa.valor_gasto.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'}) }}
           </td>
         </tr>
       </tbody>

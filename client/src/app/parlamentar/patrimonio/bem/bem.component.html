@@ -1,5 +1,5 @@
 <div class="bem">
   <strong>Bem declarado:</strong> {{ bem.tipoBem }}
   <br>
-  <strong>Valor:</strong> {{ bem.valorBem | currency:'R$ ' }}
+  <strong>Valor:</strong> {{ bem.valorBem.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'}) }}
 </div>

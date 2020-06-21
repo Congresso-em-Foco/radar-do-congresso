@@ -12,11 +12,11 @@
     </div>
     <div class="row">
       <div class="col">
-        {{ eleicao?.totalVotos | number }} / {{ eleicao?.totalVotosUF | number }}
+        {{ eleicao?.totalVotos.toLocaleString('pt-br') }} / {{ eleicao?.totalVotosUF.toLocaleString('pt-br') }}
         <br>(Votação individual / Votos válidos no estado)
       </div>
       <div class="col text-right">
-        {{ eleicao?.totalVotos/eleicao?.totalVotosUF | percent:'1.2' }}
+        {{ (eleicao?.totalVotos / eleicao?.totalVotosUF) | percent:'1.2' }}
       </div>
     </div>
     <div class="mt-4">
