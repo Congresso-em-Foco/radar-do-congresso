@@ -12,7 +12,7 @@ const routes: Routes = [
   { path: 'votacoes', loadChildren: './votacoes-importantes/votacoes-importantes.module#VotacoesImportantesModule' },
   { path: 'assiduidade', loadChildren: './assiduidade/assiduidade.module#AssiduidadeModule' },
   { path: 'transparencia', loadChildren: './transparencia/transparencia.module#TransparenciaModule' },
-  { path: 'governismo', loadChildren: './governismo/governismo.module#GovernismoModule' },
+  //{ path: 'governismo', loadChildren: './governismo/governismo.module#GovernismoModule' },
   { path: 'sobre', loadChildren: './main/main.module#MainModule' },
   { path: '**', redirectTo: '' }
 ];
