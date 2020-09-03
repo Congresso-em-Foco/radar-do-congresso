@@ -8,6 +8,7 @@ const { formataVotacoes } = require("../../utils/functions");
 
 const Parlamentar = models.parlamentar;
 const Proposicao = models.proposicao;
+const Assiduidade = models.assiduidade;
 const ParlamentarProposicao = models.parlamentarProposicao;
 const Votacao = models.votacao;
 const Voto = models.voto;
@@ -38,6 +39,13 @@ const attGastosCeap = [
   ["data_emissao", "dataEmissao"],
   "fornecedor",
   "valor_gasto"
+];
+const attAssiduidade = [
+  "ano",
+  ["dias_com_sessoes_deliberativas", "totalSessoesDeliberativas"], 
+  ["dias_presentes", "totalPresenca"], 
+  ["dias_ausencias_justificadas", "totalAusenciasJustificadas"],
+  ["dias_ausencias_nao_justificadas", "totalAusenciasNaoJustificadas"]
 ];
 
 /**
@@ -168,6 +176,7 @@ router.get("/:id/info", (req, res) => {
       "em_exercicio",
       ["data_nascimento", "dataNascimento"],
       "naturalidade",
+      "genero",
       "endereco",
       "telefone",
       "email"
@@ -271,6 +280,31 @@ router.get("/:id/proposicoes", (req, res) => {
           as: "proposicaoDetalhes",
           required: true
         }]
+      }
+    ],
+    where: { id_parlamentar_voz: req.params.id }
+  })
+    .then(parlamentar => {
+      return res.json(parlamentar);
+    })
+    .catch(err => res.status(BAD_REQUEST).json({ err: err.message }));
+});
+
+/**
+ * Recupera informações de assiduidade de um parlamentar a partir de seu id
+ * @name get/api/parlamentares/:id/assiduidade
+ * @function
+ * @memberof module:routes/parlamentares
+ * @param {string} id - id do parlamentar na plataforma Radar do Congresso
+ */
+router.get("/:id/assiduidade", (req, res) => {
+  Parlamentar.findOne({
+    attributes: [["id_parlamentar_voz", "idParlamentarVoz"]],
+    include: [
+      {
+        model: Assiduidade,
+        attributes: attAssiduidade,
+        as: "parlamentarAssiduidade"
       }
     ],
     where: { id_parlamentar_voz: req.params.id }

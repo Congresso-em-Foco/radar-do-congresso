@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
+import { TitleheaderComponent } from './titleheader/titleheader.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { StickyFooterNavbarComponent } from './sticky-footer-navbar/sticky-footer-navbar.component';
 import { ProgressComponent } from './progress/progress.component';
@@ -14,6 +15,7 @@ import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
+    TitleheaderComponent,
     NavbarComponent,
     StickyFooterNavbarComponent,
     ProgressComponent,
@@ -28,6 +30,7 @@ import { FooterComponent } from './footer/footer.component';
     NgbModule
   ],
   exports: [
+    TitleheaderComponent,
     NavbarComponent,
     StickyFooterNavbarComponent,
     ProgressComponent,

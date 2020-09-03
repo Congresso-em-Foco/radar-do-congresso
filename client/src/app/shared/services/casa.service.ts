@@ -43,4 +43,13 @@ export class CasaService {
     return '';
   }
 
+  getCargoCasa(casa: string): string {
+    if (casa === 'camara') {
+      return 'deputados federais';
+    } else if (casa === 'senado') {
+      return 'senadores';
+    }
+    return '';
+  }
+
 }

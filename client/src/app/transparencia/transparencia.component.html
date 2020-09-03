@@ -1,0 +1,235 @@
+<div class="interruptor mt-4">
+  <a [routerLink]="['/transparencia/senado']" [class.active]="casa === 'senado'">Senado</a>
+  <a [routerLink]="['/transparencia/camara']" [class.active]="casa === 'camara'">Câmara</a>
+</div>
+<app-titleheader customTitle="nível de transparência"></app-titleheader>
+<div class="container-fluid mb-4">
+  <p class="text-center">Todos os parlamentares prestam contas do que é exigido por lei. Veja quais deles vão além disso.</p>
+  <div>
+    <input type="checkbox" id="criterios" class="controlasanfona">
+    <div class="sanfona about">
+      <div class="row justify-content-md-center my-3">
+        <div class="col-md-8">
+          <div class="t">Como foi feito o levantamento</div>
+          <p>O nível de transparência dos deputados federais e senadores é um levantamento exclusivo do Congresso em Foco. O trabalho leva em conta 11 indicadores de transparência digital e a primeira rodada de coleta de informações foi feita entre os meses de julho e agosto de 2020.</p>
+
+          <div class="t">Relação dos indicadores analisados</div>
+
+          <table>
+            <tr>
+              <th>Indicador</th>
+              <th>Método de coleta</th>
+              <th>Peso na nota final</th>
+            </tr>
+            <tr>
+              <td>Está em ao menos duas redes sociais (Facebook, Instagram, Youtube e Twitter)</td>
+              <td>Pesquisa nas redes dos parlamentares</td>
+              <td>5%</td>
+            </tr>
+            <tr>
+              <td>Publicou em alguma dessas redes nos últimos 20 dias?</td>
+              <td>Pesquisa nas redes dos parlamentares</td>
+              <td>5%</td>
+            </tr>
+            <tr>
+              <td>Tem site próprio?</td>
+              <td>Pesquisa nos sites dos parlamentares</td>
+              <td>5%</td>
+            </tr>
+            <tr>
+              <td>Publicou no site há menos de 20 dias?</td>
+              <td>Pesquisa nos sites dos parlamentares</td>
+              <td>5%</td>
+            </tr>
+            <tr>
+              <td>Respondeu ao questionário enviado pelo Congresso em Foco?</td>
+              <td>Resposta ao Questionário</td>
+              <td>20%</td>
+            </tr>
+            <tr>
+              <td>O gabinete divulga online sua agenda oficial de compromissos?</td>
+              <td>Resposta ao Questionário</td>
+              <td>10%</td>
+            </tr>
+            <tr>
+              <td>Publica justificativas para os gastos cobertos pela cota parlamentar com consultorias?</td>
+              <td>Resposta ao Questionário</td>
+              <td>10%</td>
+            </tr>
+            <tr>
+              <td>Publica justificativas para os gastos cobertos pela cota parlamentar com divulgação do mandato?</td>
+              <td>Resposta ao Questionário</td>
+              <td>10%</td>
+            </tr>
+            <tr>
+              <td>Publica justificativas para os gastos cobertos pela cota parlamentar com passagens aéreas para fora do estado de origem?</td>
+              <td>Resposta ao Questionário</td>
+              <td>10%</td>
+            </tr>
+            <tr>
+              <td>Publica os nomes dos servidores lotados no gabinete e a remuneração de cada um deles?</td>
+              <td>Resposta ao Questionário</td>
+              <td>10%</td>
+            </tr>
+            <tr>
+              <td>Publica também as funções que cada um/a desempenha e a localidade onde atua?</td>
+              <td>Resposta ao Questionário</td>
+              <td>10%</td>
+            </tr>
+            <tr>
+              <td colspan="2"><strong>TOTAL</strong></td>
+              <td>100%</td>
+            </tr>
+          </table>
+
+          <div class="t">Questionário</div>
+          <p>Como exposto na tabela acima, a maior parte dos indicadores foi observada a partir de respostas dadas pelos próprios parlamentares a um questionário enviado aos gabinetes pelo Congresso em Foco. Foram enviados dois e-mails a cada parlamentar e todos os gabinetes foram contactados via telefone e avisados da pesquisa. Ao fim da primeira rodada de coleta, foram recebidas 93 respostas válidas ao formulário, de um universo de 594 deputados e senadores. </p>
+          <p>Os congressistas que não responderam ao questionário foram mantidos no levantamento porque respondê-lo, por si, já é uma ação que denota mais transparência que não respondê-lo.</p>
+          <p>As respostas dadas no questionário foram checadas nos sites e redes sociais dos parlamentares e nos links indicados pelos próprios respondentes. A partir dessa checagem, o Congresso em Foco atribuiu três respostas possíveis aos questionamentos: “sim”, “não” e “parcialmente”. A opção “parcialmente” foi adotada, por exemplo, em casos de divulgação não sistemática de agenda e de links diretos aos portais da transparência sem comentários, justificativas e explicações sobre os gastos.  </p>
+          <p>A resposta “sim” de acordo com o critério de transparência leva a 100% da nota do item, a parcial, 50%, e o não, 0%.</p>
+          <p>Nos casos em que os parlamentares informaram não terem gastos nas rubricas questionadas, foi feita uma ponderação das notas de outros ítens de modo que esses parlamentares não fossem prejudicados nem privilegiados por não terem usado dinheiro da cota parlamentar em determinado tipo de despesa.   </p>
+
+          <div class="t">Exemplos de boas práticas</div>
+          <p>Os indicadores selecionados pelo Congresso em Foco para medir a transparência de congressistas são alguns dos critérios comumente apontados pela literatura, especialistas e organizações da sociedade civil como sendo itens importantes para a transparência de gabinetes parlamentares. Ainda que não sejam ações exigidas pela legislação, o levantamento revelou que há parlamentares no Congresso Nacional que estão na vanguarda da transparência pública. </p>
+          <p>Abaixo, seguem exemplos para cada um dos indicadores de modo a destacar as melhores práticas identificadas. </p>
+
+          <div class="t">Agenda online</div>
+          <p>Abaixo, exemplo da agenda diária divulgada no site do deputado Eduardo Barbosa (PSDB-MG).</p>
+          <img src="assets/imgs/t1.png">
+
+
+          <div class="t">Gastos com consultorias e com divulgação do mandato</div>
+          <p>Abaixo, um exemplo retirado do site do deputado Professor Israel (PV-DF)</p>
+          <img src="assets/imgs/t2.png">
+
+
+          <div class="t">Gastos com passagens aéreas para fora do estado</div>
+          <p>Abaixo, exemplo retirado do site da deputada Luiza Erundina (Psol-SP)</p>
+          <img src="assets/imgs/t3.png">
+          <p>Abaixo, outro bom exemplo, este do site da deputada Adriana Ventura (Novo-SP)</p>
+          <img src="assets/imgs/t4.png">
+
+
+          <div class="t">Dados sobre servidores</div>
+          <p>Exemplo da deputada Áurea Carolina (Psol-MG)</p>
+          <img src="assets/imgs/t5.png">
+          <p>Mais um exemplo, este do deputado Zeca DIrceu (PT-PR)</p>
+          <img src="assets/imgs/t6.png">
+          <p>Exemplo do deputado Vinicius Poit (Novo-SP)</p>
+          <img src="assets/imgs/t7.png">
+          <p>Os exemplos acima tiveram avaliação positiva, mas não precisam servir como modelo para outras experiências. A avaliação respeita os diferentes modos de divulgar a informação.</p>
+
+          <div class="t">Frequência da Pesquisa</div>
+          <p>Os parlamentares que não responderam ou ainda aqueles que implantaram melhorias em seus sites desde a primeira rodada de coleta podem mandar os dados a qualquer momento para transparencia@congressoemfoco.com.br que a nota será recalculada em rodadas mensais. </p>
+        </div>
+      </div>
+    </div>
+    <label for="criterios" class="tc">Entenda os critérios</label>
+  </div>
+</div>
+
+<div class="container-fluid">
+  <div class="grupos bgc">
+    <div class="s">Alto nível de transparência</div>
+    <div class="grid">
+      <div class="e">5 <span></span></div>
+      <div class="grid fwrap">
+
+        <div class="perfil" *ngFor="let p of gruposPorEstrelas['5']; index as i;">
+          <img
+            [defaultImage]="'assets/imgs/nophoto.png'"
+            [lazyLoad]="p.getFoto()"
+            width="100%"
+            class="img-filter"
+          >{{p.nomeEleitoral}}<br><span>{{ p.parlamentarPartido.sigla }}/{{ p.uf }}</span>
+        </div>
+        <div class="spacing"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container-fluid">
+  <div class="grupos">
+    <div class="grid">
+      <div class="e">4 <span></span></div>
+      <div class="grid fwrap">
+        
+        <div class="perfilmini" *ngFor="let p of gruposPorEstrelas['4']; index as i;">
+          <div>
+            <div>{{p.nomeEleitoral}}</div><span>{{ p.parlamentarPartido.sigla }}/{{ p.uf }}</span>
+          </div>
+        </div>
+        <div class="spacing"></div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container-fluid">
+  <div class="grupos">
+    <div class="grid">
+      <div class="e">3 <span></span></div>
+      <div class="grid fwrap">
+        
+        <div class="perfilmini" *ngFor="let p of gruposPorEstrelas['3']; index as i;">
+          <div>
+            <div>{{p.nomeEleitoral}}</div><span>{{ p.parlamentarPartido.sigla }}/{{ p.uf }}</span>
+          </div>
+        </div>
+        <div class="spacing"></div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container-fluid">
+  <div class="grupos">
+    <div class="grid">
+      <div class="e">2 <span></span></div>
+      <div class="grid fwrap">
+        
+        <div class="perfilmini" *ngFor="let p of gruposPorEstrelas['2']; index as i;">
+          <div>
+            <div>{{p.nomeEleitoral}}</div><span>{{ p.parlamentarPartido.sigla }}/{{ p.uf }}</span>
+          </div>
+        </div>
+        <div class="spacing"></div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container-fluid">
+  <div class="grupos">
+    <div class="grid">
+      <div class="e">1 <span></span></div>
+      <div class="grid fwrap">
+        
+        <div class="perfilmini" *ngFor="let p of gruposPorEstrelas['1']; index as i;">
+          <div>
+            <div>{{p.nomeEleitoral}}</div><span>{{ p.parlamentarPartido.sigla }}/{{ p.uf }}</span>
+          </div>
+        </div>
+        <div class="spacing"></div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container-fluid">
+  <div class="grupos">
+    <div class="s">Não responderam</div>
+    <div class="grid">
+      <div class="e">0 <span class="cinza"></span></div>
+      <div class="grid fwrap">
+        <div class="perfilmini" *ngFor="let p of gruposPorEstrelas['0']; index as i;">
+          <div>
+            <div>{{p.nomeEleitoral}}</div><span>{{ p.parlamentarPartido.sigla }}/{{ p.uf }}</span>
+          </div>
+        </div>
+        <div class="spacing"></div>
+        
+      </div>
+    </div>
+  </div>
+</div>

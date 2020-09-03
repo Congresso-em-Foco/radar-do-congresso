@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 import { NgxPaginationModule } from 'ngx-pagination';
 import { LazyLoadImageModule, intersectionObserverPreset } from 'ng-lazyload-image';
@@ -21,6 +22,7 @@ import { CardBuscaParlamentarComponent } from './card-busca-parlamentar/card-bus
   ],
   imports: [
     CommonModule,
+    RouterModule,
     NgxPaginationModule,
     NgbModule,
     LazyLoadImageModule.forRoot({

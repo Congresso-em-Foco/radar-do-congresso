@@ -19,7 +19,7 @@ app.use(compression());
 var db = require("./models/index");
 
 const corsOptions = {
-  origin: ['http://localhost:4200', 'http://localhost:3000'],
+  origin: ['http://localhost:4200', 'http://localhost:3000', 'https://congressoemfoco.uol.com.br'],
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true,
   allowedHeaders: ["Content-Type", "Authorization"],

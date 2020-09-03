@@ -1,114 +1,107 @@
+<app-titleheader customTitle="{{getCargoParlamentar(parlamentar?.casa)}}"></app-titleheader>
+<div class="parlementar-subnav">
+  <div class="subnav">
+    <ul class="nav nav-pills">
+      <li class="nav-item text-center">
+        <a
+          class="nav-link subnav-link"
+          [routerLink]="['./perfil']"
+          [routerLinkActive]="'active'"
+        >
+          Perfil
+        </a>
+      </li>
+      <li class="nav-item text-center">
+        <a
+          class="nav-link subnav-link"
+          [routerLink]="['./votacoes']"
+          [routerLinkActive]="'active'"
+        >
+          Votações
+        </a>
+      </li>
+      <li class="nav-item text-center">
+        <a
+          class="nav-link subnav-link"
+          [routerLink]="['./proposicoes']"
+          [routerLinkActive]="'active'"
+        >
+          Proposições
+        </a>
+      </li>
+      <li class="nav-item text-center">
+        <a
+          class="nav-link subnav-link"
+          [routerLink]="['./gastos-ceap']"
+          [routerLinkActive]="'active'"
+        >
+          Gastos
+        </a>
+      </li>
+      <li class="nav-item text-center">
+        <a
+          class="nav-link subnav-link"
+          [routerLink]="['./discursos']"
+          [routerLinkActive]="'active'"
+        >
+          Discursos
+        </a>
+      </li>
+      <li class="nav-item text-center">
+        <a
+          class="nav-link subnav-link"
+          [routerLink]="['./patrimonio']"
+          [routerLinkActive]="'active'"
+        >
+          Patrimônio
+        </a>
+      </li>
+      <li class="nav-item text-center">
+        <a
+          class="nav-link subnav-link"
+          [routerLink]="['./eleicao']"
+          [routerLinkActive]="'active'"
+        >
+          Eleição
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
 <div
-  class="container pt-3"
+  class="container"
   *ngIf="parlamentar"
 >
-
-  <div class="parlementar-subnav">
-    <div class="subnav">
-      <ul class="nav nav-pills">
-        <li class="nav-item text-center">
-          <a
-            class="nav-link subnav-link"
-            [routerLink]="['./votacoes']"
-            [routerLinkActive]="'active'"
+  <div class="row">
+    <div class="col-md-6">
+      <div class="sticky">
+        <div class="parlamentar">
+          <img
+            [defaultImage]="'assets/imgs/nophoto.png'"
+            [lazyLoad]="parlamentar.getFoto()"
+            [offset]="100"
+            width="100%"
+            class="parlementar-img img-filter"
           >
-            Votações
-          </a>
-        </li>
-        <li class="nav-item text-center">
-          <a
-            class="nav-link subnav-link"
-            [routerLink]="['./proposicoes']"
-            [routerLinkActive]="'active'"
-          >
-            Proposições
-          </a>
-        </li>
-        <li class="nav-item text-center">
-          <a
-            class="nav-link subnav-link"
-            [routerLink]="['./gastos-ceap']"
-            [routerLinkActive]="'active'"
-          >
-            Gastos
-          </a>
-        </li>
-        <li class="nav-item text-center">
-          <a
-            class="nav-link subnav-link"
-            [routerLink]="['./discursos']"
-            [routerLinkActive]="'active'"
-          >
-            Discursos
-          </a>
-        </li>
-        <li class="nav-item text-center">
-          <a
-            class="nav-link subnav-link"
-            [routerLink]="['./patrimonio']"
-            [routerLinkActive]="'active'"
-          >
-            Patrimônio
-          </a>
-        </li>
-        <li class="nav-item text-center">
-          <a
-            class="nav-link subnav-link"
-            [routerLink]="['./eleicao']"
-            [routerLinkActive]="'active'"
-          >
-            Eleição
-          </a>
-        </li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="parlamentar">
-    <div class="row gutters-sm">
-      <div class="col-auto">
-        <img
-          [defaultImage]="'assets/imgs/nophoto.png'"
-          [lazyLoad]="parlamentar.getFoto()"
-          [offset]="100"
-          width="100%"
-          class="parlementar-img"
-        >
-      </div>
-      <div class="col">
-        <div class="parlamentar-title">{{ parlamentar.nomeEleitoral }}</div>
-        <p>
-          {{getCargoParlamentar(parlamentar?.casa)}} - {{ parlamentar.parlamentarPartido.sigla }}/{{ parlamentar.uf }}
-        </p>
-        <p>
-          <b>Data de nascimento:</b>
-          {{ parlamentar.dataNascimento | date:'dd/MM/yyyy' }}
-        </p>
-        <p>
-          <b>Naturalidade:</b>
-          {{ parlamentar.naturalidade }}
-        </p>
-        <p>
-          <b>Endereço:</b>
-          {{ parlamentar.endereco ? parlamentar.endereco : 'Indisponível'}}
-        </p>
-        <p>
-          <b>Telefone: </b>(61) {{ parlamentar.telefone ? parlamentar.telefone : 'Indisponível'}}
-        </p>
-        <p>
-          <b>E-mail:</b>
-          {{ parlamentar.email ? parlamentar.email : 'Indisponível'}}
-        </p>
-        <p *ngIf="parlamentar.nomeEleitoral === ''">
-          <b></b>
-          
-        </p>
+          <h2 class="parlamentar-title">{{ parlamentar.nomeEleitoral }}</h2>
+          <p>{{getCargoParlamentar(parlamentar?.casa)}}<br>{{ parlamentar.parlamentarPartido.sigla }}/{{ parlamentar.uf }}</p>
+          <div class="clear"></div>
+          <h5 class="titulosessao">Perfil</h5>
+          <p><b>Data de nascimento:</b> {{ parlamentar.dataNascimento | date:'dd/MM/yyyy' }}</p>
+          <p><b>Naturalidade:</b> {{ parlamentar.naturalidade }}</p>
+          <p><b>Gênero:</b> {{ parlamentar.getGenero() }}</p>
+          <p *ngIf="parlamentar.nomeEleitoral === ''"><b></b></p>
+        </div>
+        <div class="p1 my-4">
+          <h5 class="titulosessao">Contato</h5>
+          <p><b>Endereço:</b> {{ parlamentar.endereco ? parlamentar.endereco : 'Indisponível'}}</p>
+          <p><b>Telefone: </b> (61) {{ parlamentar.telefone ? parlamentar.telefone : 'Indisponível'}}</p>
+          <p><b>E-mail:</b> {{ parlamentar.email ? parlamentar.email : 'Indisponível'}}</p>
+        </div>
       </div>
     </div>
+    <div class="col-md-6 parlamentar-pages">
+      <router-outlet></router-outlet>
+    </div>
   </div>
-
-</div>
-
-<div class="parlamentar-pages container">
-  <router-outlet></router-outlet>
 </div>

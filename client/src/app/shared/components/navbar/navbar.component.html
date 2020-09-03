@@ -15,31 +15,15 @@
       <li class="nav-item text-center">
         <a
           class="nav-link"
-          [routerLink]="['./parlamentares/senado']"
+          [routerLink]="['./parlamentares']"
           [routerLinkActive]="'active'"
-        >
-          <img
-            src="assets/imgs/senado.png"
-            alt="Senadores"
-            class="nav-img"
-          >
-          <br>
-          Senadores
-        </a>
-      </li>
-      <li class="nav-item text-center">
-        <a
-          class="nav-link"
-          [routerLink]="['./parlamentares/camara']"
-          [routerLinkActive]="'active'"
-        >
-          <img
-            src="assets/imgs/camara.png"
-            alt="Deputados"
-            class="nav-img"
-          >
-          <br>
-          Deputados
+        >            
+          <span><svg width="25px" height="25px" viewBox="0 0 25 25" xmlns="http://www.w3.org/2000/svg" alt="Perfis">
+            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                <path d="M16,11 C17.66,11 18.99,9.66 18.99,8 C18.99,6.34 17.66,5 16,5 C14.34,5 13,6.34 13,8 C13,9.66 14.34,11 16,11 Z M8,11 C9.66,11 10.99,9.66 10.99,8 C10.99,6.34 9.66,5 8,5 C6.34,5 5,6.34 5,8 C5,9.66 6.34,11 8,11 Z M8,13 C5.67,13 1,14.17 1,16.5 L1,19 L15,19 L15,16.5 C15,14.17 10.33,13 8,13 Z M16,13 C15.71,13 15.38,13.02 15.03,13.05 C16.19,13.89 17,15.02 17,16.5 L17,19 L23,19 L23,16.5 C23,14.17 18.33,13 16,13 Z" fill="#000000" fill-rule="nonzero"></path>
+            </g>
+          </svg></span>
+          Perfis
         </a>
       </li>
       <li class="nav-item text-center">
@@ -48,28 +32,26 @@
           [routerLink]="['./votacoes']"
           [routerLinkActive]="'active'"
         >
-          <img
-            src="assets/imgs/votacao.png"
-            alt="Votações"
-            class="nav-img"
-          >
-          <br>
+          <span><svg width="25px" height="25px" viewBox="0 0 25 25" xmlns="http://www.w3.org/2000/svg" alt="Votações">
+            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                <path d="M18,13 L17.32,13 L15.32,15 L17.23,15 L19,17 L5,17 L6.78,15 L8.83,15 L6.83,13 L6,13 L3,16 L3,20 C3,21.1 3.89,22 4.99,22 L19,22 C20.1,22 21,21.11 21,20 L21,16 L18,13 Z M17,7.95 L12.05,12.9 L8.51,9.36 L13.46,4.41 L17,7.95 Z M12.76,2.29 L6.39,8.66 C6,9.05 6,9.68 6.39,10.07 L11.34,15.02 C11.73,15.41 12.36,15.41 12.75,15.02 L19.11,8.66 C19.5,8.27 19.5,7.64 19.11,7.25 L14.16,2.3 C13.78,1.9 13.15,1.9 12.76,2.29 Z" fill="#000000" fill-rule="nonzero"></path>
+            </g>
+          </svg></span>
           Votações
         </a>
       </li>
       <!-- <li class="nav-item text-center">
         <a
           class="nav-link"
-          [routerLink]="['./votacoes']"
+          [routerLink]="['./governismo']"
           [routerLinkActive]="'active'"
         >
-          <img
-            src="assets/imgs/gastos.png"
-            alt="Senadores"
-            class="nav-img"
-          >
-          <br>
-          Gastos
+          <span><svg width="25px" height="25px" viewBox="0 0 25 25" xmlns="http://www.w3.org/2000/svg" alt="Governismo">
+            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                <path transform="translate(2.000000, 4.065918)" fill="#000000" fill-rule="nonzero" d="M10,18 L10,16 C14.42,16 18,12.42 18,8 C18,5.79 17.1,3.79 15.66,2.34 L17.07,0.93 C18.88,2.74 20,5.24 20,8 C20,13.52 15.52,18 10,18 Z M10,14 C6.69,14 4,11.31 4,8 C4,6.34 4.67,4.84 5.76,3.76 L7.17,5.17 C6.45,5.9 6,6.9 6,8 C6,10.21 7.79,12 10,12 C12.21,12 14,10.21 14,8 C14,6.9 13.55,5.9 12.83,5.17 L14.24,3.76 C15.33,4.84 16,6.34 16,8 C16,11.31 13.31,14 10,14 Z M10,18 C4.48,18 0,13.52 0,8 C0,5.24 1.12,2.74 2.93,0.93 L4.34,2.34 C2.9,3.79 2,5.79 2,8 C2,12.42 5.58,16 10,16 L10,18 Z M10,10 C8.8954305,10 8,9.1045695 8,8 C8,6.8954305 8.8954305,6 10,6 C11.1045695,6 12,6.8954305 12,8 C12,9.1045695 11.1045695,10 10,10 Z"></path>
+            </g>
+          </svg></span>
+          Governismo
         </a>
       </li> -->
       <li class="nav-item text-center">
@@ -78,16 +60,28 @@
           [routerLink]="['./assiduidade']"
           [routerLinkActive]="'active'"
         >
-          <img
-            src="assets/imgs/frente.png"
-            alt="Assiduidade"
-            class="nav-img"
-          >
-          <br>
-          Assiduidade
+          <span><svg width="25px" height="25px" viewBox="0 0 25 25" xmlns="http://www.w3.org/2000/svg" alt="Presença">
+            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                <polygon fill="#000000" fill-rule="nonzero" points="9 16.2 4.8 12 3.4 13.4 9 19 21 7 19.6 5.6"></polygon>
+            </g>
+          </svg></span>
+          Presença
+        </a>
+      </li>
+      <li class="nav-item text-center">
+        <a
+          class="nav-link"
+          [routerLink]="['./transparencia']"
+          [routerLinkActive]="'active'"
+        >
+          <span><svg width="25px" height="25px" viewBox="0 0 25 25" xmlns="http://www.w3.org/2000/svg" alt="Transparência">
+            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                <path d="M15.5,14 L14.71,14 L14.43,13.73 C15.41,12.59 16,11.11 16,9.5 C16,5.91 13.09,3 9.5,3 C5.91,3 3,5.91 3,9.5 C3,13.09 5.91,16 9.5,16 C11.11,16 12.59,15.41 13.73,14.43 L14,14.71 L14,15.5 L19,20.49 L20.49,19 L15.5,14 Z M9.5,14 C7.01,14 5,11.99 5,9.5 C5,7.01 7.01,5 9.5,5 C11.99,5 14,7.01 14,9.5 C14,11.99 11.99,14 9.5,14 Z" fill="#000000" fill-rule="nonzero"></path>
+            </g>
+          </svg></span>
+          Transparência
         </a>
       </li>
     </ul>
   </div>
-  <p id="dataAtualizacao">Base de dados atualizada em: {{ dataAtualizacao }}</p>
 </div>

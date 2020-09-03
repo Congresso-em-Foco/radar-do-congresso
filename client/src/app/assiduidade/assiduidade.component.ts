@@ -19,7 +19,7 @@ export class AssiduidadeComponent implements OnInit, OnDestroy {
   public ano: string;
   public p = 1;
   public ordenacao: string;
-
+  
   constructor(private assiduidadeService: AssiduidadeService) { }
 
   ngOnInit() {

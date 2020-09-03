@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css?family=Montserrat:400,700");
-@import url("https://fonts.googleapis.com/css?family=Roboto");
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Mono:400");
 @import '../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css';
 
 @import "../node_modules/bootstrap/scss/functions";
@@ -13,8 +13,7 @@
   filter: grayscale(100%);
   -webkit-filter: gray;
   filter: gray;
-
-  border-radius: 20px;
+  border-radius: 7px;
 }
 
 .titulo {
@@ -24,4 +23,24 @@
 
 .texto-menor {
   font-size: 0.8rem;
+}
+
+.interruptor{
+	display: flex; flex-direction:row; justify-content:center; margin-right: auto; margin-left: auto;
+	>a{
+		font: 14px Roboto; color:#999; padding: .5em 1em; background: #ddd; border: 1px solid #ddd; text-decoration: none;
+		transition: all .4s ease-in-out;
+		&:first-child{border-radius: 50px 0 0 50px;}
+		&:last-child{border-radius: 0 50px 50px 0;}
+		&:hover{background: #eee; color:#777; }
+		&.active{background: #FFFFFF; color:#666; }
+	}
+}
+
+.clear{
+  display: block; clear: both; float: none;
+}
+
+.titulosessao{
+  font-size: 17px; font-weight: 400; text-transform: uppercase; letter-spacing: .2em;
 }

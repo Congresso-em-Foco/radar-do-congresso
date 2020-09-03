@@ -1,0 +1,76 @@
+.controlasanfona{
+  display: none;
+  &:checked{
+    ~ .sanfona{display: block;}
+    ~ label:after{transform: rotate(180deg);}
+  }
+}
+.controlasanfona ~ label{
+  cursor: pointer; color: #3d4dcc;
+  &:after{
+    content: "";display: inline-block; vertical-align: middle; width: 16px; height: 10px; margin-left: .5rem;
+    transition: transform .2s;
+    background-image: url('data:image/svg+xml;utf8, <svg viewBox="0 0 16 10" xmlns="http://www.w3.org/2000/svg"><polyline fill="none" stroke="%233d4dcc" stroke-width="2" points="1,1 8,8 15,1"></polyline></svg>');
+  }
+}
+.sanfona{display: none;}
+
+.tc{margin: 0 auto; text-align: center; display: block;}
+
+.about{
+  .t{font-weight: 700; margin: 2rem 0 1rem;}
+  p{}
+  table{
+    th,td{padding: .3rem; border-bottom: 1px solid #eee;}
+    th{vertical-align: bottom;}
+    td{}
+  }
+  img{display: block; max-width: 100%; height: auto; margin-bottom: 2rem;}
+}
+
+.grupos{
+  padding: 2rem; border-bottom: 2px solid #eee;
+  &.bgc{background: #e9eaf3;}
+  .s{font-size: 12px; color: rgba(0,0,0,.5); text-transform: uppercase;}
+  .grid{display: flex; flex-direction:row; justify-content: space-between;}
+  .fwrap{flex-wrap: wrap; width: 100%;}
+  .e{
+    max-width: 120px; min-width: 60px; width: 15%; 
+    font-size: 30px; margin: 1rem 1rem 1rem 0; line-height: 1; flex: 0 0 auto;
+    span{
+      display: inline-block; vertical-align: bottom; width: 1.1em; height: 1.1em; background-size: 126%; background-position: center;
+      background-image: url('data:image/svg+xml;utf8, <svg viewBox="0 0 25 25" xmlns="http://www.w3.org/2000/svg"><polygon fill="%2301ab57" points="12 17.27 18.18 21 16.54 13.97 22 9.24 14.81 8.63 12 2 9.19 8.63 2 9.24 7.46 13.97 5.82 21"></polygon></svg>');
+      &.cinza{
+        background-image: url('data:image/svg+xml;utf8, <svg viewBox="0 0 25 25" xmlns="http://www.w3.org/2000/svg"><polygon fill="%23bfbfbf" points="12 17.27 18.18 21 16.54 13.97 22 9.24 14.81 8.63 12 2 9.19 8.63 2 9.24 7.46 13.97 5.82 21"></polygon></svg>');
+      }
+    }
+  }
+  .perfil{
+    text-align: center; padding: 1rem; width: 16.666%; line-height: 1.2; font-size: 14px;
+    img{display: block; width: 100%; height: auto; margin-bottom: .5rem;}
+    span{color: rgba(0,0,0,.3); margin-top: .5rem;}
+    @media(max-width: 1000px){
+      width: 25%;
+    }
+    @media(max-width: 700px){
+      width: 33.333%;
+    }
+    @media(max-width: 500px){
+      width: 50%;
+    }
+  }
+  .perfilmini{
+    text-align: left; padding: 1rem; width: 50%; line-height: 1.2; font-size: 14px;
+    >div{
+      padding: .7rem; background: #eee; border-right: 3px solid; display: flex; flex-direction: row; border-radius: 5px;
+      div{white-space: nowrap; text-overflow:ellipsis; overflow: hidden; margin-right: 1rem;}
+      span{color: rgba(0,0,0,.3); flex: 0 0 auto;}
+    }
+    @media(max-width: 700px){
+      width: 100%;
+    }
+  }
+  .spacing{flex: 1 1 auto;}
+}
+
+.container-fluid{max-width: 1200px;}

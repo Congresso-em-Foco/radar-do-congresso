@@ -30,7 +30,6 @@ export class VotacoesImportantesComponent implements OnInit, OnDestroy {
   public votacaoSelecionada: any;
   public votacaoSelecionadaVotos: any;
   public ordenacao: string;
-
   p = 1;
 
   constructor(private proposicaoService: ProposicaoService) { }

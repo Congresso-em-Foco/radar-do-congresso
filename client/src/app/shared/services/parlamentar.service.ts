@@ -10,6 +10,7 @@ import { ParlamentarInfo } from '../models/parlamentarInfo.model';
 import { ParlamentarVotos } from '../models/parlamentarVotos.model';
 import { ParlamentarProposicoes } from '../models/parlamentarProposicoes.model';
 import { ParlamentarGastosCeap } from '../models/parlamentarGastosCeap.model';
+import { ParlamentarAssiduidade } from '../models/assiduidade.model';
 import { ParlamentarDiscursos } from '../models/parlamentarDiscursos.model';
 import { ParlamentarPatrimonio } from '../models/parlamentarPatrimonio.model';
 import { ParlamentarEleicao } from '../models/parlamentarEleicao.model';
@@ -63,6 +64,11 @@ export class ParlamentarService {
   getGastosCeapByid(id: string): Observable<ParlamentarGastosCeap> {
     return this.http
       .get<ParlamentarGastosCeap>(this.url + '/' + id + '/gastos-ceap');
+  }
+
+  getAssiduidadeByid(id: string): Observable<ParlamentarAssiduidade> {
+    return this.http
+      .get<ParlamentarAssiduidade>(this.url + '/' + id + '/assiduidade');
   }
 
   getVotosEleicaoByid(id: string): Observable<ParlamentarEleicao> {

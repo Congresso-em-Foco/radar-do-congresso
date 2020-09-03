@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { ParlamentarComponent } from './parlamentar.component';
+import { PerfilComponent } from './perfil/perfil.component';
 import { ProposicoesComponent } from './proposicoes/proposicoes.component';
 import { GastosCeapComponent } from './gastos-ceap/gastos-ceap.component';
 import { VotacoesComponent } from './votacoes/votacoes.component';
@@ -15,6 +16,14 @@ const routes: Routes = [
     component: ParlamentarComponent,
     data: { animation: 'ParlamentarComponent' },
     children: [
+      {
+        path: '',
+        redirectTo: 'perfil'
+      },
+      {
+        path: 'perfil',
+        component: PerfilComponent
+      },
       {
         path: 'proposicoes',
         component: ProposicoesComponent

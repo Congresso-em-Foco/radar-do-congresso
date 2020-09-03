@@ -12,6 +12,7 @@ export class ParlamentarInfo {
   public idPerfilPolitico: string;
   public dataNascimento: Date;
   public naturalidade: string;
+  public genero: string;
   public endereco: string;
   public telefone: string;
   public email: string;
@@ -27,6 +28,7 @@ export class ParlamentarInfo {
     this.idPerfilPolitico = parlamentar.id_perfil_politico;
     this.dataNascimento = parlamentar.dataNascimento;
     this.naturalidade = parlamentar.naturalidade;
+    this.genero = parlamentar.genero;
     this.endereco = parlamentar.endereco;
     this.telefone = parlamentar.telefone;
     this.email = parlamentar.email;
@@ -37,6 +39,14 @@ export class ParlamentarInfo {
       return 'https://www.camara.leg.br/internet/deputado/bandep/' + this.idParlamentar + '.jpg';
     } else if (this.casa === 'senado') {
       return 'https://www.senado.leg.br/senadores/img/fotos-oficiais/senador' + this.idParlamentar + '.jpg';
+    }
+    return '';
+  }
+  getGenero(): string {
+    if (this.genero === 'M') {
+      return 'masculino';
+    } else if (this.genero === 'F') {
+      return 'feminino';
     }
     return '';
   }

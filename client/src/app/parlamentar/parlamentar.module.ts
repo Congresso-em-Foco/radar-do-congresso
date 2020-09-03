@@ -14,6 +14,7 @@ import { ParlamentarRoutingModule } from './parlamentar-routing.module';
 import { ParlamentarComponent } from './parlamentar.component';
 import { VotacoesComponent } from './votacoes/votacoes.component';
 import { VotacaoComponent } from './votacao/votacao.component';
+import { PerfilComponent } from './perfil/perfil.component';
 import { ProposicoesComponent } from './proposicoes/proposicoes.component';
 import { ProposicaoComponent } from './proposicoes/proposicao/proposicao.component';
 import { GastosCeapComponent } from './gastos-ceap/gastos-ceap.component';
@@ -28,6 +29,7 @@ import { EleicaoComponent } from './eleicao/eleicao.component';
     ParlamentarComponent,
     VotacoesComponent,
     VotacaoComponent,
+    PerfilComponent,
     ProposicoesComponent,
     ProposicaoComponent,
     GastosCeapComponent,

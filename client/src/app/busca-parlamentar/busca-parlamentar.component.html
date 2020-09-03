@@ -1,5 +1,9 @@
+<div class="interruptor mt-4">
+  <a [routerLink]="['/parlamentares/senado']" [class.active]="casa === 'senado'">Senado</a>
+  <a [routerLink]="['/parlamentares/camara']" [class.active]="casa === 'camara'">Câmara</a>
+</div>
+<app-titleheader customTitle="{{casaService.getCargoCasa(casa)}}"></app-titleheader>
 <div class="container py-4">
-
   <app-filter
     (filterChange)="search($event)"
   ></app-filter>

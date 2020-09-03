@@ -5,7 +5,6 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 import { ParlamentarService } from 'src/app/shared/services/parlamentar.service';
-
 import { ParlamentarInfo } from 'src/app/shared/models/parlamentarInfo.model';
 
 @Component({
@@ -16,9 +15,7 @@ import { ParlamentarInfo } from 'src/app/shared/models/parlamentarInfo.model';
 export class ParlamentarComponent implements OnInit, OnDestroy {
 
   private unsubscribe = new Subject();
-
   parlamentar: ParlamentarInfo;
-
   constructor(
     private activatedroute: ActivatedRoute,
     private parlamentarService: ParlamentarService

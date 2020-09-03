@@ -1,36 +1,43 @@
-#dataAtualizacao {
-  font-size: 14px;
-  margin-top: 20px;
-  margin-bottom: -20px;
-  font-style: italic;
-}
-
-.nav-img {
-  width: 50px;
-  height: 50px;
-  margin-bottom: 0.5rem;
-}
-
 .nav-link {
-  font-size: 0.9rem;
-  margin-left: 0px;
-  margin-right: 0px;
-  padding-right: 0px;
-  padding-left: 20px;
-  &.active,
-  &:hover {
-    font-weight: 700;
+  font-size: 12px;
+  font-family: Roboto;
+  padding: 0;
+  color: black;
+  width: 74px;
+  span{
+    display: flex;
+    width: 40px;
+    height: 40px;
+    background: #eee;
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    svg{
+      polygon, path{
+        fill: #888;
+      }
+    }
+  }
+  &:hover,&:focus,&.active{
+    span{
+      background: #666;
+      svg{
+        polygon, path{
+          fill: #FFF;
+        }
+      }
+    }
   }
 }
 
 .main-navbar {
+  > .nav {
+    flex: 0 0 auto;
+  }
   @media (max-width: 992px) {
     display: flex;
     flex-wrap: nowrap;
     overflow-x: auto;
-
-    > .nav {
-      flex: 0 0 auto;
-    }
   }
 }

@@ -1,0 +1,74 @@
+<ng-template [ngIf]="parlamentarGovernismo">
+  <div class="bloco">
+    <h5 class="titulosessao">Governismo</h5>
+
+    <div class="governismo">
+      <img
+        [defaultImage]="'assets/imgs/nophoto.png'"
+        [lazyLoad]="parlamentar.getFoto()"
+        [offset]="100"
+        width="100%"
+        class="parlementar-img img-filter"
+      >
+      <div>
+        <h2>{{ parlamentar.nomeEleitoral }} <span>{{ parlamentar.parlamentarPartido.sigla }}/{{ parlamentar.uf }}</span></h2>
+        <p class="mb-4">No governo Bolsonaro</p>
+        <div class="t">Governismo</div>
+        <div class="n">{{ parlamentarGovernismo }}%</div>
+
+        <div class="graficobarra" *ngIf="parlamentarGovernismoDatas?.length > 0">
+          <div class="estrutura">
+            <div class="ano" *ngFor="let ano of parlamentarGovernismoDatas; index as i;">
+              <span *ngIf="ano.meses?.length > 3">{{ano.ano}}</span>
+              <div class="mes" *ngFor="let mes of ano.meses; index as j;" [style.height.%]="mes"></div>
+            </div>
+          </div>
+        </div>
+        
+        <ng-template [ngIf]="parlamentarAssiduidade">
+          <div class="t o mt-2">Presença em votações</div>
+          <div class="n o">{{ parlamentarAssiduidade }}%</div>
+        </ng-template>
+        <p class="text-right">Até {{ dataAtualizacao }}</p>
+      </div>
+    </div>
+    <a class="pagelink" [routerLink]="['/governismo']">Compare todos os parlamentares</a>
+  </div>
+</ng-template>
+
+<div class="bloco">
+  <h5 class="titulosessao">Transparência</h5>
+
+  <div class="transparencia">
+    <div class="t">Nível de transparência</div>
+    <div class="estrelas e-{{parlamentarTransparencia || 0}}">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+  <a class="pagelink" [routerLink]="['/transparencia']">Entenda os critérios e compare</a>
+</div>
+
+<ng-template [ngIf]="parlamentarInvestigacoes?.length > 0">
+  <div class="bloco">
+    <h5 class="titulosessao">Investigações</h5>
+    <div class="investigacoes">
+      <div class="t"><span>{{parlamentarInvestigacoes?.length}}</span><br>processos em <br>andamento</div>
+      <div>
+        <input type="checkbox" id="inqueritos" class="controlasanfona">
+        <div class="sanfona">
+          <div class="t" *ngFor="let inquerito of parlamentarInvestigacoes; index as i;">
+            <div *ngIf="inquerito.numero"><strong>Número:</strong> {{inquerito.numero}} - {{inquerito.onde}}</div>
+            <div *ngIf="inquerito.infos"><strong>Informações:</strong> {{inquerito.infos}}</div>
+            <div *ngIf="inquerito.defesa"><strong>Defesa:</strong> {{inquerito.defesa | json}}</div>
+          </div>
+        </div>
+        <label for="inqueritos" class="tc">Ler mais</label>
+      </div>
+    </div>    
+    <!-- <a class="pagelink" [routerLink]="['/parlamentares']">Veja todos os investigados</a> -->
+  </div>
+</ng-template>
