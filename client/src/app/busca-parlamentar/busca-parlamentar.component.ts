@@ -29,6 +29,8 @@ export class BuscaParlamentarComponent implements OnInit, OnDestroy {
   orderBy: string;
   isLoading: boolean;
 
+  cargo: string;
+
   private unsubscribe = new Subject();
 
   constructor(
@@ -47,6 +49,7 @@ export class BuscaParlamentarComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(params => {
         this.casaService.set(params.get('casa'));
+        this.cargo = this.casaService.getCargoCasa(params.get('casa'));
         this.casa = params.get('casa');
         this.getParlamentaresPorCasa();
       });
