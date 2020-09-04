@@ -9,7 +9,7 @@
     <input type="checkbox" id="criterios" class="controlasanfona">
     <div class="sanfona about">
       <div class="row justify-content-md-center my-3">
-        <div class="col-md-8">
+        <div class="col-lg-8">
           <div class="t">Como foi feito o levantamento</div>
           <p>O nível de transparência dos deputados federais e senadores é um levantamento exclusivo do Congresso em Foco. O trabalho leva em conta 11 indicadores de transparência digital e a primeira rodada de coleta de informações foi feita entre os meses de julho e agosto de 2020.</p>
 
@@ -135,15 +135,16 @@
       <div class="e">5 <span></span></div>
       <div class="grid fwrap">
 
-        <div class="perfil" *ngFor="let p of gruposPorEstrelas['5']; index as i;">
+        <a [routerLink]="['/parlamentar', p.idParlamentarVoz]" class="perfil" *ngFor="let p of gruposPorEstrelas['5']; index as i;">
           <img
             [defaultImage]="'assets/imgs/nophoto.png'"
             [lazyLoad]="p.getFoto()"
             width="100%"
             class="img-filter"
           >{{p.nomeEleitoral}}<br><span>{{ p.parlamentarPartido.sigla }}/{{ p.uf }}</span>
-        </div>
+        </a>
         <div class="spacing"></div>
+
       </div>
     </div>
   </div>
@@ -154,11 +155,11 @@
       <div class="e">4 <span></span></div>
       <div class="grid fwrap">
         
-        <div class="perfilmini" *ngFor="let p of gruposPorEstrelas['4']; index as i;">
+        <a [routerLink]="['/parlamentar', p.idParlamentarVoz]" class="perfilmini" *ngFor="let p of gruposPorEstrelas['4']; index as i;">
           <div>
             <div>{{p.nomeEleitoral}}</div><span>{{ p.parlamentarPartido.sigla }}/{{ p.uf }}</span>
           </div>
-        </div>
+        </a>
         <div class="spacing"></div>
         
       </div>
@@ -171,11 +172,11 @@
       <div class="e">3 <span></span></div>
       <div class="grid fwrap">
         
-        <div class="perfilmini" *ngFor="let p of gruposPorEstrelas['3']; index as i;">
+        <a [routerLink]="['/parlamentar', p.idParlamentarVoz]" class="perfilmini" *ngFor="let p of gruposPorEstrelas['3']; index as i;">
           <div>
             <div>{{p.nomeEleitoral}}</div><span>{{ p.parlamentarPartido.sigla }}/{{ p.uf }}</span>
           </div>
-        </div>
+        </a>
         <div class="spacing"></div>
         
       </div>
@@ -188,11 +189,11 @@
       <div class="e">2 <span></span></div>
       <div class="grid fwrap">
         
-        <div class="perfilmini" *ngFor="let p of gruposPorEstrelas['2']; index as i;">
+        <a [routerLink]="['/parlamentar', p.idParlamentarVoz]" class="perfilmini" *ngFor="let p of gruposPorEstrelas['2']; index as i;">
           <div>
             <div>{{p.nomeEleitoral}}</div><span>{{ p.parlamentarPartido.sigla }}/{{ p.uf }}</span>
           </div>
-        </div>
+        </a>
         <div class="spacing"></div>
         
       </div>
@@ -205,11 +206,11 @@
       <div class="e">1 <span></span></div>
       <div class="grid fwrap">
         
-        <div class="perfilmini" *ngFor="let p of gruposPorEstrelas['1']; index as i;">
+        <a [routerLink]="['/parlamentar', p.idParlamentarVoz]" class="perfilmini" *ngFor="let p of gruposPorEstrelas['1']; index as i;">
           <div>
             <div>{{p.nomeEleitoral}}</div><span>{{ p.parlamentarPartido.sigla }}/{{ p.uf }}</span>
           </div>
-        </div>
+        </a>
         <div class="spacing"></div>
         
       </div>
@@ -218,15 +219,14 @@
 </div>
 <div class="container-fluid">
   <div class="grupos">
-    <div class="s">Não responderam</div>
     <div class="grid">
       <div class="e">0 <span class="cinza"></span></div>
       <div class="grid fwrap">
-        <div class="perfilmini" *ngFor="let p of gruposPorEstrelas['0']; index as i;">
+        <a [routerLink]="['/parlamentar', p.idParlamentarVoz]" class="perfilmini" *ngFor="let p of gruposPorEstrelas['0']; index as i;">
           <div>
             <div>{{p.nomeEleitoral}}</div><span>{{ p.parlamentarPartido.sigla }}/{{ p.uf }}</span>
           </div>
-        </div>
+        </a>
         <div class="spacing"></div>
         
       </div>

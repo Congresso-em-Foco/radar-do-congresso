@@ -58,7 +58,7 @@ export class BuscaParlamentarService {
       });
   }
 
-  getParlamentares(): Observable<any> {
+  getParlamentares(): Observable<ParlamentarAderencia[]> {
     this.http
       .get<ParlamentarAderencia[]>(this.url)
       .pipe(map(data => data.map(parlamentar => new ParlamentarAderencia(parlamentar))))
@@ -67,6 +67,9 @@ export class BuscaParlamentarService {
       });
 
     return this.parlamentaresFiltered.asObservable();
+  }
+  getParlamentarestodos(): Observable<ParlamentarAderencia[]> {
+    return this.http.get<ParlamentarAderencia[]>(this.url).pipe(map(data => data.map(parlamentar => new ParlamentarAderencia(parlamentar))));
   }
 
   search(filters: any, orderBy: string) {

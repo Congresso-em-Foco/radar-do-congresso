@@ -22,6 +22,9 @@
   .nav{
     flex-wrap: nowrap;
     justify-content: center;
+    @media(max-width: 840px){
+      justify-content: flex-start;
+    }
   }
 }
 

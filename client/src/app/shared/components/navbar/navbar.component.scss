@@ -33,7 +33,7 @@
 
 .main-navbar {
   > .nav {
-    flex: 0 0 auto;
+    flex: 1 0 auto;
   }
   @media (max-width: 992px) {
     display: flex;

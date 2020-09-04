@@ -31,7 +31,7 @@ export class TransparenciaComponent implements OnInit, OnDestroy {
     private router: Router,
     private updateService: UpdateService,
     private transparenciaService: TransparenciaService,
-    private buscaParlamentarServive: BuscaParlamentarService,
+    private buscaParlamentarService: BuscaParlamentarService,
   ) { }
 
   ngOnInit() {
@@ -39,45 +39,37 @@ export class TransparenciaComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(params => {
         this.casa = params.get('casa');
-        this.getTransparencia(params.get('casa'));
-        this.getParlamentares(params.get('casa'));
+        this.getTransparencia(this.casa);
+        this.getMyParlamentares(this.casa);
       });
   }
   getTransparencia(casa: string) {
     this.transparenciaService
-      .get()
-      .pipe(takeUntil(this.unsubscribe))
-      .subscribe(
+      .get().forEach(
         data => {
           let list = data.split("\r\n");
           list.forEach( e => { 
             let c = e.split(";");
             if(c[1] && c[1]==casa) this.transparencias[c[0]] = {id:c[0], casa:c[1], estrelas:c[2]};
           });
-        },
-        error => {
-          console.log(error);
         }
       );
   }
-  getParlamentares(casa: string) {
-    this.buscaParlamentarServive
-      .getParlamentares()
-      .pipe(takeUntil(this.unsubscribe))
-      .subscribe(
+  getMyParlamentares(casa: string) {
+    this.gruposPorEstrelas = {};
+    this.buscaParlamentarService
+      .getParlamentarestodos().forEach(
         parlamentares => {
-          this.gruposPorEstrelas = {};
           this.parlamentaresCasa = parlamentares.filter(p => {
             return (p.casa === casa);
           }).map(p=>{
-            p.transparencia = this.transparencias[p.idParlamentarVoz];
-            if(!p.transparencia) p.transparencia = {id:p.idParlamentarVoz, casa:casa, estrelas:"0"};
-            if(!this.gruposPorEstrelas[p.transparencia.estrelas]) this.gruposPorEstrelas[p.transparencia.estrelas] = [];
-            this.gruposPorEstrelas[p.transparencia.estrelas].push(p);
+            let ptransparencia = this.transparencias[p.idParlamentarVoz];
+            if(!ptransparencia) ptransparencia = {id:p.idParlamentarVoz, casa:casa, estrelas:"0"};
+            if(!this.gruposPorEstrelas[ptransparencia.estrelas]) this.gruposPorEstrelas[ptransparencia.estrelas] = [];
+            this.gruposPorEstrelas[ptransparencia.estrelas].push(p);
             return p;
           });
-        },
-        error => console.log(error)
+        }
       );
   }
   ngOnDestroy() {
