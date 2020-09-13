@@ -45,7 +45,6 @@ export class PerfilComponent implements OnInit, OnDestroy {
   	this.activatedroute.parent.params.pipe(take(1)).subscribe(params => {
       this.getParlamentarById(params.id);
       this.getParlamentarAssiduidadeById(params.id);
-      this.getTransparencia(params.id);
       this.getInqueritos(params.id);
     });
   }
@@ -56,6 +55,7 @@ export class PerfilComponent implements OnInit, OnDestroy {
 	    .subscribe(
 	      parlamentar => {
 	        this.parlamentar = parlamentar;
+          this.getTransparencia(parlamentar.casa, parlamentar.idParlamentarVoz);
 	      },
 	      error => {
 	        console.log(error);
@@ -81,17 +81,17 @@ export class PerfilComponent implements OnInit, OnDestroy {
         }
       );
   }
-  getTransparencia(id: string) {
+  getTransparencia(casa: string,id: string) {
     this.transparenciaService
-      .get()
+      .get(casa)
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(
         data => {
-          let list = data.split("\r\n");
-          list.forEach( e => { 
-            let c = e.split(";");
-            if(c[0] && c[0]==id) this.parlamentarTransparencia = parseInt(c[2]);
-          });
+          data.forEach(
+            t => {
+              if(t && t.id_parlamentar_voz==id) this.parlamentarTransparencia = t.estrelas;
+            }    
+          );
         },
         error => {
           console.log(error);

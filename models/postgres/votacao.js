@@ -11,6 +11,7 @@ module.exports = (sequelize, type) => {
       obj_votacao: type.STRING,
       data_hora: type.DATE,
       votacao_secreta: type.BOOLEAN,
+      orientacao: type.INTEGER,
       url_votacao: type.INTEGER
     },
     {

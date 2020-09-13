@@ -1,0 +1,49 @@
+<div class="interruptor mt-4">
+  <a [routerLink]="['/governismo/senado']" [class.active]="casa === 'senado'">Senado</a>
+  <a [routerLink]="['/governismo/camara']" [class.active]="casa === 'camara'">Câmara</a>
+</div>
+<app-titleheader customTitle="governismo em plenário"></app-titleheader>
+<div class="head">
+	<div class="t">
+		<h3>Bolsonaro</h3>
+		<p>2019-{{cDate | date:'yyyy'}}</p>
+	</div>
+	<div class="regua">
+		<div class="f j"><span>Base do Governo</span><span>Oposição</span></div>
+		<div class="barra f">
+			<div [ngStyle]="{'width': (gGrupos[75].length / gGeral.np *100 | number: '.3-3')+'%'}"></div>
+			<div [ngStyle]="{'width': (gGrupos[50].length / gGeral.np *100 | number: '.3-3')+'%'}"></div>
+			<div [ngStyle]="{'width': (gGrupos[25].length / gGeral.np *100 | number: '.3-3')+'%'}"></div>
+			<div [ngStyle]="{'width': (gGrupos[0].length / gGeral.np *100 | number: '.3-3')+'%'}"></div>
+		</div>
+		<input type="checkbox" id="controlasanfona1" class="controlasanfona">
+		<div class="f ac">
+			<h4>{{gGeral.total}}%</h4>
+			<p>é o alinhamento {{ casa==='senado'?"do Senado":"da Camara" }} com o governo em <strong>{{gGeral.nv}} votações</strong> <!--label for="controlasanfona1">Histórico</label--></p>
+		</div>
+		<div class="sanfona">
+			
+		</div>
+		<div class="tc">
+			<span>Base do governo</span>
+		</div>
+	</div>
+</div>
+<img src="assets/imgs/bolsonaro.jpg" class="foto" width="106" height="106">
+<div><svg id="radarControler" width="500" height="500"></svg></div>
+<div class="text-center">
+	<span>Oposição</span>
+</div>
+<div class="explica">
+	<p>Estes são os deputados federais segundo o nível de governismo e a presença em votações. </p>
+	<div class="f">
+		<p>Até 30%</p>
+		<p>30% a 70%</p>
+		<p>Mais de 70%</p>
+	</div>
+	<h5>presença em votações</h5>
+	<p>Em tamanho menor são os parlamentares com baixo porcentual de presença, ou seja, aqueles que participaram de poucas votações, independente do seu voto.</p>
+	<h5>Índice de governismo</h5>
+	<p>O índice é calculado a partir das votações do parlamentar que seguiram ou não a orientação do líder do governo. Votos iguais à orientação (sim ou não) aumentam o índice; qualquer opção diferente da orientação (seja sim, não, abstenção ou falta), diminuem o índice de governismo.</p>
+	<p>Não aparecem no gráfico os parlamentares que não atingiram o nível mínimo de votações para o cálculo do índice.</p>
+</div>

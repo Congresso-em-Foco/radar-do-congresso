@@ -11,6 +11,8 @@ const parlamentares = require("./routes/api/parlamentares");
 const buscaParlamentar = require("./routes/api/busca-parlamentar");
 const proposicoes = require("./routes/api/proposicao");
 const assiduidade = require("./routes/api/assiduidade");
+const governismo = require("./routes/api/governismo");
+const transparencia = require("./routes/api/transparencia");
 
 const app = express();
 app.use(forceSsl);
@@ -46,6 +48,8 @@ app.use("/api/parlamentares", parlamentares);
 app.use("/api/busca-parlamentar", buscaParlamentar);
 app.use("/api/proposicoes", proposicoes);
 app.use("/api/assiduidade", assiduidade);
+app.use("/api/governismo", governismo);
+app.use("/api/transparencia", transparencia);
 
 // Set static folder
 app.use(express.static("client/build"));

@@ -17,6 +17,7 @@ const GastosCeap = models.gastosCeap;
 const Patrimonio = models.patrimonio;
 const Discursos = models.discursos;
 const VotosEleicao = models.votosEleicao;
+const Transparencia = models.transparencia;
 
 const BAD_REQUEST = 400;
 const SUCCESS = 200;
@@ -184,11 +185,18 @@ router.get("/:id/info", (req, res) => {
     where: {
       id_parlamentar_voz: req.params.id
     },
-    include: [{
-      model: Partido,
-      as: "parlamentarPartido",
-      attributes: attPartido
-    }]
+    include: [
+      {
+        model: Partido,
+        as: "parlamentarPartido",
+        attributes: attPartido
+      },
+      {
+        model: Transparencia,
+        as: "transparenciaParlamentar",
+        attributes: ["estrelas"]
+      }
+    ]
   })
     .then(parlamentar => res.json(parlamentar))
     .catch(err => res.status(BAD_REQUEST).json({ err }));

@@ -4,22 +4,21 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { environment } from '../../../environments/environment';
-import { Governismo } from '../models/governismo.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GovernismoService {
-
-  private url = environment.apiUrl + 'assiduidade';
-
+  private url = environment.apiUrl + 'governismo';
   constructor(private http: HttpClient) { }
 
-  get(casa: string, ano: string): Observable<Governismo[]> {
-    const params = new HttpParams()
-      .set('casa', casa)
-      .set('ano', ano);
-    return this.http.get<Governismo[]>(this.url, { params });
+  get(casa: string): Observable<any>{
+    const params = new HttpParams().set('casa', casa);
+    return this.http.get<any[]>(this.url, { params });
   }
+
+	getById(id: string): Observable<any>{
+    return this.http.get<any>(this.url + '/'+id);
+	}
 
 }

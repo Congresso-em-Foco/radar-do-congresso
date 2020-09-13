@@ -45,13 +45,18 @@ export class TransparenciaComponent implements OnInit, OnDestroy {
   }
   getTransparencia(casa: string) {
     this.transparenciaService
-      .get().forEach(
+      .get(casa)
+      .pipe(takeUntil(this.unsubscribe))
+      .subscribe(
         data => {
-          let list = data.split("\r\n");
-          list.forEach( e => { 
-            let c = e.split(";");
-            if(c[1] && c[1]==casa) this.transparencias[c[0]] = {id:c[0], casa:c[1], estrelas:c[2]};
-          });
+          data.forEach(
+            t => {
+              this.transparencias[t.id_parlamentar_voz] = t;
+            }    
+          );
+        },
+        error => {
+          console.log(error);
         }
       );
   }
@@ -64,7 +69,7 @@ export class TransparenciaComponent implements OnInit, OnDestroy {
             return (p.casa === casa);
           }).map(p=>{
             let ptransparencia = this.transparencias[p.idParlamentarVoz];
-            if(!ptransparencia) ptransparencia = {id:p.idParlamentarVoz, casa:casa, estrelas:"0"};
+            if(!ptransparencia) ptransparencia = {id_parlamentar_voz:p.idParlamentarVoz, casa:casa, estrelas:"0"};
             if(!this.gruposPorEstrelas[ptransparencia.estrelas]) this.gruposPorEstrelas[ptransparencia.estrelas] = [];
             this.gruposPorEstrelas[ptransparencia.estrelas].push(p);
             return p;
