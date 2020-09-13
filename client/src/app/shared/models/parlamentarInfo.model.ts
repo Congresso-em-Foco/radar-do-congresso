@@ -44,9 +44,9 @@ export class ParlamentarInfo {
   }
   getGenero(): string {
     if (this.genero === 'M') {
-      return 'masculino';
+      return 'Masculino';
     } else if (this.genero === 'F') {
-      return 'feminino';
+      return 'Feminino';
     }
     return '';
   }

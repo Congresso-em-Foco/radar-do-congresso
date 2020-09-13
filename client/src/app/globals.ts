@@ -1,3 +1,3 @@
 'use strict';
 
-export const dataAtualizacao = '30/08/2020';
+export const dataAtualizacao = '07/09/2020';
