@@ -116,7 +116,10 @@ export class GovernismoComponent implements OnInit, OnDestroy {
 
       let g = svg.append('g').attr('transform','translate('+(pw/2)+',0)');
       let estrutura = g.append('g');
-      let bolas = g.append('g');
+      let bolas1 = g.append('g');
+      let bolas2 = g.append('g');
+      let bolas3 = g.append('g');
+      let bolas4 = g.append('g');
 
       let z1 = .35,
           z2 = .56,
@@ -230,7 +233,7 @@ export class GovernismoComponent implements OnInit, OnDestroy {
           alphaTarget = .15;
     
       var dd1 = [{rep:1,total:76}].concat(this.gGrupos[75]);
-      var b1 = bolas.selectAll('circle').data(dd1).enter().append("circle").attr("r",f=>{return scalesize(f)-1; }).attr("fill",f=>scalecolor(f)).attr("cy",f=>scaley(f));
+      var b1 = bolas1.selectAll('circle').data(dd1).enter().append("circle").attr("r",f=>{return scalesize(f)-1; }).attr("fill",f=>scalecolor(f)).attr("cy",f=>scaley(f));
       let s1 = d3.forceSimulation().nodes(dd1)
                 .velocityDecay(decay)
                 .alphaTarget(alphaTarget)
@@ -240,7 +243,7 @@ export class GovernismoComponent implements OnInit, OnDestroy {
                 .on("tick",()=>{ b1.attr('cx',d=>d["x"]).attr('cy',d=>d["y"]); });
 
       var dd2 = [{rep:1,total:51}].concat(this.gGrupos[50]);
-      var b2 = bolas.selectAll('circle').data(dd2).enter().append("circle").attr("r",f=>{return scalesize(f)-1; }).attr("fill",f=>scalecolor(f)).attr("cy",f=>scaley(f));
+      var b2 = bolas2.selectAll('circle').data(dd2).enter().append("circle").attr("r",f=>{return scalesize(f)-1; }).attr("fill",f=>scalecolor(f)).attr("cy",f=>scaley(f));
       let s2 = d3.forceSimulation().nodes(dd2)
                 .velocityDecay(decay)
                 .alphaTarget(alphaTarget)
@@ -250,7 +253,7 @@ export class GovernismoComponent implements OnInit, OnDestroy {
                 .on("tick",()=>{ b2.attr('cx',d=>d["x"]).attr('cy',d=>d["y"]); });
 
       var dd3 = [{rep:1,total:26}].concat(this.gGrupos[25]);
-      var b3 = bolas.selectAll('circle').data(dd3).enter().append("circle").attr("r",f=>{return scalesize(f)-1; }).attr("fill",f=>scalecolor(f)).attr("cy",f=>scaley(f));
+      var b3 = bolas3.selectAll('circle').data(dd3).enter().append("circle").attr("r",f=>{return scalesize(f)-1; }).attr("fill",f=>scalecolor(f)).attr("cy",f=>scaley(f));
       let s3 = d3.forceSimulation().nodes(dd3)
                 .velocityDecay(decay)
                 .alphaTarget(alphaTarget)
@@ -260,7 +263,7 @@ export class GovernismoComponent implements OnInit, OnDestroy {
                 .on("tick",()=>{ b3.attr('cx',d=>d["x"]).attr('cy',d=>d["y"]); });
 
       var dd4 = [{rep:1,total:2}].concat(this.gGrupos[0]);
-      var b4 = bolas.selectAll('circle').data(dd4).enter().append("circle").attr("r",f=>{return scalesize(f)-1; }).attr("fill",f=>scalecolor(f)).attr("cy",f=>scaley(f));
+      var b4 = bolas4.selectAll('circle').data(dd4).enter().append("circle").attr("r",f=>{return scalesize(f)-1; }).attr("fill",f=>scalecolor(f)).attr("cy",f=>scaley(f));
       let s4 = d3.forceSimulation().nodes(dd4)
                 .velocityDecay(decay)
                 .alphaTarget(alphaTarget)
