@@ -31,6 +31,7 @@ export class GovernismoComponent implements OnInit, OnDestroy {
   public gParlamentares: any;
   public gGrupos: any;
   public cDate: any;
+  public np: number;
 
   public innerWidth: any;
   public innerHeight: any;
@@ -70,7 +71,7 @@ export class GovernismoComponent implements OnInit, OnDestroy {
         this.gGeral= data;
         this.gTrimestral= data.trimestral;
         this.gParlamentares= data.parlamentares;
-        this.gGeral.np = Object.values(this.gParlamentares).length;
+        this.np = Object.values(this.gParlamentares).length;
 
         let x = Object.values(this.gParlamentares).length;
         Object.values(this.gParlamentares).forEach(p=>{
