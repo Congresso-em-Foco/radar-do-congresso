@@ -87,6 +87,12 @@
 }
 
 .parlamentar-nome {
+  @media (max-width: 980px) {
+    padding-top: 20px;
+  }
+}
+
+.parlamentar-nome {
   font-weight: 700;
   text-decoration: none;
 }
