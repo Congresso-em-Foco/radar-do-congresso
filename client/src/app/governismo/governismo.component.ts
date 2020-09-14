@@ -70,7 +70,11 @@ export class GovernismoComponent implements OnInit, OnDestroy {
         this.gGeral= data;
         this.gTrimestral= data.trimestral;
         this.gParlamentares= data.parlamentares;
+        this.gGeral.np = Object.values(this.gParlamentares).length;
+
+        let x = Object.values(this.gParlamentares).length;
         Object.values(this.gParlamentares).forEach(p=>{
+          x--;
           if(p["total"]){
             if(p["total"]>75){
               this.gGrupos[75].push(p);
@@ -82,9 +86,10 @@ export class GovernismoComponent implements OnInit, OnDestroy {
               this.gGrupos[0].push(p);
             }
           }
+          if(x<=0){
+            this.drawChart();
+          }
         });
-        this.gGeral.np = Object.values(this.gParlamentares).length;
-        this.drawChart();
       },
       error => {
         console.log(error);
@@ -109,7 +114,7 @@ export class GovernismoComponent implements OnInit, OnDestroy {
       let svg = d3.select(svgNode);
 
       let pw = this.innerWidth,
-          ph = this.innerHeight*.75 - 80;
+          ph = this.innerHeight*.60 - 80;
 
       svg.attr('viewbox','0 0 '+pw+' '+ph).attr('width',pw).attr('height',ph+20);
               svg.selectAll("*").remove();
@@ -230,7 +235,7 @@ export class GovernismoComponent implements OnInit, OnDestroy {
           fy = 0.5,
           fc = 0.99,
           decay = .95,
-          alphaTarget = .15;
+          alphaTarget = .05;
     
       var dd1 = [{rep:1,total:76}].concat(this.gGrupos[75]);
       var b1 = bolas1.selectAll('circle').data(dd1).enter().append("circle").attr("r",f=>{return scalesize(f)-1; }).attr("fill",f=>scalecolor(f)).attr("cy",f=>scaley(f));
