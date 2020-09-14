@@ -11,15 +11,15 @@
 	<div class="regua">
 		<div class="f j"><span>Base do Governo</span><span>Oposição</span></div>
 		<div class="barra f">
-			<div [ngStyle]="{'width': (gGrupos[75].length / gGeral.np *100 | number: '.3-3')+'%'}"></div>
-			<div [ngStyle]="{'width': (gGrupos[50].length / gGeral.np *100 | number: '.3-3')+'%'}"></div>
-			<div [ngStyle]="{'width': (gGrupos[25].length / gGeral.np *100 | number: '.3-3')+'%'}"></div>
-			<div [ngStyle]="{'width': (gGrupos[0].length / gGeral.np *100 | number: '.3-3')+'%'}"></div>
+			<div [ngStyle]="{'width': (gGrupos[75].length / np *100 | number: '.3-3')+'%'}"></div>
+			<div [ngStyle]="{'width': (gGrupos[50].length / np *100 | number: '.3-3')+'%'}"></div>
+			<div [ngStyle]="{'width': (gGrupos[25].length / np *100 | number: '.3-3')+'%'}"></div>
+			<div [ngStyle]="{'width': (gGrupos[0].length / np *100 | number: '.3-3')+'%'}"></div>
 		</div>
 		<input type="checkbox" id="controlasanfona1" class="controlasanfona">
 		<div class="f ac">
 			<h4>{{gGeral.total}}%</h4>
-			<p>é o alinhamento {{ casa==='senado'?"do Senado":"da Camara" }} com o governo em <strong>{{nv}} votações</strong> <!--label for="controlasanfona1">Histórico</label--></p>
+			<p>é o alinhamento {{ casa==='senado'?"do Senado":"da Camara" }} com o governo em <strong>{{np}} votações</strong> <!--label for="controlasanfona1">Histórico</label--></p>
 		</div>
 		<div class="sanfona">
 			

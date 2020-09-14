@@ -31,6 +31,7 @@ export class GovernismoComponent implements OnInit, OnDestroy {
   public gParlamentares: any;
   public gGrupos: any;
   public cDate: any;
+  public svg: any;
   public np: number;
 
   public innerWidth: any;
@@ -58,6 +59,8 @@ export class GovernismoComponent implements OnInit, OnDestroy {
       this.innerWidth = window.innerWidth;
       this.innerHeight = window.innerHeight;
       //this.getParlamentares();
+      this.svg = d3.select("#radarControler");
+      this.svg.selectAll("*").remove();
       this.getGovernismo();
     });
   }
@@ -111,16 +114,13 @@ export class GovernismoComponent implements OnInit, OnDestroy {
   }
 
   private drawChart(): void {
-      let svgNode = document.getElementById('radarControler');
-      let svg = d3.select(svgNode);
-
       let pw = this.innerWidth,
           ph = this.innerHeight*.60 - 80;
 
-      svg.attr('viewbox','0 0 '+pw+' '+ph).attr('width',pw).attr('height',ph+20);
-              svg.selectAll("*").remove();
+      this.svg.attr('viewbox','0 0 '+pw+' '+ph).attr('width',pw).attr('height',ph+20);
+              this.svg.selectAll("*").remove();
 
-      let g = svg.append('g').attr('transform','translate('+(pw/2)+',0)');
+      let g = this.svg.append('g').attr('transform','translate('+(pw/2)+',0)');
       let estrutura = g.append('g');
       let bolas1 = g.append('g');
       let bolas2 = g.append('g');
