@@ -1,5 +1,9 @@
 import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { 
+  ActivatedRoute, 
+  Params,
+  Router
+} from '@angular/router';
 
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -8,6 +12,7 @@ import { GovernismoService } from '../shared/services/governismo.service';
 
 import { ParlamentarAderencia } from '../shared/models/parlamentarAderencia.model';
 import { BuscaParlamentarService } from '../shared/services/busca-parlamentar.service';
+import { ParlamentarService } from '../shared/services/parlamentar.service';
 
 import { UpdateService } from '../shared/services/update.service';
 
@@ -33,9 +38,13 @@ export class GovernismoComponent implements OnInit, OnDestroy {
   public cDate: any;
   public svg: any;
   public np: number;
+  public parlamentaresInfos: any;
 
   public innerWidth: any;
   public innerHeight: any;
+  showLoader: boolean = true;
+
+  public loc: any;
 
 
   constructor(
@@ -44,6 +53,7 @@ export class GovernismoComponent implements OnInit, OnDestroy {
     private updateService: UpdateService,
     private governismoService: GovernismoService,
     private buscaParlamentarService: BuscaParlamentarService,
+    private parlamentarService: ParlamentarService
   ) { }
 
   ngOnInit(){
@@ -53,16 +63,23 @@ export class GovernismoComponent implements OnInit, OnDestroy {
       this.cDate = new Date(2019,0,0);
       this.casa = params.get('casa');
       this.gGeral= {};
-      this.gTrimestral= {};
       this.gParlamentares= {};
       this.gGrupos= {0:[],25:[],50:[],75:[]};
       this.innerWidth = window.innerWidth;
       this.innerHeight = window.innerHeight;
-      //this.getParlamentares();
+      this.getInfosSimplificadas();
       this.svg = d3.select("#radarControler");
+      this.svg.node().parentNode.classList.add('carregando');
       this.svg.selectAll("*").remove();
       this.getGovernismo();
+      this.showLoader = false;
     });
+  }
+  ngOnDestroy() {
+    this.unsubscribe.next();
+    this.unsubscribe.complete();
+  }
+  ngAfterViewInit(){
   }
 
   getGovernismo(){
@@ -72,45 +89,89 @@ export class GovernismoComponent implements OnInit, OnDestroy {
     .subscribe(
       data => {
         this.gGeral= data;
-        this.gTrimestral= data.trimestral;
         this.gParlamentares= data.parlamentares;
-        this.np = Object.values(this.gParlamentares).length;
-
+        
         let x = Object.values(this.gParlamentares).length;
+        let gT = {};
+        let count = 0;
         Object.values(this.gParlamentares).forEach(p=>{
           x--;
-          if(p["total"]){
-            if(p["total"]>75){
-              this.gGrupos[75].push(p);
-            }else if(p["total"]>50){
-              this.gGrupos[50].push(p);
-            }else if(p["total"]>25){
-              this.gGrupos[25].push(p);
-            }else{
-              this.gGrupos[0].push(p);
+          if(this.parlamentaresInfos[p["id"]]){
+            p["infos"] = this.parlamentaresInfos[p["id"]]; 
+            if(p["n"]){
+              count++;
+              if(p["total"]>75){
+                this.gGrupos[75].push(p);
+              }else if(p["total"]>50){
+                this.gGrupos[50].push(p);
+              }else if(p["total"]>25){
+                this.gGrupos[25].push(p);
+              }else{
+                this.gGrupos[0].push(p);
+              }
             }
           }
+          Object.entries(p["trimestral"]).forEach(t=>{
+            if(!gT[t[0]]) gT[t[0]] = {data:t[0],0:0,25:0,50:0,75:0,np:0};
+            if(t[1]["n"]){
+              if(t[1]["total"]>75){
+                gT[t[0]][75]++;
+              }else if(t[1]["total"]>50){
+                gT[t[0]][50]++;
+              }else if(t[1]["total"]>25){
+                gT[t[0]][25]++;
+              }else{
+                gT[t[0]][0]++;
+              }
+              gT[t[0]]['np']++;
+            }else{
+              console.log(t[1]);
+            }
+          });
           if(x<=0){
             this.drawChart();
+            this.np = count;
+            let ultimo = {0:0,25:0,50:0,75:0,np:0};
+            this.gTrimestral = Object.values(gT).map(w=>{
+              w[0] += ultimo[0];
+              w[25] += ultimo[25];
+              w[50] += ultimo[50];
+              w[75] += ultimo[75];
+              w["np"] += ultimo["np"];
+
+              ultimo[0] = w[0];
+              ultimo[25] = w[25];
+              ultimo[50] = w[50];
+              ultimo[75] = w[75];
+              ultimo["np"] = w["np"];
+              
+              return w;
+            });
           }
         });
+
       },
       error => {
         console.log(error);
       }
     );
   }
-  getParlamentares() {
-    this.buscaParlamentarService
-    .getParlamentarestodos().forEach(
-      parlamentares => {
-        parlamentares.forEach(p=>{
-          if(p.casa === this.casa){
-            this.parlamentaresCasa[p.idParlamentarVoz]=p;
-          }
-        });
+  getInfosSimplificadas() {
+    this.parlamentarService
+    .getSimplificado(this.casa)
+    .pipe(takeUntil(this.unsubscribe))
+    .subscribe(
+      data => {
+        this.parlamentaresInfos = data;
+      },
+      error => {
+        console.log(error);
       }
     );
+  }
+
+  public linkPerfil(n) {
+    this.router.navigate(['/parlamentar/'+n.id]);
   }
 
   private drawChart(): void {
@@ -119,6 +180,7 @@ export class GovernismoComponent implements OnInit, OnDestroy {
 
       this.svg.attr('viewbox','0 0 '+pw+' '+ph).attr('width',pw).attr('height',ph+20);
               this.svg.selectAll("*").remove();
+      this.svg.node().parentNode.classList.remove('carregando');
 
       let g = this.svg.append('g').attr('transform','translate('+(pw/2)+',0)');
       let estrutura = g.append('g');
@@ -154,22 +216,7 @@ export class GovernismoComponent implements OnInit, OnDestroy {
       estrutura.append('text')
         .attr("alignment-baseline","middle").attr("text-anchor","middle").attr("fill","#888").attr("font-family","Roboto Mono").attr("font-size","11px")
         .attr('y',ph).text("0%");
-      
 
-      /*if(simulation){
-        simulation.stop().nodes(this.ddd).alpha(0.5);
-      }*/
-      
-
-        /*simulation = d3.forceSimulation()
-        .nodes(data)
-        .force("collide",d3.forceCollide( function(d,i){return d.radius + 6 }).iterations(10).strength(.95) )
-        .force("cluster", forceCluster)
-        .force("gravity", d3.forceManyBody(.3))
-        .force("y", d3.forceY().strengthforcey))
-        .force("x", d3.forceX().strength(.2))
-        .on("tick", tick);*/
-                  
 
       let scaley = (f)=>{
         let v = f.total;
@@ -212,7 +259,15 @@ export class GovernismoComponent implements OnInit, OnDestroy {
             return ph*z3+15;
           }
         }else{
-          return 5;
+          if(!f.infos.presenca) return 6;
+          let z = Math.round(f.infos.presenca/f.infos.sessoes*100);
+          if(z>70){
+            return 6;
+          }else if(z>30){
+            return 4;
+          }else{
+            return 1;
+          }
         }
       }
       let forcey = (f)=>{
@@ -234,12 +289,12 @@ export class GovernismoComponent implements OnInit, OnDestroy {
 
       let fx = 0.1,
           fy = 0.5,
-          fc = 0.99,
+          fc = 0.999,
           decay = .95,
           alphaTarget = .05;
     
       var dd1 = [{rep:1,total:76}].concat(this.gGrupos[75]);
-      var b1 = bolas1.selectAll('circle').data(dd1).enter().append("circle").attr("r",f=>{return scalesize(f)-1; }).attr("fill",f=>scalecolor(f)).attr("cy",f=>scaley(f));
+      var b1 = bolas1.selectAll('circle').data(dd1).enter().append("circle").attr("r",f=>{return scalesize(f)-1; }).attr("fill",f=>scalecolor(f)).attr("cy",f=>scaley(f)).on("mouseenter",f=>toolTip(f,event)).on("mouseleave",f=>fechaToolTip(f)).on("click",f=>this.linkPerfil(f));
       let s1 = d3.forceSimulation().nodes(dd1)
                 .velocityDecay(decay)
                 .alphaTarget(alphaTarget)
@@ -249,7 +304,7 @@ export class GovernismoComponent implements OnInit, OnDestroy {
                 .on("tick",()=>{ b1.attr('cx',d=>d["x"]).attr('cy',d=>d["y"]); });
 
       var dd2 = [{rep:1,total:51}].concat(this.gGrupos[50]);
-      var b2 = bolas2.selectAll('circle').data(dd2).enter().append("circle").attr("r",f=>{return scalesize(f)-1; }).attr("fill",f=>scalecolor(f)).attr("cy",f=>scaley(f));
+      var b2 = bolas2.selectAll('circle').data(dd2).enter().append("circle").attr("r",f=>{return scalesize(f)-1; }).attr("fill",f=>scalecolor(f)).attr("cy",f=>scaley(f)).on("mouseenter",f=>toolTip(f,event)).on("mouseleave",f=>fechaToolTip(f)).on("click",f=>this.linkPerfil(f));
       let s2 = d3.forceSimulation().nodes(dd2)
                 .velocityDecay(decay)
                 .alphaTarget(alphaTarget)
@@ -259,7 +314,7 @@ export class GovernismoComponent implements OnInit, OnDestroy {
                 .on("tick",()=>{ b2.attr('cx',d=>d["x"]).attr('cy',d=>d["y"]); });
 
       var dd3 = [{rep:1,total:26}].concat(this.gGrupos[25]);
-      var b3 = bolas3.selectAll('circle').data(dd3).enter().append("circle").attr("r",f=>{return scalesize(f)-1; }).attr("fill",f=>scalecolor(f)).attr("cy",f=>scaley(f));
+      var b3 = bolas3.selectAll('circle').data(dd3).enter().append("circle").attr("r",f=>{return scalesize(f)-1; }).attr("fill",f=>scalecolor(f)).attr("cy",f=>scaley(f)).on("mouseenter",f=>toolTip(f,event)).on("mouseleave",f=>fechaToolTip(f)).on("click",f=>this.linkPerfil(f));
       let s3 = d3.forceSimulation().nodes(dd3)
                 .velocityDecay(decay)
                 .alphaTarget(alphaTarget)
@@ -269,7 +324,7 @@ export class GovernismoComponent implements OnInit, OnDestroy {
                 .on("tick",()=>{ b3.attr('cx',d=>d["x"]).attr('cy',d=>d["y"]); });
 
       var dd4 = [{rep:1,total:2}].concat(this.gGrupos[0]);
-      var b4 = bolas4.selectAll('circle').data(dd4).enter().append("circle").attr("r",f=>{return scalesize(f)-1; }).attr("fill",f=>scalecolor(f)).attr("cy",f=>scaley(f));
+      var b4 = bolas4.selectAll('circle').data(dd4).enter().append("circle").attr("r",f=>{return scalesize(f)-1; }).attr("fill",f=>scalecolor(f)).attr("cy",f=>scaley(f)).on("mouseenter",f=>toolTip(f,event)).on("mouseleave",f=>fechaToolTip(f)).on("click",f=>this.linkPerfil(f));
       let s4 = d3.forceSimulation().nodes(dd4)
                 .velocityDecay(decay)
                 .alphaTarget(alphaTarget)
@@ -278,12 +333,50 @@ export class GovernismoComponent implements OnInit, OnDestroy {
                 .force("collision", d3.forceCollide(f=>scalesize(f)).strength(fc).iterations(2))
                 .on("tick",()=>{ b4.attr('cx',d=>d["x"]).attr('cy',d=>d["y"]); });
 
+      function positionTooltip(e){
+        let tt = document.getElementById('tooltip');
+        var x = e.clientX,
+          y = e.clientY,
+          top = y+30,
+          left = Math.max((177),Math.min(window.innerWidth-(177),x));
+        
+        tt.style.left = left+"px";
+        tt.style.top = top+"px";
+      }
+      function toolTip(n,e){
+        let tooltip = d3.select("#tooltip");
+        positionTooltip(e);
+        let o='<div class="governismo" style="background:'+scalecolor(n)+'">';
+          o+='<img width="100%" class="parlementar-img img-filter" src="'+n.infos.foto+'">';
+          o+='<div><h2>'+n.infos.nome+' <span>'+n.infos.partido+'/'+n.infos.uf+'</span></h2><p class="mb-4">No governo Bolsonaro</p>';
+          o+='<div class="t">Governismo</div><div class="n">'+n.total+'%</div><div class="graficobarra"><div class="estrutura">';
 
-
+          let ano = 0;
+          if(n.trimestral)Object.entries(n.trimestral).forEach((d,i)=>{
+            let date = new Date(d[0]);
+            
+            if(date.getFullYear() != ano){
+              if(ano > 0) o+= '</div>';
+              ano = date.getFullYear();
+              o+='<div class="ano">';
+              o+='<span>'+date.getFullYear()+'</span>';
+            }
+            o+='<div class="mes" style="height:'+d[1]["total"]+'%;"></div>'; 
+          });
+          if(n.trimestral)o+= '</div>';
+              
+        o+='</div></div>';
+        o+='<div class="t o mt-2">Presença em votações</div><div class="n o">'+Math.round(n.infos.presenca/n.infos.sessoes*100)+'%</div>';
+        o+='</div></div>';
+        tooltip.html(o);
+        tooltip.style("background",scalecolor(n));
+        tooltip.attr("class","ativo");
+      }
+      function fechaToolTip(n){
+        let tooltip = d3.select("#tooltip");
+        tooltip.attr("class","");
+      }
   }
 
-  ngOnDestroy() {
-    this.unsubscribe.next();
-    this.unsubscribe.complete();
-  }
+  
 }

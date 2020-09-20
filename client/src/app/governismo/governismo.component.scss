@@ -44,6 +44,7 @@ span{
   display: none;
   &:checked{
     ~ .sanfona{display: block;}
+    ~ .sanfonaoposto{display: none;}
     ~ * label:after{transform: rotate(180deg);}
   }
 }
@@ -73,10 +74,51 @@ span{
     align-items:flex-end;
     p{
       margin-right: 1rem;
-      &:before{content: ""; display: block; width: 4em; height: 4em; border-radius: 50%; background: black; margin: 0 0 10px;}
+      &:before{content: ""; display: block; width: 2em; height: 2em; border-radius: 50%; background: black; margin: 0 0 10px;}
       &:nth-child(1):before{font-size: 1px;}
-      &:nth-child(2):before{font-size: 2px;}
-      &:nth-child(3):before{font-size: 3px;}
+      &:nth-child(2):before{font-size: 2.5px;}
+      &:nth-child(3):before{font-size: 4px;}
     }
+  }
+}
+
+article{position: relative;}
+.carregando{
+  position: relative;
+  &:after{
+    content: ""; position: absolute; z-index: 9999; left: 50%; top: 50%; margin: -20px; width: 40px; height: 40px; 
+    border-radius: 50%; border: 2px solid transparent; border-left-color: #000; border-top-color: #000; 
+    animation: spin .5s infinite linear;
+  } 
+}
+@keyframes fadeIn {0% {opacity: 0; } 100% {opacity: 1; } }
+@keyframes spin {0% {transform: rotate(0deg); } 100% {transform: rotate(360deg); } }
+
+#tooltip{
+  position: fixed;
+  width: 274px;
+  margin-left: -137px;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity .3s;
+  background: black;
+  color: white;
+  pointer-events:none;
+  z-index: 9999;
+  cursor: pointer;
+  box-shadow: 0 15px 30px rgba(0,0,0,.2);
+  border-radius: 8px;
+  
+  &.ativo{
+    visibility: visible;
+    opacity: 1;
+  }
+}
+
+.trimestres{
+  .barra{margin-bottom: 0;}
+  .mes{
+    margin-bottom: 10px;
+    span{color: #000;}
   }
 }

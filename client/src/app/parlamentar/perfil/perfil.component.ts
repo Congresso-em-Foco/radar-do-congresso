@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Input } from '@angular/core';
+import { Pipe, PipeTransform, Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { Subject } from 'rxjs';
@@ -10,6 +10,7 @@ import { ParlamentarAssiduidade, AssiduidadeParlamentar } from 'src/app/shared/m
 
 import { TransparenciaService } from 'src/app/shared/services/transparencia.service';
 import { InqueritosService } from 'src/app/shared/services/inqueritos.service';
+import { GovernismoService } from 'src/app/shared/services/governismo.service';
 
 
 import * as myGlobals from 'src/app/globals';
@@ -24,11 +25,8 @@ export class PerfilComponent implements OnInit, OnDestroy {
   parlamentar: ParlamentarInfo;
 
   parlamentarAssiduidade: number;
-  parlamentarGovernismo: number = 0;
-  parlamentarGovernismoDatas: object = [
-    {ano:2019, meses:[80,95,90,50]},
-    {ano:2020, meses:[80,95,90,50,45,30,20]},
-  ];
+  parlamentarGovernismo: any;
+  parlamentarGovernismoDatas: any;
 
   parlamentarTransparencia: number = 0;
   parlamentarInvestigacoes: any[] = [];
@@ -38,7 +36,8 @@ export class PerfilComponent implements OnInit, OnDestroy {
     private activatedroute: ActivatedRoute,
     private parlamentarService: ParlamentarService,
     private transparenciaService: TransparenciaService,
-    private inqueritosService: InqueritosService
+    private inqueritosService: InqueritosService,
+    private governismoService: GovernismoService
   ){}
 
   ngOnInit() {
@@ -56,6 +55,7 @@ export class PerfilComponent implements OnInit, OnDestroy {
 	      parlamentar => {
 	        this.parlamentar = parlamentar;
           this.getTransparencia(parlamentar.casa, parlamentar.idParlamentarVoz);
+          this.getGovernismo(parlamentar.idParlamentarVoz);
 	      },
 	      error => {
 	        console.log(error);
@@ -75,6 +75,28 @@ export class PerfilComponent implements OnInit, OnDestroy {
             p+=parseInt(a.totalPresenca);            
           }
           this.parlamentarAssiduidade = t ? Math.round(p/t*100) : null;
+        },
+        error => {
+          console.log(error);
+        }
+      );
+  }
+  
+  getGovernismo(id: string) {
+    this.governismoService
+      .getById(id)
+      .pipe(takeUntil(this.unsubscribe))
+      .subscribe(
+        data => {
+          data.color = this.scalecolor(data.total);
+          this.parlamentarGovernismo = data;
+          let datas = [];
+          if(data.trimestral)Object.entries(data.trimestral).forEach((d,i)=>{
+            let date = new Date(d[0]);
+            if(!datas[date.getFullYear()]) datas[date.getFullYear()] = {ano: date.getFullYear(), meses:[]};
+            datas[date.getFullYear()].meses.push(d[1]["total"]);
+          });
+          this.parlamentarGovernismoDatas = Object.values(datas);
         },
         error => {
           console.log(error);
@@ -116,6 +138,17 @@ export class PerfilComponent implements OnInit, OnDestroy {
           console.log(error);
         }
       );
+  }
+  scalecolor(v: number){
+    if(v>75){
+      return "#8e3e90";
+    }else if(v>50){
+      return "#e46873";
+    }else if(v>25){
+      return "#f7b871";
+    }else{
+      return "#efe38a";
+    }
   }
   ngOnDestroy() {
     this.unsubscribe.next();

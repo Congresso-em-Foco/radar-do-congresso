@@ -2,7 +2,7 @@
   <div class="bloco">
     <h5 class="titulosessao">Governismo</h5>
 
-    <div class="governismo">
+    <div class="governismo" [style.background]="parlamentarGovernismo.color">
       <img
         [defaultImage]="'assets/imgs/nophoto.png'"
         [lazyLoad]="parlamentar.getFoto()"
@@ -14,12 +14,12 @@
         <h2>{{ parlamentar.nomeEleitoral }} <span>{{ parlamentar.parlamentarPartido.sigla }}/{{ parlamentar.uf }}</span></h2>
         <p class="mb-4">No governo Bolsonaro</p>
         <div class="t">Governismo</div>
-        <div class="n">{{ parlamentarGovernismo }}%</div>
+        <div class="n">{{ parlamentarGovernismo.total }}%</div>
 
         <div class="graficobarra" *ngIf="parlamentarGovernismoDatas?.length > 0">
           <div class="estrutura">
             <div class="ano" *ngFor="let ano of parlamentarGovernismoDatas; index as i;">
-              <span *ngIf="ano.meses?.length > 3">{{ano.ano}}</span>
+              <span *ngIf="ano.meses?.length > 0">{{ano.ano}}</span>
               <div class="mes" *ngFor="let mes of ano.meses; index as j;" [style.height.%]="mes"></div>
             </div>
           </div>
@@ -32,7 +32,7 @@
         <p class="text-right">Até {{ dataAtualizacao }}</p>
       </div>
     </div>
-    <a class="pagelink" [routerLink]="['/governismo']">Compare todos os parlamentares</a>
+    <a class="pagelink" [routerLink]="['/governismo/'+parlamentar.casa]" >Compare todos os parlamentares</a>
   </div>
 </ng-template>
 

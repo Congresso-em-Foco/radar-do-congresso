@@ -44,3 +44,63 @@
 .titulosessao{
   font-size: 17px; font-weight: 400; text-transform: uppercase; letter-spacing: .2em;
 }
+
+.governismo{
+  padding:1rem;
+  background:#8e3e90;
+  border-radius: 8px;
+  color: #FFF;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  .parlementar-img {
+    width: 80px;
+    height: auto;
+    margin: 0 1rem 1rem 0;
+    flex: 0 0 80px;
+  }
+  >div{width: 100%;}
+  h2{
+    font-size: 18px; font-weight: 400; margin: 0;
+    span{display: inline-block; vertical-align: baseline; margin-left: .5em; white-space:nowrap; color: rgba(255,255,255,.37);}
+  }
+  p{font-size: 12px; letter-spacing: .01em; margin: 0; text-transform: uppercase;}
+
+  .t{font-size: 14px;}
+  .n{font-size: 24px; font-family: 'Roboto Mono'; line-height: 1;}
+  .o{color: rgba(255,255,255,.37);}
+}
+
+.graficobarra{
+  display: flex;
+  flex-direction: row;
+  align-content: flex-start;
+  .estrutura{
+    padding: 1rem 1.5rem 1rem 0;
+    display: flex;
+    flex-direction: row;
+    align-content: flex-start;
+    position: relative;
+    &:before,&:after{
+      content: ""; position: absolute; right: 0; width: 100%; 
+      height: 1rem; line-height: 1rem; border-bottom: 1px solid; 
+      text-align: right; color: rgba(255,255,255,.37); font: 12px 'Roboto Mono';
+    }
+    &:before{content: "100"; top: 0;}
+    &:after{content: "0"; bottom: 1rem;}
+    .ano{
+      display: flex;
+      flex-direction: row;
+      align-items: flex-end;
+      position: relative;
+      height: 50px;
+      >span{
+        position: absolute; left: 0; bottom: -1rem; line-height: 1rem;
+        color: rgba(255,255,255,.37); font: 12px 'Roboto Mono';
+      }
+      .mes{
+        display: block; width: 5px; background: #fff; margin-right: 3px; min-height: 1px;
+      }
+    }
+  }
+}

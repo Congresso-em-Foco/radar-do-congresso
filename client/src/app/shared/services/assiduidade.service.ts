@@ -22,4 +22,10 @@ export class AssiduidadeService {
     return this.http.get<Assiduidade[]>(this.url, { params });
   }
 
+  getSimplificado(casa: string): Observable<any[]> {
+    const params = new HttpParams()
+      .set('casa', casa);
+    return this.http.get<any[]>(this.url+"/simplificado", { params });
+  }
+
 }

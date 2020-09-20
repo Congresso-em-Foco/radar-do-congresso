@@ -2,38 +2,55 @@
   <a [routerLink]="['/governismo/senado']" [class.active]="casa === 'senado'">Senado</a>
   <a [routerLink]="['/governismo/camara']" [class.active]="casa === 'camara'">Câmara</a>
 </div>
-<app-titleheader customTitle="governismo em plenário"></app-titleheader>
-<div class="head">
-	<div class="t">
-		<h3>Bolsonaro</h3>
-		<p>2019-{{cDate | date:'yyyy'}}</p>
+<article>
+	<div class="mypreloader" *ngIf="showLoader"></div>
+	<app-titleheader customTitle="governismo em plenário"></app-titleheader>
+	<div class="head">
+		<div class="t">
+			<h3>Bolsonaro</h3>
+			<p>2019-{{cDate | date:'yyyy'}}</p>
+		</div>
+		<div class="regua">
+			<input type="checkbox" id="controlasanfona1" class="controlasanfona">
+			<div class="sanfonaoposto">
+				<div class="f j"><span>Base do Governo</span><span>Oposição</span></div>
+				<div class="barra f">
+					<div [ngStyle]="{'width': (gGrupos[75].length / np *100 | number: '.3-3')+'%'}"></div>
+					<div [ngStyle]="{'width': (gGrupos[50].length / np *100 | number: '.3-3')+'%'}"></div>
+					<div [ngStyle]="{'width': (gGrupos[25].length / np *100 | number: '.3-3')+'%'}"></div>
+					<div [ngStyle]="{'width': (gGrupos[0].length / np *100 | number: '.3-3')+'%'}"></div>
+				</div>
+				<div class="f ac">
+					<h4>{{gGeral.total}}%</h4>
+					<p>é o alinhamento {{ casa==='senado'?"do Senado":"da Camara" }} com o governo em <strong>{{np}} votações</strong> <label for="controlasanfona1">Histórico</label></p>
+				</div>
+			</div>
+			<div class="sanfona">
+				<div class="f j"><span>Base do Governo</span><span>Oposição</span></div>
+				<div *ngFor="let trimestre of gTrimestral; index as i;" class="trimestres">
+					<div class="barra f">
+						<div [ngStyle]="{'width': (trimestre[75] / trimestre.np *100 | number: '.3-3')+'%'}"></div>
+						<div [ngStyle]="{'width': (trimestre[50] / trimestre.np *100 | number: '.3-3')+'%'}"></div>
+						<div [ngStyle]="{'width': (trimestre[25] / trimestre.np *100 | number: '.3-3')+'%'}"></div>
+						<div [ngStyle]="{'width': (trimestre[0] / trimestre.np *100 | number: '.3-3')+'%'}"></div>
+					</div>
+					<div class="mes f j"><span></span><span>{{ trimestre.data | date:'MM/yyyy'}}</span></div>
+				</div>
+				<div class="f">
+					<label for="controlasanfona1">Fechar Histórico</label>
+				</div>
+			</div>
+			<div class="tc">
+				<span>Base do governo</span>
+			</div>
+		</div>
 	</div>
-	<div class="regua">
-		<div class="f j"><span>Base do Governo</span><span>Oposição</span></div>
-		<div class="barra f">
-			<div [ngStyle]="{'width': (gGrupos[75].length / np *100 | number: '.3-3')+'%'}"></div>
-			<div [ngStyle]="{'width': (gGrupos[50].length / np *100 | number: '.3-3')+'%'}"></div>
-			<div [ngStyle]="{'width': (gGrupos[25].length / np *100 | number: '.3-3')+'%'}"></div>
-			<div [ngStyle]="{'width': (gGrupos[0].length / np *100 | number: '.3-3')+'%'}"></div>
-		</div>
-		<input type="checkbox" id="controlasanfona1" class="controlasanfona">
-		<div class="f ac">
-			<h4>{{gGeral.total}}%</h4>
-			<p>é o alinhamento {{ casa==='senado'?"do Senado":"da Camara" }} com o governo em <strong>{{np}} votações</strong> <!--label for="controlasanfona1">Histórico</label--></p>
-		</div>
-		<div class="sanfona">
-			
-		</div>
-		<div class="tc">
-			<span>Base do governo</span>
-		</div>
+	<img src="assets/imgs/bolsonaro.jpg" class="foto" width="106" height="106">
+	<div><svg id="radarControler" width="500" height="500"></svg></div>
+	<div class="text-center">
+		<span>Oposição</span>
 	</div>
-</div>
-<img src="assets/imgs/bolsonaro.jpg" class="foto" width="106" height="106">
-<div><svg id="radarControler" width="500" height="500"></svg></div>
-<div class="text-center">
-	<span>Oposição</span>
-</div>
+</article>
 <div class="explica">
 	<p>Estes são os deputados federais segundo o nível de governismo e a presença em votações. </p>
 	<div class="f">
@@ -47,3 +64,4 @@
 	<p>O índice é calculado a partir das votações do parlamentar que seguiram ou não a orientação do líder do governo. Votos iguais à orientação (sim ou não) aumentam o índice; qualquer opção diferente da orientação (seja sim, não, abstenção ou falta), diminuem o índice de governismo.</p>
 	<p>Não aparecem no gráfico os parlamentares que não atingiram o nível mínimo de votações para o cálculo do índice.</p>
 </div>
+<div id="tooltip"></div>

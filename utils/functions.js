@@ -48,7 +48,18 @@ function calculaAssiduidade(resultado) {
   return data;
 }
 
+function getFoto(p) {
+  let id = (p.idParlamentar) ? p.idParlamentar : p.id_parlamentar;
+  if (p.casa === 'camara') {
+    return 'https://www.camara.leg.br/internet/deputado/bandep/' + id + '.jpg';
+  } else if (p.casa === 'senado') {
+    return 'https://www.senado.leg.br/senadores/img/fotos-oficiais/senador' + id + '.jpg';
+  }
+  return '';
+}
+
 module.exports = {
   formataVotacoes,
-  calculaAssiduidade
+  calculaAssiduidade,
+  getFoto
 }

@@ -24,6 +24,7 @@ const attVoto = [
 const attParlamentar = [
   ["id_parlamentar_voz","id"],
   ["nome_eleitoral","nome"],
+  "em_exercicio",
   "uf"
 ];
 const attPartido = [
@@ -53,7 +54,14 @@ router.get("/", casaValidator.validate, (req, res) => {
         model: Voto,
         attributes: attVoto,
         as: "votacoesVoto",
-        required: true
+        required: true,
+        include: [{
+          model: Parlamentar,
+          attributes: [],
+          as: "votoParlamentar",
+          //required: true,
+          //where: {em_exercicio: true}
+        }]
       }
     ]
   })
@@ -62,8 +70,6 @@ router.get("/", casaValidator.validate, (req, res) => {
     let gGeral = {afavor:0,n:0,nvotacoes:0,trimestral:{},parlamentares:{}};
     governismo.forEach(
       t => {
-        //data, orientacao, votacoesVoto
-        //id, voto
         if(new Date(t.dataValues.data+" 00:00") >= cDate){
           new Date(cDate.setMonth(cDate.getMonth()+3));
         }

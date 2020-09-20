@@ -4,7 +4,7 @@ const { validationResult } = require('express-validator');
 
 const models = require("../../models/index");
 const casaValidator = require("../../utils/middlewares/casa.validator");
-const { formataVotacoes } = require("../../utils/functions");
+const { formataVotacoes,getFoto } = require("../../utils/functions");
 
 const Parlamentar = models.parlamentar;
 const Proposicao = models.proposicao;
@@ -140,6 +140,182 @@ router.get("/mapeamento-id", (req, res) => {
     .then(parlamentares => res.status(SUCCESS).json(parlamentares))
     .catch(err => res.status(BAD_REQUEST).json({ err: err.message }));
 });
+
+/**
+ * Recupera todos os parlamentares por casa com dados simplificados, assiduidade e transparencia
+ * @name get/api/parlamentares/simplificado
+ * @function
+ * @memberof module:routes/parlamentares
+ */
+router.get("/simplificado", casaValidator.validate, (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) return res.status(BAD_REQUEST).json({ errors: errors.array() });
+
+  const casa = req.param("casa") || "camara";
+
+  Parlamentar.findAll({
+    include: [
+      {
+        model: Partido,
+        as: "parlamentarPartido",
+        attributes: attPartido,
+      },
+      {
+        model: Assiduidade,
+        as: "parlamentarAssiduidade",
+        attributes: attAssiduidade,
+      },
+      {
+        model: Transparencia,
+        as: "transparenciaParlamentar",
+        attributes: ["estrelas"]
+      }
+    ],
+    where: {
+      casa: casa,
+      em_exercicio: true
+    }
+  })
+  .then(parlamentares => {
+
+    const ps = parlamentares.map(p => p.get({ plain: true }));
+    let parlamentaresEditados = {};
+
+    ps.forEach((p)=>{
+
+      let id = p.id_parlamentar_voz;
+      if(!parlamentaresEditados[id]) parlamentaresEditados[id] = {
+        id: id, 
+        nome: p.nome_eleitoral, 
+        uf: p.uf, 
+        partido: p.parlamentarPartido.sigla, 
+        sessoes:0,
+        presenca:0,
+        foto: getFoto(p),
+        transparencia: p.transparenciaParlamentar ? p.transparenciaParlamentar.estrelas : null
+      };
+      p.parlamentarAssiduidade.forEach(a=>{
+        parlamentaresEditados[id].sessoes += a.totalSessoesDeliberativas;
+        parlamentaresEditados[id].presenca += a.totalPresenca;
+      });
+    });
+
+    return res.json(parlamentaresEditados);
+  })
+  .catch(err => res.status(BAD_REQUEST).json({ err }));
+});
+
+/**
+ * Recupera parlamentar por id com dados simplificados, assiduidade e transparencia
+ * @name get/api/parlamentares/simplificado/:id
+ * @function
+ * @memberof module:routes/parlamentares
+ * @param {string} id - id do parlamentar na plataforma Radar do Congresso
+ */
+router.get("/simplificado/:id", (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) return res.status(BAD_REQUEST).json({ errors: errors.array() });
+
+  Parlamentar.findAll({
+    include: [
+      {
+        model: Partido,
+        as: "parlamentarPartido",
+        attributes: attPartido,
+      },
+      {
+        model: Assiduidade,
+        as: "parlamentarAssiduidade",
+        attributes: attAssiduidade,
+      },
+      {
+        model: Transparencia,
+        as: "transparenciaParlamentar",
+        attributes: ["estrelas"]
+      }
+    ],
+    where: {
+      id_parlamentar_voz: req.params.id,
+      em_exercicio: true
+    }
+  })
+  .then(parlamentares => {
+
+    const ps = parlamentares.map(p => p.get({ plain: true }));
+    let editado = {};
+
+    ps.forEach((p)=>{
+      let id = p.id_parlamentar_voz;
+      editado = {
+        id: id, 
+        nome: p.nome_eleitoral, 
+        uf: p.uf, 
+        partido: p.parlamentarPartido.sigla, 
+        sessoes:0,
+        presenca:0,
+        foto: getFoto(p),
+        transparencia: p.transparenciaParlamentar ? p.transparenciaParlamentar.estrelas : null
+      };
+      p.parlamentarAssiduidade.forEach(a=>{
+        editado.sessoes += a.totalSessoesDeliberativas;
+        editado.presenca += a.totalPresenca;
+      });
+    });
+
+    Votacao.findAll({
+      attributes: [
+        ["data_hora","data"],
+        "orientacao"
+      ],
+      include: [
+        {
+          model: Voto,
+          attributes: [
+            ["id_parlamentar_voz","id"],
+            "voto"
+          ],
+          as: "votacoesVoto",
+          where: { id_parlamentar_voz: req.params.id },
+          required: true
+        }
+      ]
+    })
+    .then(governismo => {
+      let cDate = new Date(2019,0,0);
+      let gGeral = {afavor:0,n:0,nvotacoes:0,trimestral:{}};
+      
+      governismo.forEach(
+        t => {
+          //data, orientacao, votacoesVoto
+          //id, voto
+          if(new Date(t.dataValues.data+" 00:00") >= cDate){
+            new Date(cDate.setMonth(cDate.getMonth()+3));
+          }
+          let dd = cDate.toISOString()
+          
+          if(!gGeral["trimestral"][dd]) gGeral["trimestral"][dd] = {afavor:0,n:0,total:0};
+          gGeral.nvotacoes++;
+
+          t.votacoesVoto.forEach(voto=>{
+            let v = voto.dataValues;
+            if(v.voto == t.orientacao) gGeral["trimestral"][dd].afavor ++;
+            gGeral["trimestral"][dd].n ++;
+            gGeral["trimestral"][dd].total = Math.round(gGeral["trimestral"][dd].afavor/gGeral["trimestral"][dd].n*100);
+
+            if(v.voto == t.orientacao) gGeral.afavor++;
+            gGeral.n ++;
+            gGeral.total = Math.round(gGeral.afavor/gGeral.n*100);
+          });
+        }    
+      );
+      editado.governismo = gGeral.total;
+      return res.json(editado);
+    });
+
+  })
+  .catch(err => res.status(BAD_REQUEST).json({ err }));
+});
+
 
 /**
  * Recupera informações do parlamentar de acordo com o id (no Radar do Congresso).
@@ -405,5 +581,6 @@ router.get("/:id/eleicao", (req, res) => {
     })
     .catch(err => res.status(BAD_REQUEST).json({ err: err.message }));
 });
+
 
 module.exports = router;

@@ -75,4 +75,13 @@ export class ParlamentarService {
     return this.http
       .get<ParlamentarEleicao>(this.url + '/' + id + '/eleicao');
   }
+
+  getSimplificado(casa: string): Observable<any[]> {
+    const params = new HttpParams()
+      .set('casa', casa);
+    return this.http.get<any[]>(this.url+"/simplificado", { params });
+  }
+  getSimplificadoById(id: string): Observable<any[]> {
+    return this.http.get<any[]>(this.url+"/simplificado/"+id);
+  }
 }
