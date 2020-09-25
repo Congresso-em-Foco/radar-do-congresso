@@ -31,6 +31,7 @@ export class GovernismoComponent implements OnInit, OnDestroy {
 
   public parlamentaresCasa = {};
 
+  public gTemp: any;
   public gGeral: any;
   public gTrimestral: any;
   public gParlamentares: any;
@@ -45,6 +46,14 @@ export class GovernismoComponent implements OnInit, OnDestroy {
   showLoader: boolean = true;
 
   public loc: any;
+
+  public partidos: any;
+  public ufs: any;
+
+  public partidoFilter: string;
+  public ufFilter: string;
+  public generoFilter: string;
+  public nomeFilter: string;
 
 
   constructor(
@@ -62,15 +71,22 @@ export class GovernismoComponent implements OnInit, OnDestroy {
     .subscribe(params => {
       this.cDate = new Date(2019,0,0);
       this.casa = params.get('casa');
-      this.gGeral= {};
-      this.gParlamentares= {};
-      this.gGrupos= {0:[],25:[],50:[],75:[]};
+      this.gTemp= {};
+
+      this.partidos = [];
+      this.ufs = [];
+
+      this.partidoFilter = "";
+      this.ufFilter = "";
+      this.generoFilter = "";
+      this.nomeFilter = "";
+      
       this.innerWidth = window.innerWidth;
       this.innerHeight = window.innerHeight;
       this.getInfosSimplificadas();
+      
       this.svg = d3.select("#radarControler");
       this.svg.node().parentNode.classList.add('carregando');
-      this.svg.selectAll("*").remove();
       this.getGovernismo();
       this.showLoader = false;
     });
@@ -81,75 +97,21 @@ export class GovernismoComponent implements OnInit, OnDestroy {
   }
   ngAfterViewInit(){
   }
-
   getGovernismo(){
     this.governismoService
     .get(this.casa)
     .pipe(takeUntil(this.unsubscribe))
     .subscribe(
       data => {
-        this.gGeral= data;
-        this.gParlamentares= data.parlamentares;
-        
-        let x = Object.values(this.gParlamentares).length;
-        let gT = {};
-        let count = 0;
-        Object.values(this.gParlamentares).forEach(p=>{
-          x--;
-          if(this.parlamentaresInfos[p["id"]]){
-            p["infos"] = this.parlamentaresInfos[p["id"]]; 
-            if(p["n"]){
-              count++;
-              if(p["total"]>75){
-                this.gGrupos[75].push(p);
-              }else if(p["total"]>50){
-                this.gGrupos[50].push(p);
-              }else if(p["total"]>25){
-                this.gGrupos[25].push(p);
-              }else{
-                this.gGrupos[0].push(p);
-              }
-            }
-          }
-          Object.entries(p["trimestral"]).forEach(t=>{
-            if(!gT[t[0]]) gT[t[0]] = {data:t[0],0:0,25:0,50:0,75:0,np:0};
-            if(t[1]["n"]){
-              if(t[1]["total"]>75){
-                gT[t[0]][75]++;
-              }else if(t[1]["total"]>50){
-                gT[t[0]][50]++;
-              }else if(t[1]["total"]>25){
-                gT[t[0]][25]++;
-              }else{
-                gT[t[0]][0]++;
-              }
-              gT[t[0]]['np']++;
-            }else{
-              console.log(t[1]);
-            }
-          });
-          if(x<=0){
-            this.drawChart();
-            this.np = count;
-            let ultimo = {0:0,25:0,50:0,75:0,np:0};
-            this.gTrimestral = Object.values(gT).map(w=>{
-              w[0] += ultimo[0];
-              w[25] += ultimo[25];
-              w[50] += ultimo[50];
-              w[75] += ultimo[75];
-              w["np"] += ultimo["np"];
+        this.gTemp = data;
 
-              ultimo[0] = w[0];
-              ultimo[25] = w[25];
-              ultimo[50] = w[50];
-              ultimo[75] = w[75];
-              ultimo["np"] = w["np"];
-              
-              return w;
-            });
+        let parls = Object.values(this.gTemp.parlamentares);
+        for (let i = 0; i < parls.length; i++) {
+          if(this.parlamentaresInfos[parls[i]["id"]]){
+            parls[i]["infos"] = this.parlamentaresInfos[parls[i]["id"]];
           }
-        });
-
+        }
+        this.montaTela();
       },
       error => {
         console.log(error);
@@ -163,17 +125,120 @@ export class GovernismoComponent implements OnInit, OnDestroy {
     .subscribe(
       data => {
         this.parlamentaresInfos = data;
+        this.partidos = Object.values(this.parlamentaresInfos).map((w: any)=>w.partido).sort().filter(function(el,j,a){return j===a.indexOf(el)});
+        this.ufs = Object.values(this.parlamentaresInfos).map((w: any)=>w.uf).sort().filter(function(el,j,a){return j===a.indexOf(el)});
       },
       error => {
         console.log(error);
       }
     );
   }
+  montaTela(){
+    this.gGeral= {n:0,afavor:0,total:0};
+    this.gParlamentares= this.gTemp.parlamentares;
+    this.gGrupos= {0:[],25:[],50:[],75:[]};
+    this.gTrimestral = [];
+    let parls = Object.values(this.gParlamentares);
+
+    this.svg.selectAll("*").remove();
+    let gT = {};
+    let count = 0;
+    for (let i = 0; i < parls.length; i++) {
+      let p = parls[i];
+      if(p["infos"]){
+        if(this.partidoFilter!="" && p["infos"]["partido"] != this.partidoFilter) continue;
+        if(this.ufFilter!="" && p["infos"]["uf"] != this.ufFilter) continue;
+        if(this.generoFilter!="" && p["infos"]["genero"] != this.generoFilter) continue;
+        if(this.nomeFilter!="" && p["infos"]["nome"] != this.nomeFilter) continue;
+        if(p["n"]){
+          if(p["total"]>75){
+            this.gGrupos[75].push(p);
+          }else if(p["total"]>50){
+            this.gGrupos[50].push(p);
+          }else if(p["total"]>25){
+            this.gGrupos[25].push(p);
+          }else{
+            this.gGrupos[0].push(p);
+          }
+          
+          count++;
+          this.gGeral.n += p["n"];
+          this.gGeral.afavor += p["afavor"];
+          
+          for (let j = 0; j < Object.entries(p["trimestral"]).length; j++) {
+            let t = Object.entries(p["trimestral"])[j];
+            if(!gT[t[0]]) gT[t[0]] = {
+              data:t[0],
+              0:0,25:0,50:0,75:0,np:0,
+              nvotacoes:this.gTemp.trimestral[t[0]].nvotacoes,
+              afavor:0, n:0
+            };
+            if(t[1]["n"]){
+              if(t[1]["total"]>75){
+                gT[t[0]][75]++;
+              }else if(t[1]["total"]>50){
+                gT[t[0]][50]++;
+              }else if(t[1]["total"]>25){
+                gT[t[0]][25]++;
+              }else{
+                gT[t[0]][0]++;
+              }
+              gT[t[0]]['np']++;
+              gT[t[0]]['n'] += t[1]["n"];
+              gT[t[0]]['afavor'] += t[1]["afavor"];
+            }
+          }
+
+        }
+      }
+    }
+    this.gGeral.total = Math.round(this.gGeral.afavor/this.gGeral.n*100);
+    
+    this.np = count;
+    let ultimo = {0:0,25:0,50:0,75:0,np:0,nvotacoes:0,afavor:0,n:0};
+    this.gTrimestral = Object.values(gT).map(w=>{
+      w[0] += ultimo[0];
+      w[25] += ultimo[25];
+      w[50] += ultimo[50];
+      w[75] += ultimo[75];
+      w["np"] += ultimo["np"];
+      w["nvotacoes"] += ultimo["nvotacoes"];
+      w["n"] += ultimo["n"];
+      w["afavor"] += ultimo["afavor"];
+
+      ultimo[0] = w[0];
+      ultimo[25] = w[25];
+      ultimo[50] = w[50];
+      ultimo[75] = w[75];
+      ultimo["np"] = w["np"];
+      ultimo["nvotacoes"] = w["nvotacoes"];
+      ultimo["n"] = w["n"];
+      ultimo["afavor"] = w["afavor"];
+
+      return w;
+    });
+    this.drawChart();
+  }
+  partidoChanged(v){
+    this.partidoFilter = v;
+    this.montaTela();
+  }
+  ufChanged(v){
+    this.ufFilter = v;
+    this.montaTela();
+  }
+  generoChanged(v){
+    this.generoFilter = v;
+    this.montaTela();
+  }
+  nomeChanged(v){
+    this.nomeFilter = v;
+    this.montaTela();
+  }
 
   public linkPerfil(n) {
     this.router.navigate(['/parlamentar/'+n.id]);
   }
-
   private drawChart(): void {
       let pw = this.innerWidth,
           ph = this.innerHeight*.60 - 80;
@@ -189,9 +254,9 @@ export class GovernismoComponent implements OnInit, OnDestroy {
       let bolas3 = g.append('g');
       let bolas4 = g.append('g');
 
-      let z1 = .35,
-          z2 = .56,
-          z3 = .77;
+      let z1 = .45,
+          z2 = .62,
+          z3 = .80;
 
       estrutura.append('circle').attr('r',67).attr('fill','none');
       estrutura.append('circle').attr('r',ph*z1).attr('fill','none').attr('stroke','#ccc').attr('stroke-width',1);
@@ -218,18 +283,6 @@ export class GovernismoComponent implements OnInit, OnDestroy {
         .attr('y',ph).text("0%");
 
 
-      let scaley = (f)=>{
-        let v = f.total;
-        if(v>75){
-          return ph*.2;
-        }else if(v>50){
-          return ph*.45;
-        }else if(v>25){
-          return ph*.66;
-        }else{
-          return ph*.90;
-        }
-      }
       let scalecolor = (f)=>{
         let v = f.total;
         if(f.rep){
@@ -250,7 +303,7 @@ export class GovernismoComponent implements OnInit, OnDestroy {
         let v = f.total;
         if(f.rep){
           if(v>75){
-            return 65;
+            return 95;
           }else if(v>50){
             return ph*z1+15;
           }else if(v>25){
@@ -276,7 +329,7 @@ export class GovernismoComponent implements OnInit, OnDestroy {
           return 0;
         }else{
           if(v>75){
-            return 65;
+            return 105;
           }else if(v>50){
             return ph*z1+15;
           }else if(v>25){
@@ -288,13 +341,13 @@ export class GovernismoComponent implements OnInit, OnDestroy {
       }
 
       let fx = 0.1,
-          fy = 0.5,
+          fy = 0.4,
           fc = 0.999,
-          decay = .95,
-          alphaTarget = .05;
+          decay = .85,
+          alphaTarget = .01;
     
       var dd1 = [{rep:1,total:76}].concat(this.gGrupos[75]);
-      var b1 = bolas1.selectAll('circle').data(dd1).enter().append("circle").attr("r",f=>{return scalesize(f)-1; }).attr("fill",f=>scalecolor(f)).attr("cy",f=>scaley(f)).on("mouseenter",f=>toolTip(f,event)).on("mouseleave",f=>fechaToolTip(f)).on("click",f=>this.linkPerfil(f));
+      var b1 = bolas1.selectAll('circle').data(dd1).enter().append("circle").attr("r",f=>{return scalesize(f)-1; }).attr("fill",f=>scalecolor(f)).attr("cy",f=>forcey(f)).on("mouseenter",f=>toolTip(f,event)).on("mouseleave",f=>fechaToolTip(f)).on("click",f=>this.linkPerfil(f));
       let s1 = d3.forceSimulation().nodes(dd1)
                 .velocityDecay(decay)
                 .alphaTarget(alphaTarget)
@@ -304,7 +357,7 @@ export class GovernismoComponent implements OnInit, OnDestroy {
                 .on("tick",()=>{ b1.attr('cx',d=>d["x"]).attr('cy',d=>d["y"]); });
 
       var dd2 = [{rep:1,total:51}].concat(this.gGrupos[50]);
-      var b2 = bolas2.selectAll('circle').data(dd2).enter().append("circle").attr("r",f=>{return scalesize(f)-1; }).attr("fill",f=>scalecolor(f)).attr("cy",f=>scaley(f)).on("mouseenter",f=>toolTip(f,event)).on("mouseleave",f=>fechaToolTip(f)).on("click",f=>this.linkPerfil(f));
+      var b2 = bolas2.selectAll('circle').data(dd2).enter().append("circle").attr("r",f=>{return scalesize(f)-1; }).attr("fill",f=>scalecolor(f)).attr("cy",f=>forcey(f)).on("mouseenter",f=>toolTip(f,event)).on("mouseleave",f=>fechaToolTip(f)).on("click",f=>this.linkPerfil(f));
       let s2 = d3.forceSimulation().nodes(dd2)
                 .velocityDecay(decay)
                 .alphaTarget(alphaTarget)
@@ -314,7 +367,7 @@ export class GovernismoComponent implements OnInit, OnDestroy {
                 .on("tick",()=>{ b2.attr('cx',d=>d["x"]).attr('cy',d=>d["y"]); });
 
       var dd3 = [{rep:1,total:26}].concat(this.gGrupos[25]);
-      var b3 = bolas3.selectAll('circle').data(dd3).enter().append("circle").attr("r",f=>{return scalesize(f)-1; }).attr("fill",f=>scalecolor(f)).attr("cy",f=>scaley(f)).on("mouseenter",f=>toolTip(f,event)).on("mouseleave",f=>fechaToolTip(f)).on("click",f=>this.linkPerfil(f));
+      var b3 = bolas3.selectAll('circle').data(dd3).enter().append("circle").attr("r",f=>{return scalesize(f)-1; }).attr("fill",f=>scalecolor(f)).attr("cy",f=>forcey(f)).on("mouseenter",f=>toolTip(f,event)).on("mouseleave",f=>fechaToolTip(f)).on("click",f=>this.linkPerfil(f));
       let s3 = d3.forceSimulation().nodes(dd3)
                 .velocityDecay(decay)
                 .alphaTarget(alphaTarget)
@@ -324,7 +377,7 @@ export class GovernismoComponent implements OnInit, OnDestroy {
                 .on("tick",()=>{ b3.attr('cx',d=>d["x"]).attr('cy',d=>d["y"]); });
 
       var dd4 = [{rep:1,total:2}].concat(this.gGrupos[0]);
-      var b4 = bolas4.selectAll('circle').data(dd4).enter().append("circle").attr("r",f=>{return scalesize(f)-1; }).attr("fill",f=>scalecolor(f)).attr("cy",f=>scaley(f)).on("mouseenter",f=>toolTip(f,event)).on("mouseleave",f=>fechaToolTip(f)).on("click",f=>this.linkPerfil(f));
+      var b4 = bolas4.selectAll('circle').data(dd4).enter().append("circle").attr("r",f=>{return scalesize(f)-1; }).attr("fill",f=>scalecolor(f)).attr("cy",f=>forcey(f)).on("mouseenter",f=>toolTip(f,event)).on("mouseleave",f=>fechaToolTip(f)).on("click",f=>this.linkPerfil(f));
       let s4 = d3.forceSimulation().nodes(dd4)
                 .velocityDecay(decay)
                 .alphaTarget(alphaTarget)
@@ -366,7 +419,7 @@ export class GovernismoComponent implements OnInit, OnDestroy {
           if(n.trimestral)o+= '</div>';
               
         o+='</div></div>';
-        o+='<div class="t o mt-2">Presença em votações</div><div class="n o">'+Math.round(n.infos.presenca/n.infos.sessoes*100)+'%</div>';
+        if(n.infos.presenca)o+='<div class="t o mt-2">Presença em votações</div><div class="n o">'+Math.round(n.infos.presenca/n.infos.sessoes*100)+'%</div>';
         o+='</div></div>';
         tooltip.html(o);
         tooltip.style("background",scalecolor(n));
@@ -377,6 +430,5 @@ export class GovernismoComponent implements OnInit, OnDestroy {
         tooltip.attr("class","");
       }
   }
-
   
 }

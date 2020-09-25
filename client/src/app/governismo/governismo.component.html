@@ -10,17 +10,40 @@
 			<h3>Bolsonaro</h3>
 			<p>2019-{{cDate | date:'yyyy'}}</p>
 		</div>
+		<input type="checkbox" id="abreFiltro">
+		<div class="filtro">
+			<label for="abreFiltro" class="mainbt">Explore</label>
+			<div>
+				<label for="abreFiltro" class="close"></label>
+				<div class="f j">
+					<select (change)="partidoChanged($event.target.value)">
+						<option value="">Partido</option>
+						<option *ngFor="let t of partidos;" [value]="t">{{t}}</option>
+					</select>
+					<select (change)="ufChanged($event.target.value)">
+						<option value="">UF</option>
+						<option *ngFor="let t of ufs;" [value]="t">{{t}}</option>
+					</select>
+					<select (change)="generoChanged($event.target.value)">
+						<option value="">Gênero</option>
+						<option value="M">Masculino</option>
+						<option value="F">Feminino</option>
+					</select>
+				</div>
+				<!-- <input type="text" placeholder="Nome"(change)="nomeChanged($event.target.value)" > -->
+			</div>
+		</div>
 		<div class="regua">
 			<input type="checkbox" id="controlasanfona1" class="controlasanfona">
 			<div class="sanfonaoposto">
 				<div class="f j"><span>Base do Governo</span><span>Oposição</span></div>
-				<div class="barra f">
+				<div class="barra f" *ngIf="gGrupos">
 					<div [ngStyle]="{'width': (gGrupos[75].length / np *100 | number: '.3-3')+'%'}"></div>
 					<div [ngStyle]="{'width': (gGrupos[50].length / np *100 | number: '.3-3')+'%'}"></div>
 					<div [ngStyle]="{'width': (gGrupos[25].length / np *100 | number: '.3-3')+'%'}"></div>
 					<div [ngStyle]="{'width': (gGrupos[0].length / np *100 | number: '.3-3')+'%'}"></div>
 				</div>
-				<div class="f ac">
+				<div class="f ac" *ngIf="gGeral">
 					<h4>{{gGeral.total}}%</h4>
 					<p>é o alinhamento {{ casa==='senado'?"do Senado":"da Camara" }} com o governo em <strong>{{np}} votações</strong> <label for="controlasanfona1">Histórico</label></p>
 				</div>
@@ -34,7 +57,7 @@
 						<div [ngStyle]="{'width': (trimestre[25] / trimestre.np *100 | number: '.3-3')+'%'}"></div>
 						<div [ngStyle]="{'width': (trimestre[0] / trimestre.np *100 | number: '.3-3')+'%'}"></div>
 					</div>
-					<div class="mes f j"><span></span><span>{{ trimestre.data | date:'MM/yyyy'}}</span></div>
+					<div class="mes f j"><span>{{ trimestre.afavor/trimestre.n*100 | number: '1.0-0' }}%</span><span>{{ trimestre.nvotacoes }} votações <b>{{ trimestre.data | date:'MM/yyyy'}}</b></span></div>
 				</div>
 				<div class="f">
 					<label for="controlasanfona1">Fechar Histórico</label>
