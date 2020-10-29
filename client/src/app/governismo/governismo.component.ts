@@ -249,7 +249,7 @@ export class GovernismoComponent implements OnInit, OnDestroy {
       this.nomeFilter = "";
       this.montaTela();
       document.querySelectorAll('.filtro select').forEach(function(v){
-        v.value = "";
+        (<HTMLInputElement>v).value = "";
       });
     }
   }
