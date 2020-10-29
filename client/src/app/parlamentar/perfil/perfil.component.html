@@ -2,7 +2,7 @@
   <div class="bloco">
     <h5 class="titulosessao">Governismo</h5>
 
-    <div class="governismo" [style.background]="parlamentarGovernismo.color">
+    <div class="governismo" [style.background]="parlamentarGovernismo.color" [style.color]="parlamentarGovernismo.color=='#efe38a'?'#000':'#fff'">
       <img
         [defaultImage]="'assets/imgs/nophoto.png'"
         [lazyLoad]="parlamentar.getFoto()"
