@@ -69,7 +69,7 @@ export class GovernismoComponent implements OnInit, OnDestroy {
     this.activatedRoute.paramMap
     .pipe(takeUntil(this.unsubscribe))
     .subscribe(params => {
-      this.cDate = new Date(2019,0,0);
+      this.cDate = new Date();
       this.casa = params.get('casa');
       this.gTemp= {};
 
@@ -83,11 +83,10 @@ export class GovernismoComponent implements OnInit, OnDestroy {
       
       this.innerWidth = window.innerWidth;
       this.innerHeight = window.innerHeight;
-      this.getInfosSimplificadas();
-      
       this.svg = d3.select("#radarControler");
       this.svg.node().parentNode.classList.add('carregando');
-      this.getGovernismo();
+      
+      this.getInfosSimplificadas();
       this.showLoader = false;
     });
   }
@@ -127,6 +126,7 @@ export class GovernismoComponent implements OnInit, OnDestroy {
         this.parlamentaresInfos = data;
         this.partidos = Object.values(this.parlamentaresInfos).map((w: any)=>w.partido).sort().filter(function(el,j,a){return j===a.indexOf(el)});
         this.ufs = Object.values(this.parlamentaresInfos).map((w: any)=>w.uf).sort().filter(function(el,j,a){return j===a.indexOf(el)});
+        this.getGovernismo();
       },
       error => {
         console.log(error);
@@ -134,7 +134,7 @@ export class GovernismoComponent implements OnInit, OnDestroy {
     );
   }
   montaTela(){
-    this.gGeral= {n:0,afavor:0,total:0};
+    this.gGeral= {n:0,afavor:0,total:0,nvotacoes:0};
     this.gParlamentares= this.gTemp.parlamentares;
     this.gGrupos= {0:[],25:[],50:[],75:[]};
     this.gTrimestral = [];
@@ -169,6 +169,7 @@ export class GovernismoComponent implements OnInit, OnDestroy {
             let t = Object.entries(p["trimestral"])[j];
             if(!gT[t[0]]) gT[t[0]] = {
               data:t[0],
+              date: new Date(t[0]),
               0:0,25:0,50:0,75:0,np:0,
               nvotacoes:this.gTemp.trimestral[t[0]].nvotacoes,
               afavor:0, n:0
@@ -196,7 +197,10 @@ export class GovernismoComponent implements OnInit, OnDestroy {
     
     this.np = count;
     let ultimo = {0:0,25:0,50:0,75:0,np:0,nvotacoes:0,afavor:0,n:0};
-    this.gTrimestral = Object.values(gT).map(w=>{
+    this.gTrimestral = Object.values(gT);
+    this.gTrimestral = this.gTrimestral.sort((a,b)=>{
+      return a["date"] - b["date"];
+    }).map(w=>{
       w[0] += ultimo[0];
       w[25] += ultimo[25];
       w[50] += ultimo[50];
@@ -214,6 +218,8 @@ export class GovernismoComponent implements OnInit, OnDestroy {
       ultimo["nvotacoes"] = w["nvotacoes"];
       ultimo["n"] = w["n"];
       ultimo["afavor"] = w["afavor"];
+
+      this.gGeral.nvotacoes = ultimo["nvotacoes"];
 
       return w;
     });
@@ -235,13 +241,25 @@ export class GovernismoComponent implements OnInit, OnDestroy {
     this.nomeFilter = v;
     this.montaTela();
   }
+  limpaFiltros(v){
+    if(!v){
+      this.partidoFilter = "";
+      this.ufFilter = "";
+      this.generoFilter = "";
+      this.nomeFilter = "";
+      this.montaTela();
+      document.querySelectorAll('.filtro select').forEach(function(v){
+        (<HTMLInputElement>v).value = "";
+      });
+    }
+  }
 
   public linkPerfil(n) {
     this.router.navigate(['/parlamentar/'+n.id]);
   }
   private drawChart(): void {
       let pw = this.innerWidth,
-          ph = this.innerHeight*.60 - 80;
+          ph = this.innerHeight*.75 - 80;
 
       this.svg.attr('viewbox','0 0 '+pw+' '+ph).attr('width',pw).attr('height',ph+20);
               this.svg.selectAll("*").remove();
@@ -399,7 +417,7 @@ export class GovernismoComponent implements OnInit, OnDestroy {
       function toolTip(n,e){
         let tooltip = d3.select("#tooltip");
         positionTooltip(e);
-        let o='<div class="governismo" style="background:'+scalecolor(n)+'">';
+        let o='<div class="governismo" style="background:'+scalecolor(n)+'; color:'+(scalecolor(n)=='#efe38a'?'#000':'#fff')+';">';
           o+='<img width="100%" class="parlementar-img img-filter" src="'+n.infos.foto+'">';
           o+='<div><h2>'+n.infos.nome+' <span>'+n.infos.partido+'/'+n.infos.uf+'</span></h2><p class="mb-4">No governo Bolsonaro</p>';
           o+='<div class="t">Governismo</div><div class="n">'+n.total+'%</div><div class="graficobarra"><div class="estrutura">';
@@ -423,6 +441,8 @@ export class GovernismoComponent implements OnInit, OnDestroy {
         o+='</div></div>';
         tooltip.html(o);
         tooltip.style("background",scalecolor(n));
+        tooltip.style("color",(scalecolor(n)=='#efe38a'?'#000':'#fff'));
+
         tooltip.attr("class","ativo");
       }
       function fechaToolTip(n){

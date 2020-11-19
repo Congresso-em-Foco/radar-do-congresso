@@ -10,7 +10,7 @@
 			<h3>Bolsonaro</h3>
 			<p>2019-{{cDate | date:'yyyy'}}</p>
 		</div>
-		<input type="checkbox" id="abreFiltro">
+		<input type="checkbox" id="abreFiltro" (change)="limpaFiltros($event.target.checked)">
 		<div class="filtro">
 			<label for="abreFiltro" class="mainbt">Explore</label>
 			<div>
@@ -45,7 +45,7 @@
 				</div>
 				<div class="f ac" *ngIf="gGeral">
 					<h4>{{gGeral.total}}%</h4>
-					<p>é o alinhamento {{ casa==='senado'?"do Senado":"da Câmara" }} com o governo em <strong>{{np}} votações</strong> <label for="controlasanfona1">Histórico</label></p>
+					<p>é o alinhamento {{ casa==='senado'?"do Senado":"da Câmara" }} com o governo em <strong>{{gGeral.nvotacoes}} votações</strong> <label for="controlasanfona1">Histórico</label></p>
 				</div>
 			</div>
 			<div class="sanfona">
@@ -59,9 +59,9 @@
 					</div>
 					<div class="mes f j"><span>{{ trimestre.afavor/trimestre.n*100 | number: '1.0-0' }}%</span><span>{{ trimestre.nvotacoes }} votações <b>{{ trimestre.data | date:'MM/yyyy'}}</b></span></div>
 				</div>
-				<div class="f">
-					<label for="controlasanfona1">Fechar Histórico</label>
-				</div>
+				<p class="f">
+					<label for="controlasanfona1" style="margin-left: 0;">Fechar Histórico</label>
+				</p>
 			</div>
 			<div class="tc">
 				<span>Base do governo</span>
@@ -75,16 +75,25 @@
 	</div>
 </article>
 <div class="explica">
-	<p>Estes são os deputados federais segundo o nível de governismo e a presença em votações. </p>
-	<div class="f">
-		<p>Até 30%</p>
-		<p>30% a 70%</p>
-		<p>Mais de 70%</p>
+	<input type="checkbox" id="controlasanfonameto" class="controlasanfona">
+	<div class="sanfonaoposto">
+		<p>Estes são os {{ casa==='senado'?"senadores":"deputados federais" }} segundo o nível de governismo e a presença em votações. <label for="controlasanfonameto" style="margin-left: 0;">Mais</label></p>
 	</div>
-	<h5>presença em votações</h5>
-	<p>Em tamanho menor são os parlamentares com baixo porcentual de presença, ou seja, aqueles que participaram de poucas votações, independente do seu voto.</p>
-	<h5>Índice de governismo</h5>
-	<p>O índice é calculado a partir das votações do parlamentar que seguiram ou não a orientação do líder do governo. Votos iguais à orientação (sim ou não) aumentam o índice; qualquer opção diferente da orientação (seja sim, não, abstenção ou falta), diminuem o índice de governismo.</p>
-	<p>Não aparecem no gráfico os parlamentares que não atingiram o nível mínimo de votações para o cálculo do índice.</p>
+	<div class="sanfona">
+		<p>Estes são os {{ casa==='senado'?"senadores":"deputados federais" }} segundo o nível de governismo e a presença em votações.</p>
+		<div *ngIf="casa==='camara'">
+			<h5>presença em votações</h5>
+			<div class="f">
+				<p>Até 30%</p>
+				<p>30% a 70%</p>
+				<p>Mais de 70%</p>
+			</div>
+			<p>Em tamanho menor são os parlamentares com baixo porcentual de presença, ou seja, aqueles que participaram de poucas votações, independente do seu voto.</p>
+		</div>
+		<h5>Índice de governismo</h5>
+		<p>O índice é calculado a partir das votações do parlamentar que seguiram ou não a orientação do líder do governo. Votos iguais à orientação (sim ou não) aumentam o índice; qualquer opção diferente da orientação (seja sim, não, abstenção ou falta), diminuem o índice de governismo.</p>
+		<p>Não aparecem no gráfico os parlamentares que não atingiram o nível mínimo de votações para o cálculo do índice.</p>
+		<p><label for="controlasanfonameto" style="margin-left: 0;">Recolher</label></p>
+	</div>
 </div>
 <div id="tooltip"></div>

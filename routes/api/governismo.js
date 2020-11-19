@@ -1,4 +1,5 @@
 const express = require("express");
+const mcache = require('memory-cache');
 const router = express.Router();
 const { validationResult } = require("express-validator");
 
@@ -31,6 +32,24 @@ const attPartido = [
   "sigla"
 ];
 
+var cache = (duration) => {
+  return (req, res, next) => {
+    let key = '__express__' + req.originalUrl || req.url
+    let cachedBody = mcache.get(key)
+    if (cachedBody) {
+      res.send(cachedBody)
+      return
+    } else {
+      res.sendResponse = res.send
+      res.send = (body) => {
+        mcache.put(key, body, duration * 1000);
+        res.sendResponse(body)
+      }
+      next()
+    }
+  }
+}
+
 /**
  * Lista governismo
  * @name get/api/governismo/
@@ -38,7 +57,7 @@ const attPartido = [
  * @function
  * @memberof module:routes/governismo
  */
-router.get("/", casaValidator.validate, (req, res) => {
+router.get("/", cache(3600), casaValidator.validate, (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
