@@ -43,7 +43,7 @@
     "fbgraph": "^1.4.4",
     "force-ssl-heroku": "^1.0.2",
     "heroku-logger": "^0.3.3",
-    "immer": "^1.12.1",
+    "immer": "^8.0.1",
     "jsonwebtoken": "^8.5.1",
     "memory-cache": "^0.2.0",
     "mysql2": "^1.7.0",
