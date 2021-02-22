@@ -5,6 +5,13 @@
     <div class="mb-4">
       <button
         type="button"
+        [ngClass]="{'btn': true, 'btn-primary': ano == '2021', 'btn-light': ano != '2021'}"
+        (click)="setAno('2021')">
+        2021
+      </button>
+      &nbsp;
+      <button
+        type="button"
         [ngClass]="{'btn': true, 'btn-primary': ano == '2020', 'btn-light': ano != '2020'}"
         (click)="setAno('2020')">
         2020
