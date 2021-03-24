@@ -15,10 +15,12 @@ const BAD_REQUEST = 400;
 const SUCCESS = 200;
 
 const attVotacao = [
+  "id_votacao",
   ["data_hora","data"],
   "orientacao"
 ];
 const attVoto = [
+  "id_votacao",
   ["id_parlamentar_voz","id"],
   "voto"
 ];
@@ -155,7 +157,11 @@ router.get("/:id", (req, res) => {
         where: { id_parlamentar_voz: req.params.id },
         required: true
       }
-    ]
+    ],
+    order: [
+      ["data_hora", "ASC"],
+      ["id_votacao", "ASC"],
+    ],
   })
   .then(governismo => {
     let cDate = new Date(2019,0,0);

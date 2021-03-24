@@ -249,7 +249,8 @@ router.get("/simplificado/:id", (req, res) => {
       let id = p.id_parlamentar_voz;
       editado = {
         id: id, 
-        nome: p.nome_eleitoral, 
+        nome: p.nome_eleitoral,
+        casa: p.casa,
         uf: p.uf, 
         genero: p.genero,
         partido: p.parlamentarPartido.sigla, 
@@ -280,7 +281,11 @@ router.get("/simplificado/:id", (req, res) => {
           where: { id_parlamentar_voz: req.params.id },
           required: true
         }
-      ]
+      ],
+      order: [
+        ["data_hora", "ASC"],
+        ["id_votacao", "ASC"],
+      ],
     })
     .then(governismo => {
       let cDate = new Date(2019,0,0);
@@ -295,17 +300,28 @@ router.get("/simplificado/:id", (req, res) => {
           }
           let dd = cDate.toISOString()
           
-          if(!gGeral["trimestral"][dd]) gGeral["trimestral"][dd] = {afavor:0,n:0,total:0};
+          if(!gGeral["trimestral"][dd]) gGeral["trimestral"][dd] = {afavor:0,n:0,total:0,nvotacoes:0};
           gGeral.nvotacoes++;
+          gGeral["trimestral"][dd].nvotacoes++;
 
           t.votacoesVoto.forEach(voto=>{
             let v = voto.dataValues;
-            if(v.voto == t.orientacao) gGeral["trimestral"][dd].afavor ++;
-            gGeral["trimestral"][dd].n ++;
+
+            let afavor = false;
+            let conta = false;
+            if( (t.orientacao == v.voto && v.voto == 1) || (t.orientacao == v.voto && v.voto == -1) ){
+              afavor = 1;
+            }
+            if( ([1,-1].indexOf(t.orientacao) != -1) && ([1,-1,2,3].indexOf(v.voto) != -1) ){
+              conta = 1;
+            }
+
+            if(afavor) gGeral["trimestral"][dd].afavor ++;
+            if(conta) gGeral["trimestral"][dd].n ++;
             gGeral["trimestral"][dd].total = Math.round(gGeral["trimestral"][dd].afavor/gGeral["trimestral"][dd].n*100);
 
-            if(v.voto == t.orientacao) gGeral.afavor++;
-            gGeral.n ++;
+            if(afavor) gGeral.afavor++;
+            if(conta) gGeral.n ++;
             gGeral.total = Math.round(gGeral.afavor/gGeral.n*100);
           });
         }    

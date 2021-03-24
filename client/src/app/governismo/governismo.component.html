@@ -45,8 +45,23 @@
 				</div>
 				<div class="f ac" *ngIf="gGeral">
 					<h4>{{gGeral.total}}%</h4>
-					<p>é o alinhamento {{partidoFilter||ufFilter||generoFilter||nomeFilter ? 'dos parlamentares selecionados ' : '' }}{{ casa==='senado'?"do Senado":"da Câmara" }} com o governo em <strong>{{gGeral.nvotacoes}} votações</strong></p>
+					<p>é o alinhamento {{partidoFilter||ufFilter||generoFilter||nomeFilter ? 'dos parlamentares selecionados ' : '' }}{{ casa==='senado'?"do Senado":"da Câmara" }} com o governo em <strong>{{gGeral.nvotacoes}} votações</strong> <label for="controlasanfona1">Histórico</label></p>
 				</div>
+			</div>
+			<div class="sanfona">
+				<div class="f j"><span>Base do Governo</span><span>Oposição</span></div>
+				<div *ngFor="let trimestre of gTrimestral; index as i;" class="trimestres">
+					<div class="barra f">
+						<div [ngStyle]="{'width': (trimestre[75] / trimestre.np *100 | number: '.3-3')+'%'}"></div>
+						<div [ngStyle]="{'width': (trimestre[50] / trimestre.np *100 | number: '.3-3')+'%'}"></div>
+						<div [ngStyle]="{'width': (trimestre[25] / trimestre.np *100 | number: '.3-3')+'%'}"></div>
+						<div [ngStyle]="{'width': (trimestre[0] / trimestre.np *100 | number: '.3-3')+'%'}"></div>
+					</div>
+					<div class="mes f j"><span>{{ trimestre.afavor/trimestre.n*100 | number: '1.0-0' }}%</span><span>{{ trimestre.nvotacoes }} votações <b>{{ trimestre.data | date:'MM/yyyy'}}</b></span></div>
+				</div>
+				<p class="f">
+					<label for="controlasanfona1" style="margin-left: 0;">Fechar Histórico</label>
+				</p>
 			</div>
 			<div class="tc">
 				<span>Base do governo</span>
