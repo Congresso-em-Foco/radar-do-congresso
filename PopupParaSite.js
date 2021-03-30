@@ -117,10 +117,18 @@
 		}
 
 		.parlTooltip-analise-transparencia{
-			opacity: .5;
 			padding-left: 20px;
 		}
-
+		.parlTooltip-analise-transparencia i.estrela{
+			display: inline-block;
+			width: 30px;
+			height: 27px;
+			background-image: url(data:image/svg+xml;utf8, <svg viewBox="0 0 25 25" xmlns="http://www.w3.org/2000/svg"><polygon fill="%23FFFFFF" points="12 17.27 18.18 21 16.54 13.97 22 9.24 14.81 8.63 12 2 9.19 8.63 2 9.24 7.46 13.97 5.82 21"></polygon></svg>);
+			background-size: cover;
+		}
+		.parlTooltip-analise-transparencia i.estrela.ativo{
+			background-image: url(data:image/svg+xml;utf8, <svg viewBox="0 0 25 25" xmlns="http://www.w3.org/2000/svg"><polygon fill="%23FFFFFF22" points="12 17.27 18.18 21 16.54 13.97 22 9.24 14.81 8.63 12 2 9.19 8.63 2 9.24 7.46 13.97 5.82 21"></polygon></svg>);
+		}
 		.parlTooltip-footer{
 			padding: 12px 15px;
 			text-align: center;
@@ -202,7 +210,13 @@
 		
 		o+='<div class="parlTooltip-content-bloco"><div class="parlTooltip-analises">';
 			if(typeof parlData[id].governismo !== "undefined") o+='<div class="parlTooltip-analise parlTooltip-analise-governismo"><span>'+parlData[id].governismo+'%</span><span>governismo</span></div>';
-			if(typeof parlData[id].transparencia !== "undefined") o+='<div class="parlTooltip-analise  parlTooltip-analise-transparencia"><span>'+parlData[id].transparencia+'%</span><span>transparencia</span></div>';
+			if(typeof parlData[id].transparencia !== "undefined"){
+				var estrelas = '';
+				for (var i = 1; i <= 5; i++) {
+					estrelas += '<i class="estrela '+(i<=parlData[id].transparencia?'ativo':'')+'"></i>';
+				}
+				o+='<div class="parlTooltip-analise  parlTooltip-analise-transparencia"><span>'+estrelas+'</span><span>transparencia</span></div>';
+			}
 		o+='</div></div>';
 		
 		if(typeof parlData[id].acusacoes !== "undefined") o+='<div class="parlTooltip-content-bloco"><span class="parlTooltip-obs">'+(parlData[id].acusacoes==0?"O deputado não possui acusações":parlData[id].acusacoes==1?"O deputado é investigado em <strong>1 acusação</strong>":"O deputado é investigado em <strong>"+parlData[id].acusacoes+" acusações</strong>")+'</span></div>';
