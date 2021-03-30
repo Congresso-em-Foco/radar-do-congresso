@@ -121,13 +121,15 @@
 		}
 		.parlTooltip-analise-transparencia i.estrela{
 			display: inline-block;
-			width: 30px;
-			height: 27px;
-			background-image: url(data:image/svg+xml;utf8, <svg viewBox="0 0 25 25" xmlns="http://www.w3.org/2000/svg"><polygon fill="%23FFFFFF" points="12 17.27 18.18 21 16.54 13.97 22 9.24 14.81 8.63 12 2 9.19 8.63 2 9.24 7.46 13.97 5.82 21"></polygon></svg>);
-			background-size: cover;
+			width: 18px;
+			height: 14px;
+			background-image: url('data:image/svg+xml;utf8, <svg viewBox="0 0 25 25" xmlns="http://www.w3.org/2000/svg"><polygon fill="%23FFFFFF44" points="12 17.27 18.18 21 16.54 13.97 22 9.24 14.81 8.63 12 2 9.19 8.63 2 9.24 7.46 13.97 5.82 21"></polygon></svg>');
+			background-size: auto 100%;
+			background-repeat: no-repeat;
+			background-position: center;
 		}
 		.parlTooltip-analise-transparencia i.estrela.ativo{
-			background-image: url(data:image/svg+xml;utf8, <svg viewBox="0 0 25 25" xmlns="http://www.w3.org/2000/svg"><polygon fill="%23FFFFFF22" points="12 17.27 18.18 21 16.54 13.97 22 9.24 14.81 8.63 12 2 9.19 8.63 2 9.24 7.46 13.97 5.82 21"></polygon></svg>);
+			background-image: url('data:image/svg+xml;utf8, <svg viewBox="0 0 25 25" xmlns="http://www.w3.org/2000/svg"><polygon fill="%23FFFFFF" points="12 17.27 18.18 21 16.54 13.97 22 9.24 14.81 8.63 12 2 9.19 8.63 2 9.24 7.46 13.97 5.82 21"></polygon></svg>');
 		}
 		.parlTooltip-footer{
 			padding: 12px 15px;
