@@ -126,7 +126,7 @@ export class PerfilComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(
         data => {
-          let list = data.split("\r\n");
+          let list = data.replace(/\r/g, "").split(/\n/);
           list.forEach( e => { 
             let c = e.split("\t");
             if(c[0] && c[0]==id){
